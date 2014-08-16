@@ -1,0 +1,71 @@
+# editorconfig.org
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = tab
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = false
+
+[*.as?x]
+# Some .NET tools require BOM to work properly
+charset = utf-8-bom
+
+[*.{config,cs,vb,fs,fsx,fsi,cshtml,vbhtml,licx}]
+# Some .NET tools require BOM to work properly
+charset = utf-8-bom
+
+[*.{bat,cmd}]
+# Batch files don't play nice with non-ASCII files.
+charset = latin1
+# CMD requires carriage return (CR) to work properly.
+end_of_line = crlf
+
+[*.ps1]
+# PowerShell 5 falls back to Windows-1252 if no BOM is present.
+charset = utf-8-bom
+
+[*.xaml]
+indent_size = 2
+
+[*.{manifest,config}]
+# Visual Studio auto inserts 2 spaces regardless of XML settings.
+indent_style = space
+indent_size = 2
+
+[*.*proj]
+# Some .NET tools require BOM to work properly
+charset = utf-8-bom
+# Visual Studio auto inserts 2 spaces regardless of XML settings.
+indent_style = space
+indent_size = 2
+# Visual Studio doesn't insert final newline
+insert_final_newline = false
+
+[*.{targets,props,tasks}]
+# Some .NET tools require BOM to work properly
+charset = utf-8-bom
+# Visual Studio auto inserts 2 spaces regardless of XML settings.
+indent_style = space
+indent_size = 2
+# Visual Studio doesn't insert final newline
+insert_final_newline = false
+
+[*.{html,htm,xhtml,xhtm,xml}]
+indent_size = 2
+
+[*.{css,less,scss,sass}]
+indent_size = 2
+
+[*.json]
+# BOM is illegal in JSON.
+charset = utf-8
+insert_final_newline = false
+
+[*.{yml,yaml}]
+# Tab indentation is forbidden in YAML.
+indent_style = space
+indent_size = 2
