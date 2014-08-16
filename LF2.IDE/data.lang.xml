@@ -1,0 +1,301 @@
+<!--Do not change language names-->
+<ScintillaNET>
+	<Language Name="default">
+		<Styles>
+			<Style Name="LINENUMBER" ForeColor="DarkBlue"/>
+		</Styles>
+	</Language>
+	<Language Name="dat">
+		<AutoComplete>
+			<List>
+aaction action arest attacking background background_end backhurtact bdefend bdy bdy_end bmp_begin bmp_end
+boss bound bpoint bpoint_end catchingact caughtact centerx centery col cover cpoint cpoint_end dash_distance
+dash_distancez dash_height decrease dircontrol dvx dvy dvz effect email end entry facing fall file
+file_editing file_editing_end frame frame_end fronthurtact head heavy_running_speed heavy_running_speedz
+heavy_walking_speed heavy_walking_speedz hit_a hit_d hit_Da hit_Dj hit_Fa hit_Fj hit_j hit_ja hit_Ua hit_Uj
+hp hurtable id injury itr itr_end jump_distance jump_distancez jump_height kind layer layer_end mp music name
+next object object_end oid opoint opoint_end phase phase_end pic ratio row rowing_distance rowing_height
+running_frame_rate running_speed running_speedz shadow shadowsize small soldier sound stage stage_end state
+taction throwinjury throwvx throwvy throwvz times transparency type vaction vrest wait walking_frame_rate
+walking_speed walking_speedz weapon_broken_sound weapon_drop_hurt weapon_drop_sound weapon_hit_sound
+weapon_hp weapon_strength_list weapon_strength_list_end weaponact when_clear_goto_phase width wpoint
+wpoint_end zboundary zwidth
+			</List>
+		</AutoComplete>
+		<Lexer LexerName="vb" WordChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_" LineCommentPrefix="#">
+			<Keywords List="0" Inherit="False">frame frame_end bmp_begin bmp_end weapon_strength_list weapon_strength_list_end stage
+			stage_end phase phase_end object object_end file_editing file_editing_end background background_end
+			No Yes email boss soldier end</Keywords>
+			<Keywords List="1" Inherit="False">bdy bdy_end wpoint wpoint_end itr itr_end cpoint cpoint_end bpoint bpoint_end opoint
+			opoint_end layer layer_end</Keywords>
+			<Keywords List="2" Inherit="False">name head small file x y w h row col walking_frame_rate walking_speed walking_speedz
+			running_frame_rate running_speed running_speedz heavy_walking_speed heavy_walking_speedz
+			heavy_running_speed heavy_running_speedz jump_height jump_distance jump_distancez dash_height
+			dash_distance dash_distancez rowing_height rowing_distance kind pic state wait next dvx dvy dvz centerx
+			centery sound hit_Fa hit_Ua hit_Da hit_Fj hit_Uj hit_Dj hit_a hit_d hit_j hit_ja arest vrest fall bdefend injury
+			zwidth effect catchingact caughtact weaponact attacking cover action oid facing vaction aaction taction
+			throwvx throwvy throwvz hurtable throwinjury decrease dircontrol fronthurtact backhurtact width zboundary
+			shadow shadowsize transparency weapon_hit_sound weapon_drop_sound weapon_broken_sound weapon_hp entry
+			weapon_drop_hurt id type bound music hp times ratio when_clear_goto_phase reserve mp</Keywords>
+		</Lexer>
+		<Indentation TabWidth="3" UseTabs="False" SmartIndenType="cpp"/>
+		<Styles>
+			<Style Name="DOCUMENT_DEFAULT" FontName="Courier New" Size="10"/>
+			<Style Name="NUMBER" ForeColor="Black" BackColor="White"/>
+			<Style Name="COMMENT" ForeColor="Black" BackColor="White"/>
+			<Style Name="OPERATOR" ForeColor="Blue" BackColor="White"/>
+			<Style Name="STRINGEOL" ForeColor="LimeGreen" BackColor="White"/>
+			<Style Name="STRING" ForeColor="Black" BackColor="White"/>
+			<Style Name="CONSTANT" ForeColor="Black" BackColor="White"/>
+			<Style Name="PREPROCESSOR" ForeColor="Black" BackColor="White"/>
+			<Style Name="KEYWORD" ForeColor="Blue" BackColor="White"/>
+			<Style Name="KEYWORD2" ForeColor="Green" BackColor="White"/>
+			<Style Name="KEYWORD3" ForeColor="DarkRed" BackColor="White"/>
+		</Styles>
+<Snippets>
+<Snippet Shortcut="frame" IsSurroundsWith="True">&lt;frame&gt; $dummy$ $399$
+   $end$
+&lt;frame_end&gt;</Snippet>
+<Snippet Shortcut="frame_elements" IsSurroundsWith="True">pic: $p$  state: $s$  wait: $w$  next: $n$  dvx: $dvx$  dvy: $dvy$  centerx: $39$  centery: $79$  hit_a: $a$  hit_d: $d$  hit_j: $j$$end$</Snippet>
+<Snippet Shortcut="bdy" IsSurroundsWith="True">   bdy:
+      kind: $k$  x: $x$  y: $y$  w: $w$  h: $h$
+   bdy_end:$end$</Snippet>
+<Snippet Shortcut="itr0" IsSurroundsWith="True">   itr:
+      kind: 0  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  dvy: $dvy$  $av$rest: $rst$  fall: $f$  bdefend: $bd$  injury: $i$  zwidth: $zw$  effect: $e$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr1" IsSurroundsWith="True">itr:
+      kind: 1  x: $x$  y: $y$  w: $w$  h: $h$  catchingact: $ct$  caughtact: $cg$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr2" IsSurroundsWith="True">   itr:
+      kind: 2  x: $x$  y: $y$  w: $w$  h: $h$$  $av$rest: $rst$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr3" IsSurroundsWith="True">   itr:
+      kind: 3  x: $x$  y: $y$  w: $w$  h: $h$  catchingact: $ct$  caughtact: $cg$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr4" IsSurroundsWith="True">   itr:
+      kind: 4  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  $av$rest: $rst$  fall: $f$  bdefend: $bd$  injury: $i$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr5" IsSurroundsWith="True">   itr:
+      kind: 5  x: $x$  y: $y$  w: $w$  h: $h$  dvx: 8  fall: 20  bdefend: 16  injury: 789
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr6" IsSurroundsWith="True">   itr:
+      kind: 6  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr7" IsSurroundsWith="True">   itr:
+      kind: 7  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr8" IsSurroundsWith="True">   itr:
+      kind: 8  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  injury: $i$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr9" IsSurroundsWith="True">   itr:
+      kind: 9  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  $av$rest: $rst$  fall: $f$  injury: $i$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr10" IsSurroundsWith="True">   itr:
+      kind: 10  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$  injury: $i$  zwidth: $zw$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr11" IsSurroundsWith="True">   itr:
+      kind: 11  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$  injury: $i$  zwidth: $zw$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr14" IsSurroundsWith="True">   itr:
+      kind: 14  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr15" IsSurroundsWith="True">   itr:
+      kind: 15  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  dvy: $dvy$  $av$rest: $rst$  fall: $f$  bdefend: $bd$  injury: $i$  zwidth: $zw$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="itr16" IsSurroundsWith="True">   itr:
+      kind: 16  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  dvy: $dvy$  $av$rest: $rst$  fall: $f$  bdefend: $bd$  injury: $i$  zwidth: $zw$
+   itr_end:$end$</Snippet>
+<Snippet Shortcut="wpoint" IsSurroundsWith="True">   wpoint:
+      kind: $k$  x: $x$  y: $y$  weaponact: $wact$  attacking: $atk$  cover: $c$  dvx: $dvx$  dvy: $dvy$  dvz: $dvz$
+   wpoint_end:$end$</Snippet>
+<Snippet Shortcut="opoint" IsSurroundsWith="True">   opoint:
+      kind: $k$  x: $x$  y: $y$  action: $act$  dvx: $dvx$  dvy: $dvy$  oid: $oid$  facing: $fc$
+   opoint_end:$end$</Snippet>
+<Snippet Shortcut="cpoint1" IsSurroundsWith="True">   cpoint:
+      kind: 1  x: $x$  y: $y$  injury: $i$  aaction: $vact$  vaction: $aact$  taction: $tact$  throwvx: $tx$  throwvy: $ty$  throwvz: $tz$  hurtable: $hrt$  throwinjury: $ti$  decrease: $dec$  dircontrol: $dir$  cover: $c$
+   cpoint_end:$end$</Snippet>
+<Snippet Shortcut="cpoint2" IsSurroundsWith="True">   cpoint:
+      kind: 2  x: $x$  y: $y$  fronthurtact: $fhrt$  backhurtact: $bhrt$
+   cpoint_end:$end$</Snippet>
+<Snippet Shortcut="bpoint" IsSurroundsWith="True">   bpoint:
+      x: $x$  y: $y$
+   bpoint_end:$end$</Snippet>
+<Snippet Shortcut="stage" IsSurroundsWith="True">&lt;stage&gt; id: $id$  #$comment$
+        $end$
+&lt;stage&gt;</Snippet>
+<Snippet Shortcut="phase" IsSurroundsWith="True">&lt;phase&gt; bound: $bnd$ # $comment$
+                $end$
+        &lt;phase_end&gt;</Snippet>
+<Snippet Shortcut="phase_item" IsSurroundsWith="True">id: $id$  x: $x$ #$comment$$end$</Snippet>
+<Snippet Shortcut="weapon_strength_list" IsSurroundsWith="True">&lt;weapon_strength_list&gt;
+   
+&lt;weapon_strength_list_end&gt;$end$</Snippet>
+<Snippet Shortcut="entry" IsSurroundsWith="True">   entry: $index$ $style$ 
+     dvx: $dvx$  fall: $f$  $av$rest: $rst$  bdefend: $bd$  injury: $i$  effect: $e$$end$</Snippet>
+<Snippet Shortcut="bmp_char" IsSurroundsWith="True">&lt;bmp_begin&gt;
+name: $Template$
+head: sprite\$template1\face.bmp$
+small: sprite\$template1\s.bmp$
+file($0$-$69$): sprite\$template1\0.bmp$  w: $w$  h: $h$  row: $row$  col: $col$
+file($70$-$139$): sprite\$template1\1.bmp$  w: $w2$  h: $h2$  row: $row2$  col: $col2$
+walking_frame_rate $wfr$
+walking_speed $4.000000$
+walking_speedz $2.000000$
+running_frame_rate $rfr$
+running_speed $8.000001$
+running_speedz $1.300000$
+heavy_walking_speed $3.100000$
+heavy_walking_speedz $1.500000$
+heavy_running_speed $5.000001$
+heavy_running_speedz $0.800000$
+jump_height $-16.299999$
+jump_distance $8.000000$
+jump_distancez $3.000000$
+dash_height $-11.000000$
+dash_distance $15.000000$
+dash_distancez $3.750000$
+rowing_height $-2.000000$
+rowing_distance $5.000000$
+&lt;bmp_end&gt;$end$</Snippet>
+<Snippet Shortcut="bmp_ball" IsSurroundsWith="True">&lt;bmp_begin&gt;
+file($0$-$10$): sprite\$sys\ball.bmp$ w: $w$  h: $h$  row: $row$  col: $col$$end$
+weapon_hit_sound: data\$020$.wav
+weapon_drop_sound: data\$021$.wav
+weapon_broken_sound: data\$022$.wav
+&lt;bmp_end&gt;</Snippet>
+<Snippet Shortcut="bmp_weapon" IsSurroundsWith="True">&lt;bmp_begin&gt;
+file($0$-$99$): sprite\$sys\weapon0.bmp$  w: $w$  h: $h$  row: $row$  col: $col$
+weapon_hp: $200$
+weapon_drop_hurt: $35$
+weapon_hit_sound: data\$011$.wav
+weapon_drop_sound: data\$012$.wav
+weapon_broken_sound: data\$094$.wav
+&lt;bmp_end&gt;</Snippet>
+<Snippet Shortcut="bmp" IsSurroundsWith="True">&lt;bmp_begin&gt;
+$end$
+&lt;bmp_end&gt;</Snippet>
+<Snippet Shortcut="bg" IsSurroundsWith="True">name: $Template$
+width: $1600$   zboundary: $370$ $510$
+shadow: bg\$template\0\shadow.bmp$  shadowsize: $37$ $9$$end$</Snippet>
+<Snippet Shortcut="layer" IsSurroundsWith="True">layer:
+  bg\$template\0\pic0.bmp$
+  transparency: $tr$ width: $967 $ x: $0$  y: $128$
+layer_end$end$</Snippet>
+<Snippet Shortcut="file" IsSurroundsWith="True">file($0$-$69$): sprite\$template\0.bmp$  w: $w$  h: $h$  row: $10$  col: $7$$end$</Snippet>
+</Snippets>
+	</Language>
+	<Language Name="txt">
+		<AutoComplete>
+			<List>
+background background_end file file_editing file_editing_end id object object_end type
+			</List>
+		</AutoComplete>
+		<Lexer LexerName="vb" WordChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_" LineCommentPrefix="#">
+			<Keywords List="0" Inherit="False">background background_end file_editing file_editing_end object object_end</Keywords>
+			<Keywords List="2" Inherit="False">file id type</Keywords>
+		</Lexer>
+		<Indentation TabWidth="1" UseTabs="False" SmartIndenType="cpp"/>
+		<Styles>
+			<Style Name="DOCUMENT_DEFAULT" FontName="Courier New" Size="10"/>
+			<Style Name="NUMBER" ForeColor="Black" BackColor="White"/>
+			<Style Name="COMMENT" ForeColor="Black" BackColor="White"/>
+			<Style Name="OPERATOR" ForeColor="Blue" BackColor="White"/>
+			<Style Name="STRINGEOL" ForeColor="LimeGreen" BackColor="White"/>
+			<Style Name="STRING" ForeColor="Black" BackColor="White"/>
+			<Style Name="CONSTANT" ForeColor="Black" BackColor="White"/>
+			<Style Name="PREPROCESSOR" ForeColor="Black" BackColor="White"/>
+			<Style Name="KEYWORD" ForeColor="Blue" BackColor="White"/>
+			<Style Name="KEYWORD2" ForeColor="Green" BackColor="White"/>
+			<Style Name="KEYWORD3" ForeColor="DarkRed" BackColor="White"/>
+		</Styles>
+<Snippets>
+<Snippet Shortcut="file" IsSurroundsWith="True">file($0$-$69$): sprite\$template\0.bmp$  w: $w$  h: $h$  row: $10$  col: $7$$end$</Snippet>
+</Snippets>
+	</Language>
+	<Language Name="as">
+    <AutoComplete FillUpCharacters=".([" SingleLineAccept="True" IsCaseSensitive="True">
+      <List>
+      if else switch case default break goto return for while do continue typedef sizeof
+      NULL void struct union enum char short int long double float signed unsigned const
+      static extern auto register volatile
+      </List>
+    </AutoComplete>
+
+    <Indentation TabWidth="3" UseTabs="True" SmartIndentType="cpp" />
+
+    <Lexer Lexername="cpp" WordChars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_" LineCommentPrefix="//" StreamCommentPrefix="/*" StreamCommentSuffix="*/" >
+      <Keywords List="0" Inherit="False">
+      abstract as base break case catch checked continue default delegate do else event explicit extern
+      false finally fixed for foreach goto if implicit in interface internal is lock namespace new null
+      object operator out override params private protected public readonly ref return sealed sizeof
+      stackalloc switch this throw true try typeof unchecked unsafe using virtual while
+      </Keywords>
+      <Keywords List="1" Inherit="False">
+      bool byte char class const decimal double enum float int long sbyte
+      short static string struct uint ulong ushort void
+      </Keywords>
+    </Lexer>
+	
+<Snippets>
+<Snippet Shortcut="f" IsSurroundsWith="True">int ego()
+{
+	$selected$$end$
+}</Snippet>
+
+<Snippet Shortcut="f" IsSurroundsWith="True">for (int $i$ = $0$; $i$ &lt; $max$; $i$++)
+	{
+		$selected$$end$
+	}$DropMarker$</Snippet>
+
+<Snippet Shortcut="do" IsSurroundsWith="true">do
+	{
+		$end$$selected$
+	} while ($expression$);
+	$DropMarker$</Snippet>
+
+<Snippet Shortcut="#if" IsSurroundsWith="true">#if $expression$
+$end$$selected$
+#endif$DropMarker$</Snippet>
+
+<Snippet Shortcut="struct" IsSurroundsWith="true">struct $name$
+{
+	$selected$$end$
+}</Snippet>
+
+<Snippet Shortcut="switch" IsSurroundsWith="false">switch ($expression$)
+	{
+		$end$
+	}</Snippet>
+
+<Snippet Shortcut="w" IsSurroundsWith="true">while ($expression$)
+	{
+		$end$$selected$
+	}</Snippet>
+
+<Snippet Shortcut="l" IsSurroundsWith="true">else
+		$anchor$$selected$$caret$</Snippet>
+
+<Snippet Shortcut="lb" IsSurroundsWith="true">else
+	{
+		$anchor$$selected$$caret$
+	}</Snippet>
+
+<Snippet Shortcut="enum" IsSurroundsWith="false">enum $name$
+{
+	$end$
+}</Snippet>
+
+<Snippet Shortcut="if" IsSurroundsWith="true">if ($end$)
+		$DropMarker$$selected$</Snippet>
+
+<Snippet Shortcut="ifb" IsSurroundsWith="true">if ($end$)
+	{
+		$DropMarker$$selected$
+	}</Snippet>
+
+<Snippet Shortcut="b" IsSurroundsWith="true">{
+		$end$$selected$
+	}</Snippet>
+</Snippets>
+  </Language>
+</ScintillaNET>
