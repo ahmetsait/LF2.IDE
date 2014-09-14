@@ -22,7 +22,7 @@ namespace LF2.IDE
 		MainForm mainForm;
 		public Stopwatch stopWatch = new Stopwatch();
 
-		public string DestinationFolder { get { return Path.GetDirectoryName(Settings.Default.lfPath); } }
+		public string DestinationFolder { get { return Path.GetDirectoryName(Settings.Current.lfPath); } }
 
 		public void PopulateTreeView(string target)
 		{
@@ -102,7 +102,7 @@ namespace LF2.IDE
 				return;
 			}
 		rerefresh:
-			if (File.Exists(Settings.Default.lfPath))
+			if (File.Exists(Settings.Current.lfPath))
 			{
 				refreshToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
 				PopulateTreeView(DestinationFolder);
@@ -817,7 +817,7 @@ namespace LF2.IDE
 		void FilterToolStripLabelClick(object sender, EventArgs e)
 		{
 		rerefresh:
-			if (File.Exists(Settings.Default.lfPath))
+			if (File.Exists(Settings.Current.lfPath))
 			{
 				refreshToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
 				PopulateTreeView(DestinationFolder);

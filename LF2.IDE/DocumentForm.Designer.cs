@@ -56,7 +56,6 @@
 			this.scintilla.Lexing.StreamCommentPrefix = "";
 			this.scintilla.Lexing.StreamCommentSufix = "";
 			this.scintilla.Location = new System.Drawing.Point(0, 0);
-			this.scintilla.LongLines.EdgeColor = System.Drawing.Color.Red;
 			this.scintilla.Margins.FoldMarginColor = System.Drawing.Color.WhiteSmoke;
 			this.scintilla.Margins.FoldMarginHighlightColor = System.Drawing.Color.WhiteSmoke;
 			this.scintilla.Margins.Left = 5;
