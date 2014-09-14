@@ -11,7 +11,8 @@ namespace LF2.IDE
 {
 	public sealed class Settings
 	{
-		public static Settings Default = new Settings();
+		public static Settings Current = new Settings();
+
 		public static readonly string SettingsDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\LF2.IDE",
 			SettingsPath = SettingsDir + "\\lf2.ide.config";
 
@@ -20,14 +21,19 @@ namespace LF2.IDE
 			decryptionKey = "odBearBecauseHeIsVeryGoodSiuHungIsAGo",
 			dataUtil = null,
 			lang = "default";
+
 		public LineWrappingMode lineWrappingMode = LineWrappingMode.None;
+
 		public int tabWidth = 3,
 			textureZoom = 10;
+
 		public bool showWhiteSpaces = false,
 			showEndOfLineChars = false,
 			reversePaint = true,
 			checkUpdatesAuto = true;
-		public List<string> recentFileHistory = new List<string>(8);
+
+		public List<string> recentFileHistory = new List<string>(8),
+			activePlugins = new List<string>();
 
 		public void Reload()
 		{
@@ -36,7 +42,7 @@ namespace LF2.IDE
 				using (FileStream settings = new FileStream(SettingsPath, FileMode.Open, FileAccess.Read))
 				{
 					XmlSerializer xs = new XmlSerializer(typeof(Settings));
-					Default = (Settings)xs.Deserialize(settings);
+					Current = (Settings)xs.Deserialize(settings);
 					settings.Close();
 				}
 			}
@@ -49,7 +55,7 @@ namespace LF2.IDE
 			using (FileStream settings = new FileStream(SettingsPath, FileMode.Create, FileAccess.Write))
 			{
 				XmlSerializer xs = new XmlSerializer(typeof(Settings));
-				xs.Serialize(settings, Default);
+				xs.Serialize(settings, Current);
 				settings.Close();
 			}
 		}

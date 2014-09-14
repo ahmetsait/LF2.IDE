@@ -15,7 +15,11 @@ namespace LF2.IDE
 		public void Error(Exception ex, string title)
 		{
 			string error = ex.ToString();
-			MessageBox.Show(error, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+			if (this.InvokeRequired)
+				this.Invoke((Action)(() => MessageBox.Show(error, title, MessageBoxButtons.OK, MessageBoxIcon.Error)));
+			else
+				MessageBox.Show(error, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			try
 			{
 				Log(error, title, true);
@@ -23,31 +27,58 @@ namespace LF2.IDE
 			catch { }
 		}
 
-		public uint Log(string logMessage, string logTitle, bool stepCaret)
+		public void Log(string logMessage, string logTitle, bool stepCaret)
 		{
-			uint caret = (uint)Log(">>\t" + logTitle, false);
-			richTextBox.AppendText("\r\n");
-			richTextBox.AppendText(logMessage);
-			if (stepCaret)
+			if (this.InvokeRequired)
+				this.Invoke((Action)(() =>
+				{
+					Log(">>\t" + logTitle, false);
+					int caret = richTextBox.Text.Length;
+					richTextBox.AppendText("\r\n" + logMessage);
+					if (stepCaret)
+					{
+						richTextBox.SelectionStart = caret;
+						richTextBox.ScrollToCaret();
+					}
+				}));
+			else
 			{
-				richTextBox.SelectionStart = (int)caret;
-				richTextBox.ScrollToCaret();
+				Log(">>\t" + logTitle, false);
+				int caret = richTextBox.Text.Length;
+				richTextBox.AppendText("\r\n" + logMessage);
+				if (stepCaret)
+				{
+					richTextBox.SelectionStart = caret;
+					richTextBox.ScrollToCaret();
+				}
 			}
-			return caret;
 		}
 
-		public uint Log(string logMessage, bool stepCaret)
+		public void Log(string logMessage, bool stepCaret)
 		{
-			if (!string.IsNullOrEmpty(richTextBox.Text))
-				richTextBox.AppendText("\r\n\r\n");
-			uint caret = (uint)richTextBox.Text.Length;
-			richTextBox.AppendText(logMessage);
-			if (stepCaret)
+			if (this.InvokeRequired)
+				this.Invoke((Action)(() =>
+				{
+					if (!string.IsNullOrEmpty(richTextBox.Text))
+						richTextBox.AppendText("\r\n\r\n");
+					richTextBox.AppendText(logMessage);
+					if (stepCaret)
+					{
+						richTextBox.SelectionStart = richTextBox.Text.Length;
+						richTextBox.ScrollToCaret();
+					}
+				}));
+			else
 			{
-				richTextBox.SelectionStart = (int)caret;
-				richTextBox.ScrollToCaret();
+				if (!string.IsNullOrEmpty(richTextBox.Text))
+					richTextBox.AppendText("\r\n\r\n");
+				richTextBox.AppendText(logMessage);
+				if (stepCaret)
+				{
+					richTextBox.SelectionStart = richTextBox.Text.Length;
+					richTextBox.ScrollToCaret();
+				}
 			}
-			return caret;
 		}
 
 		public void Clean()
