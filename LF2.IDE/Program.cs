@@ -12,7 +12,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 
 namespace LF2.IDE
 {
-	internal sealed class Program
+	internal sealed partial class Program
 	{
 		[STAThread]
 		static void Main(string[] args)
@@ -23,8 +23,8 @@ namespace LF2.IDE
 				Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(true);
-				using (mainForm = new MainForm(args))
-					SingleInstanceApplication.Run(mainForm, NewInstanceHandler);
+				using (MainForm = new MainForm(args))
+					SingleInstanceApplication.Run(MainForm, NewInstanceHandler);
 			}
 			catch (Exception ex)
 			{
@@ -37,12 +37,12 @@ namespace LF2.IDE
 			}
 		}
 
-		public static MainForm mainForm = null;
+		public static MainForm MainForm;
 
 		public static void NewInstanceHandler(object sender, StartupNextInstanceEventArgs e)
 		{
 			e.BringToForeground = true;
-			mainForm.NewInstance(e.CommandLine);
+			MainForm.NewInstance(e.CommandLine);
 		}
 
 		public class SingleInstanceApplication : WindowsFormsApplicationBase
@@ -66,11 +66,11 @@ namespace LF2.IDE
 		public static readonly string langPath = exeDir + "\\data.lang.xml";
 		public static readonly string dockingPath = exeDir + "\\docking.xml";
 		public static readonly string utilDir = exeDir + "\\DataUtils";
+		public static readonly string plugDir = exeDir + "\\Plugins";
 		public static readonly string templateDir = exeDir + "\\Templates";
 		public const string downloadPage = "http://www.mediafire.com/download/h0pb7ielao88bd1/LF2IDE.rar";
-		public const string supportPage = "http://www.lf-empire.de/forum/showthread.php?tid=9064";
+		public const string webPage = "http://www.lf-empire.de/forum/showthread.php?tid=9064";
 
 		public const string Title = "LF2.IDE";
-		public const string Version = "1.6.1";
 	}
 }

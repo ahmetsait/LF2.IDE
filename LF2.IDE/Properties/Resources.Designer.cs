@@ -257,20 +257,20 @@ namespace LF2.IDE.Properties {
         ///
         ///namespace LF2.IDE
         ///{
-        ///	public interface IDataUtil
-        ///	{
-        ///		string Decrypt(string filepath);
-        ///		void Encrypt(string filepath, string text);
-        ///	}
-        ///	
         ///	public static class LF2DataUtil
         ///	{
-        ///		public static string encryptionKey { get { return Settings.Default.encryptionKey; } }
-        ///		public static string decryptionKey { get { return Settings.Default.decryptionKey; } }
-        ///		
+        ///		public static string EncryptionKey { get { return Settings.Current.encryptionKey; } }
+        ///		public static string DecryptionKey { get { return Settings.Current.decryptionKey; } }
+        ///
         ///		public static string Decrypt(string filepath)
         ///		{
-        ///			if(Settings.Default.dataUtil != nul [rest of string was truncated]&quot;;.
+        ///			if (!string.IsNullOrEmpty(Settings.Current.dataUtil))
+        ///			{
+        ///				while (UtilManager.UtilLock) ;
+        ///				return UtilManager.ActiveUtil.Decrypt(filepath);
+        ///			}
+        ///
+        ///	 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string DataAlgorithm {
             get {

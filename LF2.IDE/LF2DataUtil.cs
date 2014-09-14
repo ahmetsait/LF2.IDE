@@ -4,50 +4,47 @@ using System.IO;
 
 namespace LF2.IDE
 {
-	public interface IDataUtil
-	{
-		string Decrypt(string filepath);
-		void Encrypt(string filepath, string text);
-	}
-
 	public static class LF2DataUtil
 	{
-		public static string encryptionKey { get { return Settings.Default.encryptionKey; } }
-		public static string decryptionKey { get { return Settings.Default.decryptionKey; } }
+		public static string EncryptionKey { get { return Settings.Current.encryptionKey; } }
+		public static string DecryptionKey { get { return Settings.Current.decryptionKey; } }
 
 		public static string Decrypt(string filepath)
 		{
-			if (!string.IsNullOrEmpty(Settings.Default.dataUtil) && UtilManager.Utils != null)
+			if (!string.IsNullOrEmpty(Settings.Current.dataUtil))
+			{
+				while (UtilManager.UtilLock) ;
 				return UtilManager.ActiveUtil.Decrypt(filepath);
+			}
 
 			byte[] buffer = File.ReadAllBytes(filepath);
-			byte[] decryptedtext = new byte[buffer.Length];
-			string password = encryptionKey;
+			byte[] decryptedtext = new byte[Math.Max(0, buffer.Length - 123)];
+			string password = EncryptionKey;
 
 			if (string.IsNullOrEmpty(password)) return Encoding.Default.GetString(buffer);
 
-			for (int i = 123, j = 0; i < buffer.Length; i++, j++)
-				decryptedtext[j] = (byte)(buffer[i] - (byte)password[j % password.Length]);
+			for (int i = 0, j = 123; i < decryptedtext.Length; i++, j++)
+				decryptedtext[i] = (byte)(buffer[j] - (byte)password[i % password.Length]);
 
 			return Encoding.Default.GetString(decryptedtext);
 		}
 
 		public static unsafe string DecryptUnsafe(string filepath)
 		{
-			int buf, pass;
+			int dec, pass;
 			byte[] buffer = File.ReadAllBytes(filepath);
-			byte[] decryptedtext = new byte[buf = buffer.Length];
-			byte* password = stackalloc byte[pass = encryptionKey.Length];
+			byte[] decryptedtext = new byte[dec = Math.Max(0, buffer.Length - 123)];
+			byte* password = stackalloc byte[pass = EncryptionKey.Length];
 
 			if (pass == 0) return Encoding.Default.GetString(buffer);
 
 			for (int i = 0; i < pass; i++)
-				password[i] = (byte)encryptionKey[i];
+				password[i] = (byte)EncryptionKey[i];
 
 			fixed (byte* b = buffer, d = decryptedtext)
 			{
-				for (int i = 123, j = 0; i < buf; i++, j++)
-					d[j] = (byte)(b[i] - password[j % pass]);
+				for (int i = 0, j = 123; i < dec; i++, j++)
+					d[i] = (byte)(b[j] - password[i % pass]);
 			}
 
 			return Encoding.Default.GetString(decryptedtext);
@@ -55,14 +52,15 @@ namespace LF2.IDE
 
 		public static void Encrypt(string text, string filepath)
 		{
-			if (!string.IsNullOrEmpty(Settings.Default.dataUtil) && UtilManager.Utils != null)
+			if (!string.IsNullOrEmpty(Settings.Current.dataUtil))
 			{
+				while (UtilManager.UtilLock) ;
 				UtilManager.ActiveUtil.Encrypt(filepath, text);
 				return;
 			}
 
 			byte[] dat = new byte[123 + text.Length];
-			string password = decryptionKey;
+			string password = DecryptionKey;
 
 			for (int i = 0; i < 123; i++)
 				dat[i] = 0;
@@ -80,10 +78,10 @@ namespace LF2.IDE
 		{
 			int len, pass, txt;
 			byte[] dat = new byte[len = 123 + (txt = text.Length)];
-			byte* password = stackalloc byte[pass = decryptionKey.Length];
+			byte* password = stackalloc byte[pass = DecryptionKey.Length];
 
 			for (int i = 0; i < pass; i++)
-				password[i] = (byte)decryptionKey[i];
+				password[i] = (byte)DecryptionKey[i];
 
 			fixed (byte* d = dat)
 			{

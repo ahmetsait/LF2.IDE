@@ -201,7 +201,7 @@ namespace LF2.IDE
 						SetLanguage("cs");
 						break;
 					default:
-						SetLanguage(Settings.Default.lang);
+						SetLanguage(Settings.Current.lang);
 						break;
 				}
 
@@ -231,9 +231,9 @@ namespace LF2.IDE
 
 		void DocumentFormLoad(object sender, EventArgs e)
 		{
-			Scintilla.EndOfLine.IsVisible = Settings.Default.showEndOfLineChars;
-			Scintilla.LineWrapping.Mode = Settings.Default.lineWrappingMode;
-			Scintilla.Whitespace.Mode = Settings.Default.showWhiteSpaces ? ScintillaNET.WhitespaceMode.VisibleAlways : ScintillaNET.WhitespaceMode.Invisible;
+			Scintilla.EndOfLine.IsVisible = Settings.Current.showEndOfLineChars;
+			Scintilla.LineWrapping.Mode = Settings.Current.lineWrappingMode;
+			Scintilla.Whitespace.Mode = Settings.Current.showWhiteSpaces ? ScintillaNET.WhitespaceMode.VisibleAlways : ScintillaNET.WhitespaceMode.Invisible;
 			ToolTipText = _filePath == null ? TabText : _filePath;
 			switch (Path.GetExtension(TabText))
 			{
@@ -257,19 +257,19 @@ namespace LF2.IDE
 					SetLanguage("cs");
 					break;
 				default:
-					SetLanguage(Settings.Default.lang);
+					SetLanguage(Settings.Current.lang);
 					break;
 			}
 			scintilla.NativeInterface.SendMessageDirect(2516, true);
 			SetMarginAuto();
 
-			if (Settings.Default.lfPath == null || !File.Exists(Settings.Default.lfPath))
+			if (Settings.Current.lfPath == null || !File.Exists(Settings.Current.lfPath))
 				return;
 
 			if (TabText.TrimEnd(' ', '*').EndsWith(".dat"))
 				try
 				{
-					ParseFiles(Path.GetDirectoryName(Settings.Default.lfPath));
+					ParseFiles(Path.GetDirectoryName(Settings.Current.lfPath));
 					ParseFrames();
 				}
 				catch (Exception ex)
@@ -343,7 +343,7 @@ namespace LF2.IDE
 				if (language == "dat")
 				{
 					Scintilla.Indentation.UseTabs = false;
-					Scintilla.Indentation.TabWidth = Settings.Default.tabWidth;
+					Scintilla.Indentation.TabWidth = Settings.Current.tabWidth;
 					Scintilla.EndOfLine.Mode = EndOfLineMode.LF;
 					this.Icon = Properties.Resources.DocumentDAT;
 					auto = true;
@@ -352,7 +352,7 @@ namespace LF2.IDE
 				else if (language == "txt")
 				{
 					Scintilla.Indentation.UseTabs = false;
-					Scintilla.Indentation.TabWidth = Settings.Default.tabWidth;
+					Scintilla.Indentation.TabWidth = Settings.Current.tabWidth;
 					Scintilla.EndOfLine.Mode = EndOfLineMode.Crlf;
 					this.Icon = Properties.Resources.DocumentDAT;
 					auto = true;
@@ -388,7 +388,7 @@ namespace LF2.IDE
 				else
 				{
 					Scintilla.Indentation.UseTabs = false;
-					Scintilla.Indentation.TabWidth = Settings.Default.tabWidth;
+					Scintilla.Indentation.TabWidth = Settings.Current.tabWidth;
 					Scintilla.EndOfLine.Mode = EndOfLineMode.Crlf;
 					this.Icon = Properties.Resources.Document;
 					auto = false;

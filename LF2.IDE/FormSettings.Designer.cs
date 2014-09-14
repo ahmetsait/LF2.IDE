@@ -44,9 +44,20 @@
 			this.groupBox_Debugger = new System.Windows.Forms.GroupBox();
 			this.button_OK = new System.Windows.Forms.Button();
 			this.button_Cancel = new System.Windows.Forms.Button();
+			this.groupBox_PluginManager = new System.Windows.Forms.GroupBox();
+			this.label_PluginWarning = new System.Windows.Forms.Label();
+			this.listView_Plugins = new System.Windows.Forms.ListView();
+			this.columnHeader_Plugin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader_Name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader_Author = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader_IdeVersion = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader_Description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader_Warning = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnHeader_Web = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.groupBox_Cryptology.SuspendLayout();
 			this.groupBox_DataUtil.SuspendLayout();
 			this.groupBox_Debugger.SuspendLayout();
+			this.groupBox_PluginManager.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// textBox_EncryptionKey
@@ -55,7 +66,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox_EncryptionKey.Location = new System.Drawing.Point(96, 19);
 			this.textBox_EncryptionKey.Name = "textBox_EncryptionKey";
-			this.textBox_EncryptionKey.Size = new System.Drawing.Size(268, 20);
+			this.textBox_EncryptionKey.Size = new System.Drawing.Size(658, 20);
 			this.textBox_EncryptionKey.TabIndex = 0;
 			this.textBox_EncryptionKey.Text = "odBearBecauseHeIsVeryGoodSiuHungIsAGo";
 			// 
@@ -74,7 +85,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.textBox_DecryptionKey.Location = new System.Drawing.Point(96, 45);
 			this.textBox_DecryptionKey.Name = "textBox_DecryptionKey";
-			this.textBox_DecryptionKey.Size = new System.Drawing.Size(268, 20);
+			this.textBox_DecryptionKey.Size = new System.Drawing.Size(658, 20);
 			this.textBox_DecryptionKey.TabIndex = 1;
 			this.textBox_DecryptionKey.Text = "odBearBecauseHeIsVeryGoodSiuHungIsAGo";
 			// 
@@ -90,7 +101,7 @@
 			// button_BlaBlaBlah
 			// 
 			this.button_BlaBlaBlah.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_BlaBlaBlah.Location = new System.Drawing.Point(340, 19);
+			this.button_BlaBlaBlah.Location = new System.Drawing.Point(730, 19);
 			this.button_BlaBlaBlah.Name = "button_BlaBlaBlah";
 			this.button_BlaBlaBlah.Size = new System.Drawing.Size(24, 20);
 			this.button_BlaBlaBlah.TabIndex = 3;
@@ -116,7 +127,7 @@
 			this.textBox_Path.BackColor = System.Drawing.SystemColors.Window;
 			this.textBox_Path.Location = new System.Drawing.Point(68, 19);
 			this.textBox_Path.Name = "textBox_Path";
-			this.textBox_Path.Size = new System.Drawing.Size(266, 20);
+			this.textBox_Path.Size = new System.Drawing.Size(656, 20);
 			this.textBox_Path.TabIndex = 2;
 			this.textBox_Path.Text = "lf2.exe";
 			// 
@@ -131,8 +142,7 @@
 			// 
 			// groupBox_Cryptology
 			// 
-			this.groupBox_Cryptology.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.groupBox_Cryptology.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox_Cryptology.Controls.Add(this.groupBox_DataUtil);
 			this.groupBox_Cryptology.Controls.Add(this.label_EncryptionKey);
@@ -141,7 +151,7 @@
 			this.groupBox_Cryptology.Controls.Add(this.label_DecryptionKey);
 			this.groupBox_Cryptology.Location = new System.Drawing.Point(12, 12);
 			this.groupBox_Cryptology.Name = "groupBox_Cryptology";
-			this.groupBox_Cryptology.Size = new System.Drawing.Size(370, 129);
+			this.groupBox_Cryptology.Size = new System.Drawing.Size(760, 129);
 			this.groupBox_Cryptology.TabIndex = 4;
 			this.groupBox_Cryptology.TabStop = false;
 			this.groupBox_Cryptology.Text = "Cryptology";
@@ -156,13 +166,14 @@
 			this.groupBox_DataUtil.Controls.Add(this.comboBox_DataUtils);
 			this.groupBox_DataUtil.Location = new System.Drawing.Point(6, 71);
 			this.groupBox_DataUtil.Name = "groupBox_DataUtil";
-			this.groupBox_DataUtil.Size = new System.Drawing.Size(358, 52);
+			this.groupBox_DataUtil.Size = new System.Drawing.Size(748, 52);
 			this.groupBox_DataUtil.TabIndex = 4;
 			this.groupBox_DataUtil.TabStop = false;
 			this.groupBox_DataUtil.Text = "Data Utility";
 			// 
 			// radioButton_Default
 			// 
+			this.radioButton_Default.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.radioButton_Default.AutoSize = true;
 			this.radioButton_Default.Location = new System.Drawing.Point(6, 20);
 			this.radioButton_Default.Name = "radioButton_Default";
@@ -174,6 +185,7 @@
 			// 
 			// radioButton_External
 			// 
+			this.radioButton_External.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.radioButton_External.AutoSize = true;
 			this.radioButton_External.Location = new System.Drawing.Point(90, 20);
 			this.radioButton_External.Name = "radioButton_External";
@@ -185,11 +197,12 @@
 			// 
 			// comboBox_DataUtils
 			// 
+			this.comboBox_DataUtils.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.comboBox_DataUtils.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox_DataUtils.FormattingEnabled = true;
 			this.comboBox_DataUtils.Location = new System.Drawing.Point(165, 19);
 			this.comboBox_DataUtils.Name = "comboBox_DataUtils";
-			this.comboBox_DataUtils.Size = new System.Drawing.Size(187, 21);
+			this.comboBox_DataUtils.Size = new System.Drawing.Size(577, 21);
 			this.comboBox_DataUtils.TabIndex = 2;
 			// 
 			// groupBox_Debugger
@@ -199,9 +212,9 @@
 			this.groupBox_Debugger.Controls.Add(this.label_LF2Path);
 			this.groupBox_Debugger.Controls.Add(this.textBox_Path);
 			this.groupBox_Debugger.Controls.Add(this.button_BlaBlaBlah);
-			this.groupBox_Debugger.Location = new System.Drawing.Point(12, 147);
+			this.groupBox_Debugger.Location = new System.Drawing.Point(12, 321);
 			this.groupBox_Debugger.Name = "groupBox_Debugger";
-			this.groupBox_Debugger.Size = new System.Drawing.Size(370, 50);
+			this.groupBox_Debugger.Size = new System.Drawing.Size(760, 50);
 			this.groupBox_Debugger.TabIndex = 5;
 			this.groupBox_Debugger.TabStop = false;
 			this.groupBox_Debugger.Text = "Debugger";
@@ -209,7 +222,7 @@
 			// button_OK
 			// 
 			this.button_OK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-			this.button_OK.Location = new System.Drawing.Point(120, 206);
+			this.button_OK.Location = new System.Drawing.Point(314, 380);
 			this.button_OK.Name = "button_OK";
 			this.button_OK.Size = new System.Drawing.Size(75, 23);
 			this.button_OK.TabIndex = 60;
@@ -222,7 +235,7 @@
 			// 
 			this.button_Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
 			this.button_Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.button_Cancel.Location = new System.Drawing.Point(201, 206);
+			this.button_Cancel.Location = new System.Drawing.Point(395, 380);
 			this.button_Cancel.Name = "button_Cancel";
 			this.button_Cancel.Size = new System.Drawing.Size(75, 23);
 			this.button_Cancel.TabIndex = 65;
@@ -231,13 +244,100 @@
 			this.button_Cancel.UseVisualStyleBackColor = true;
 			this.button_Cancel.Click += new System.EventHandler(this.Cancel);
 			// 
+			// groupBox_PluginManager
+			// 
+			this.groupBox_PluginManager.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox_PluginManager.Controls.Add(this.label_PluginWarning);
+			this.groupBox_PluginManager.Controls.Add(this.listView_Plugins);
+			this.groupBox_PluginManager.Location = new System.Drawing.Point(12, 147);
+			this.groupBox_PluginManager.Name = "groupBox_PluginManager";
+			this.groupBox_PluginManager.Size = new System.Drawing.Size(760, 168);
+			this.groupBox_PluginManager.TabIndex = 66;
+			this.groupBox_PluginManager.TabStop = false;
+			this.groupBox_PluginManager.Text = "Plugin Manager";
+			// 
+			// label_PluginWarning
+			// 
+			this.label_PluginWarning.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+			this.label_PluginWarning.AutoSize = true;
+			this.label_PluginWarning.Location = new System.Drawing.Point(196, 152);
+			this.label_PluginWarning.Name = "label_PluginWarning";
+			this.label_PluginWarning.Size = new System.Drawing.Size(369, 13);
+			this.label_PluginWarning.TabIndex = 1;
+			this.label_PluginWarning.Text = "Deactivating plugins that don\'t support unregistering will take effect on restart" +
+    "";
+			// 
+			// listView_Plugins
+			// 
+			this.listView_Plugins.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.listView_Plugins.CheckBoxes = true;
+			this.listView_Plugins.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader_Plugin,
+            this.columnHeader_Name,
+            this.columnHeader_Author,
+            this.columnHeader_IdeVersion,
+            this.columnHeader_Description,
+            this.columnHeader_Warning,
+            this.columnHeader_Web});
+			this.listView_Plugins.FullRowSelect = true;
+			this.listView_Plugins.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+			this.listView_Plugins.Location = new System.Drawing.Point(6, 19);
+			this.listView_Plugins.Name = "listView_Plugins";
+			this.listView_Plugins.Size = new System.Drawing.Size(748, 130);
+			this.listView_Plugins.TabIndex = 0;
+			this.listView_Plugins.UseCompatibleStateImageBehavior = false;
+			this.listView_Plugins.View = System.Windows.Forms.View.Details;
+			// 
+			// columnHeader_Plugin
+			// 
+			this.columnHeader_Plugin.Text = "Plugin";
+			this.columnHeader_Plugin.Width = 140;
+			// 
+			// columnHeader_Name
+			// 
+			this.columnHeader_Name.Text = "Name";
+			this.columnHeader_Name.Width = 122;
+			// 
+			// columnHeader_Author
+			// 
+			this.columnHeader_Author.Text = "Author";
+			this.columnHeader_Author.Width = 88;
+			// 
+			// columnHeader_IdeVersion
+			// 
+			this.columnHeader_IdeVersion.Text = "IDE Version";
+			this.columnHeader_IdeVersion.Width = 68;
+			// 
+			// columnHeader_Description
+			// 
+			this.columnHeader_Description.DisplayIndex = 6;
+			this.columnHeader_Description.Text = "Description";
+			this.columnHeader_Description.Width = 142;
+			// 
+			// columnHeader_Warning
+			// 
+			this.columnHeader_Warning.DisplayIndex = 4;
+			this.columnHeader_Warning.Text = "Warning";
+			this.columnHeader_Warning.Width = 92;
+			// 
+			// columnHeader_Web
+			// 
+			this.columnHeader_Web.DisplayIndex = 5;
+			this.columnHeader_Web.Text = "Web";
+			this.columnHeader_Web.Width = 92;
+			// 
 			// FormSettings
 			// 
 			this.AcceptButton = this.button_OK;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.button_Cancel;
-			this.ClientSize = new System.Drawing.Size(394, 238);
+			this.ClientSize = new System.Drawing.Size(784, 412);
+			this.Controls.Add(this.groupBox_PluginManager);
 			this.Controls.Add(this.button_Cancel);
 			this.Controls.Add(this.button_OK);
 			this.Controls.Add(this.groupBox_Debugger);
@@ -258,6 +358,8 @@
 			this.groupBox_DataUtil.PerformLayout();
 			this.groupBox_Debugger.ResumeLayout(false);
 			this.groupBox_Debugger.PerformLayout();
+			this.groupBox_PluginManager.ResumeLayout(false);
+			this.groupBox_PluginManager.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -278,5 +380,15 @@
 		public System.Windows.Forms.TextBox textBox_DecryptionKey;
 		public System.Windows.Forms.Label label_EncryptionKey;
 		public System.Windows.Forms.TextBox textBox_EncryptionKey;
+		private System.Windows.Forms.GroupBox groupBox_PluginManager;
+		private System.Windows.Forms.ListView listView_Plugins;
+		private System.Windows.Forms.Label label_PluginWarning;
+		private System.Windows.Forms.ColumnHeader columnHeader_Plugin;
+		private System.Windows.Forms.ColumnHeader columnHeader_Name;
+		private System.Windows.Forms.ColumnHeader columnHeader_Author;
+		private System.Windows.Forms.ColumnHeader columnHeader_IdeVersion;
+		private System.Windows.Forms.ColumnHeader columnHeader_Warning;
+		private System.Windows.Forms.ColumnHeader columnHeader_Web;
+		private System.Windows.Forms.ColumnHeader columnHeader_Description;
 	}
 }

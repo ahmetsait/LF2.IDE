@@ -152,6 +152,8 @@
 			this.imageList = new System.Windows.Forms.ImageList(this.components);
 			this.openFileDialog_Image = new System.Windows.Forms.OpenFileDialog();
 			this.backgroundWorker_UpdateChecker = new System.ComponentModel.BackgroundWorker();
+			this.backgroundWorker_Util = new System.ComponentModel.BackgroundWorker();
+			this.backgroundWorker_Plugin = new System.ComponentModel.BackgroundWorker();
 			this.mainToolStrip.SuspendLayout();
 			this.jumpToToolStrip.SuspendLayout();
 			this.mainMenuStrip.SuspendLayout();
@@ -474,7 +476,7 @@
 			this.debugToolStripMenuItem.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
 			this.debugToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-			this.debugToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.debugToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.debugToolStripMenuItem.Text = "Debug";
 			this.debugToolStripMenuItem.Click += new System.EventHandler(this.DebugToolStripMenuItemClick);
 			// 
@@ -482,7 +484,7 @@
 			// 
 			this.startToolStripMenuItem.Name = "startToolStripMenuItem";
 			this.startToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-			this.startToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.startToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.startToolStripMenuItem.Text = "Start";
 			this.startToolStripMenuItem.Click += new System.EventHandler(this.StartToolStripMenuItemClick);
 			// 
@@ -490,7 +492,7 @@
 			// 
 			this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
 			this.restartToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-			this.restartToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.restartToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.restartToolStripMenuItem.Text = "Restart";
 			this.restartToolStripMenuItem.Click += new System.EventHandler(this.RestartToolStripMenuItemClick);
 			// 
@@ -498,7 +500,7 @@
 			// 
 			this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
 			this.closeAllToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
-			this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
 			this.closeAllToolStripMenuItem.Text = "Close All";
 			this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.CloseAllToolStripMenuItemClick);
 			// 
@@ -1339,6 +1341,16 @@
 			this.backgroundWorker_UpdateChecker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BackgroundUpdater_DoWork);
 			this.backgroundWorker_UpdateChecker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BackgroundUpdater_RunWorkerCompleted);
 			// 
+			// backgroundWorker_Util
+			// 
+			this.backgroundWorker_Util.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_Util_DoWork);
+			this.backgroundWorker_Util.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_Util_RunWorkerCompleted);
+			// 
+			// backgroundWorker_Plugin
+			// 
+			this.backgroundWorker_Plugin.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_Plugin_DoWork);
+			this.backgroundWorker_Plugin.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_Plugin_RunWorkerCompleted);
+			// 
 			// MainForm
 			// 
 			this.AllowDrop = true;
@@ -1499,6 +1511,8 @@
 		public System.Windows.Forms.ToolStripSeparator toolStripSeparator_mainToolStrip3;
 		public System.Windows.Forms.ToolStripButton openToolStripButton;
 		public System.Windows.Forms.ToolStripMenuItem clearRecentHistoryToolStripMenuItem;
+		private System.ComponentModel.BackgroundWorker backgroundWorker_Util;
+		private System.ComponentModel.BackgroundWorker backgroundWorker_Plugin;
 		/*private System.Windows.Forms.ToolStripMenuItem batToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem batToolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem brokenweaponToolStripMenuItem;

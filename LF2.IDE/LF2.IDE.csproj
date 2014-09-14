@@ -42,6 +42,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NoWin32Manifest>False</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,9 +52,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -75,7 +77,6 @@
     <RegisterForComInterop>False</RegisterForComInterop>
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
     <BaseAddress>4194304</BaseAddress>
-    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
@@ -88,21 +89,57 @@
   <PropertyGroup>
     <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Assemblies\AxInterop.WMPLib.dll</HintPath>
+      <HintPath>..\assemblies\AxInterop.WMPLib.dll</HintPath>
     </Reference>
     <Reference Include="CSScriptLibrary">
       <HintPath>..\assemblies\CSScriptLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="Interop.WMPLib">
       <HintPath>..\assemblies\Interop.WMPLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
@@ -129,6 +166,10 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Version.cs" />
+    <None Include="DataUtils\UnsafeLF2DataAlgorithm.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="DrawBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -167,8 +208,8 @@
     <None Include="docking.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="IPlugin.cs" />
-    <Compile Include="LF2DataUtils.cs" />
+    <Compile Include="PluginManager.cs" />
+    <Compile Include="LF2DataUtil.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +265,9 @@
       <DependentUpon>MediaPlayer.cs</DependentUpon>
     </Compile>
     <Compile Include="IconLib.cs" />
+    <None Include="Plugins\ExamplePlugin.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Compile Include="Settings.cs" />
     <Compile Include="UtilManager.cs" />
     <Compile Include="PreviewForm.cs">
@@ -357,8 +401,145 @@
     </Content>
     <Content Include="Main.ico" />
     <Content Include="Main_.ico" />
+    <Content Include="Resources\Bitmap Icons\favicon128x128.bmp" />
+    <Content Include="Resources\Bitmap Icons\favicon16x16.bmp" />
+    <Content Include="Resources\Bitmap Icons\favicon24x24.bmp" />
+    <Content Include="Resources\Bitmap Icons\favicon32x32.bmp" />
+    <Content Include="Resources\Bitmap Icons\favicon48x48.bmp" />
+    <Content Include="Resources\Bitmap Icons\favicon64x64.bmp" />
+    <Content Include="Resources\Bitmap Icons\mirror16.bmp" />
+    <Content Include="Resources\Bitmap Icons\mirror16.ico" />
+    <Content Include="Resources\Bitmap Icons\templateR.bmp" />
+    <Content Include="Resources\Bitmap Icons\_favicon16x16.bmp" />
+    <Content Include="Resources\Caught\caught30.bmp" />
+    <Content Include="Resources\Caught\caught31.bmp" />
+    <Content Include="Resources\Caught\caught32.bmp" />
+    <Content Include="Resources\Caught\caught33.bmp" />
+    <Content Include="Resources\Caught\caught34.bmp" />
+    <Content Include="Resources\Caught\caught35.bmp" />
+    <Content Include="Resources\Caught\caught40.bmp" />
+    <Content Include="Resources\Caught\caught41.bmp" />
+    <Content Include="Resources\Caught\caught42.bmp" />
+    <Content Include="Resources\Caught\caught43.bmp" />
+    <Content Include="Resources\Caught\caught44.bmp" />
+    <Content Include="Resources\Caught\caught45.bmp" />
+    <Content Include="Resources\Caught\caught53.bmp" />
+    <Content Include="Resources\Caught\caught54.bmp" />
+    <Content Include="Resources\Caught\caught55.bmp" />
+    <Content Include="Resources\check.bmp" />
+    <Content Include="Resources\Cursors\bdy.png" />
+    <Content Include="Resources\Cursors\bpoint.png" />
+    <Content Include="Resources\Cursors\cpoint.png" />
+    <Content Include="Resources\Cursors\itr.png" />
+    <Content Include="Resources\Cursors\opoint.png" />
+    <Content Include="Resources\Cursors\wpoint.png" />
+    <Content Include="Resources\Icons\audio0.ico" />
+    <Content Include="Resources\Icons\audio1.ico" />
+    <Content Include="Resources\Icons\audio2.ico" />
+    <Content Include="Resources\Icons\bitblock.ico" />
+    <Content Include="Resources\Icons\DocumentAS.ico" />
+    <Content Include="Resources\Icons\DocumentCS.ico" />
+    <Content Include="Resources\Icons\eventlog.ico" />
+    <Content Include="Resources\Icons\eventlog.png" />
+    <Content Include="Resources\Icons\favicon128x128.ico" />
+    <Content Include="Resources\Icons\favicon16x16.ico" />
+    <Content Include="Resources\Icons\favicon24x24.ico" />
+    <Content Include="Resources\Icons\favicon32x32.ico" />
+    <Content Include="Resources\Icons\favicon48x48.ico" />
+    <Content Include="Resources\Icons\favicon64x64.ico" />
+    <Content Include="Resources\Icons\ffolder.ico" />
+    <Content Include="Resources\Icons\ffolder0.ico" />
+    <Content Include="Resources\Icons\ffolder1.ico" />
+    <Content Include="Resources\Icons\ffolder2.ico" />
+    <Content Include="Resources\Icons\file.ico" />
+    <Content Include="Resources\Icons\file16.bmp" />
+    <Content Include="Resources\Icons\file32.bmp" />
+    <Content Include="Resources\Icons\filexml.ico" />
+    <Content Include="Resources\Icons\folder.ico" />
+    <Content Include="Resources\Icons\folder0.ico" />
+    <Content Include="Resources\Icons\folder1.ico" />
+    <Content Include="Resources\Icons\folder16.ico" />
+    <Content Include="Resources\Icons\folder2.ico" />
+    <Content Include="Resources\Icons\folder32.ico" />
+    <Content Include="Resources\Icons\folder48.ico" />
+    <Content Include="Resources\Icons\folderG.ico" />
+    <Content Include="Resources\Icons\framepanel.ico" />
+    <Content Include="Resources\Icons\lf.ico" />
+    <Content Include="Resources\Icons\lf16.ico" />
+    <Content Include="Resources\Icons\lf16_t.ico" />
+    <Content Include="Resources\Icons\lfedited.ico" />
+    <Content Include="Resources\Icons\Main.ico" />
+    <Content Include="Resources\Icons\Main_.ico" />
+    <Content Include="Resources\Icons\multi.ico" />
+    <Content Include="Resources\Icons\pencilnormal.ico" />
+    <Content Include="Resources\Icons\pencilnormal2.ico" />
+    <Content Include="Resources\Icons\pencilreverse.ico" />
+    <Content Include="Resources\Icons\penR.ico" />
+    <Content Include="Resources\Icons\refresh.ico" />
+    <Content Include="Resources\Icons\sfolder.ico" />
+    <Content Include="Resources\Icons\sfolder0.ico" />
+    <Content Include="Resources\Icons\sfolder1.ico" />
+    <Content Include="Resources\Icons\shapepanel.ico" />
+    <Content Include="Resources\Icons\tagpanel.ico" />
+    <Content Include="Resources\Icons\templateR.ico" />
+    <Content Include="Resources\Icons\trancparent.ico" />
+    <Content Include="Resources\Icons\txt.ico" />
+    <Content Include="Resources\Icons\txt0.ico" />
+    <Content Include="Resources\Icons\txt1.ico" />
+    <Content Include="Resources\Icons\wav.ico" />
+    <Content Include="Resources\Icons\wav0.ico" />
+    <Content Include="Resources\Icons\wav1.ico" />
+    <Content Include="Resources\Icons\_favicon16x16.ico" />
+    <Content Include="Resources\Menu\bigger.png" />
+    <Content Include="Resources\Menu\collapse.png" />
+    <Content Include="Resources\Menu\ControlPanel.png" />
+    <Content Include="Resources\Menu\debugrun.png" />
+    <Content Include="Resources\Menu\eol.PNG" />
+    <Content Include="Resources\Menu\execute.png" />
+    <Content Include="Resources\Menu\exit.png" />
+    <Content Include="Resources\Menu\expand.png" />
+    <Content Include="Resources\Menu\fnd.png" />
+    <Content Include="Resources\Menu\ImageEditRedo.png" />
+    <Content Include="Resources\Menu\ImageEditUndo.png" />
+    <Content Include="Resources\Menu\ImageFileSaveAll.png" />
+    <Content Include="Resources\Menu\lightning.png" />
+    <Content Include="Resources\Menu\reopen.png" />
+    <Content Include="Resources\Menu\replace.png" />
+    <Content Include="Resources\Menu\sas.png" />
+    <Content Include="Resources\Menu\saveas.ico" />
+    <Content Include="Resources\Menu\search.png" />
+    <Content Include="Resources\Menu\wordwrap.png" />
+    <Content Include="Resources\Menu\wordwrap2.png" />
+    <Content Include="Resources\Menu\wordwrap3.png" />
+    <Content Include="Resources\Menu\zoomin.png" />
+    <Content Include="Resources\Menu\zoomout.png" />
+    <Content Include="Resources\Screenshots\About.png" />
+    <Content Include="Resources\Weapon\weapon10.bmp" />
+    <Content Include="Resources\Weapon\weapon20.bmp" />
+    <Content Include="Resources\Weapon\weapon21.bmp" />
+    <Content Include="Resources\Weapon\weapon22.bmp" />
+    <Content Include="Resources\Weapon\weapon23.bmp" />
+    <Content Include="Resources\Weapon\weapon24.bmp" />
+    <Content Include="Resources\Weapon\weapon25.bmp" />
+    <Content Include="Resources\Weapon\weapon26.bmp" />
+    <Content Include="Resources\Weapon\weapon27.bmp" />
+    <Content Include="Resources\Weapon\weapon28.bmp" />
+    <Content Include="Resources\Weapon\weapon29.bmp" />
+    <Content Include="Resources\Weapon\weapon30.bmp" />
+    <Content Include="Resources\Weapon\weapon31.bmp" />
+    <Content Include="Resources\Weapon\weapon32.bmp" />
+    <Content Include="Resources\Weapon\weapon33.bmp" />
+    <Content Include="Resources\Weapon\weapon34.bmp" />
+    <Content Include="Resources\Weapon\weapon35.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+  <PropertyGroup>
+    <PostBuildEvent>del "$(TargetDir)CSScriptLibrary.xml"
+del "$(TargetDir)protobuf-net.xml"
+del "$(TargetDir)protobuf-net.pdb"
+del "$(TargetDir)ScintillaNET.pdb"
+del "$(TargetDir)ScintillaNET.xml"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
