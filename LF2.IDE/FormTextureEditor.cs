@@ -28,13 +28,13 @@ namespace LF2.IDE
 
 		public static bool ReversePaint
 		{
-			get { return Settings.Default.reversePaint; }
-			set { Settings.Default.reversePaint = value; }
+			get { return Settings.Current.reversePaint; }
+			set { Settings.Current.reversePaint = value; }
 		}
 		public static int Zoom
 		{
-			get { return Settings.Default.textureZoom; }
-			set { Settings.Default.textureZoom = value; }
+			get { return Settings.Current.textureZoom; }
+			set { Settings.Current.textureZoom = value; }
 		}
 
 		int lastX = -1, lastY = -1;

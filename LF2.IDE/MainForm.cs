@@ -1,17 +1,22 @@
-﻿using System;
-using System.ComponentModel;
-using System.Net;
+﻿using CSScriptLibrary;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LF2.IDE
@@ -33,27 +38,27 @@ namespace LF2.IDE
 
 			try
 			{
-				Settings.Default.Reload();
-				showAllCharsToolStripButton.Checked = Settings.Default.showEndOfLineChars || Settings.Default.showWhiteSpaces;
-				checkUpdatesAutoToolStripMenuItem.Checked = Settings.Default.checkUpdatesAuto;
-				if (Settings.Default.lineWrappingMode == ScintillaNET.LineWrappingMode.None)
+				Settings.Current.Reload();
+				showAllCharsToolStripButton.Checked = Settings.Current.showEndOfLineChars || Settings.Current.showWhiteSpaces;
+				checkUpdatesAutoToolStripMenuItem.Checked = Settings.Current.checkUpdatesAuto;
+				if (Settings.Current.lineWrappingMode == ScintillaNET.LineWrappingMode.None)
 				{
 					textWrapToolStripButton.Checked = false;
 					textWrapToolStripButton.Image = imageList.Images[0];
 				}
-				else if (Settings.Default.lineWrappingMode == ScintillaNET.LineWrappingMode.Word)
+				else if (Settings.Current.lineWrappingMode == ScintillaNET.LineWrappingMode.Word)
 				{
 					textWrapToolStripButton.Checked = true;
 					textWrapToolStripButton.Image = imageList.Images[0];
 				}
-				else if (Settings.Default.lineWrappingMode == ScintillaNET.LineWrappingMode.Char)
+				else if (Settings.Current.lineWrappingMode == ScintillaNET.LineWrappingMode.Char)
 				{
 					textWrapToolStripButton.Checked = true;
 					textWrapToolStripButton.Image = imageList.Images[1];
 				}
-				textWrapToolStripButton.ToolTipText = "Wrap: " + Settings.Default.lineWrappingMode.ToString();
-				syntaxLanguageToolStripComboBox.Text = Settings.Default.lang;
-				tabWidthToolStripComboBox.Text = Settings.Default.tabWidth.ToString();
+				textWrapToolStripButton.ToolTipText = "Wrap: " + Settings.Current.lineWrappingMode.ToString();
+				syntaxLanguageToolStripComboBox.Text = Settings.Current.lang;
+				tabWidthToolStripComboBox.Text = Settings.Current.tabWidth.ToString();
 				updateHistory();
 			}
 			catch (Exception ex)
@@ -105,9 +110,8 @@ namespace LF2.IDE
 				solutionExplorer.AutoHidePortion = 300;
 			}
 
-			formEventLog.Log("Initialization: " + stopWatch.Elapsed.ToString(), false);
-			stopWatch.Reset();
-			stopWatch.Start();
+			formEventLog.Log("Initialized: " + stopWatch.Elapsed, false);
+			stopWatch.Restart();
 		}
 
 		public FormTag formTag;
@@ -117,9 +121,12 @@ namespace LF2.IDE
 		public MediaPlayer media;
 		public FormEventLog formEventLog;
 
+		public static Plugger<Plugin> Plugins = new Plugger<Plugin>();
+		public static bool PluginLock = true;
+
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			if (Settings.Default.checkUpdatesAuto)
+			if (Settings.Current.checkUpdatesAuto)
 			{
 				backgroundWorker_UpdateChecker.RunWorkerAsync(false);
 				checkForUpdatesToolStripMenuItem.Text = "Checking for Updates...";
@@ -144,7 +151,7 @@ namespace LF2.IDE
 				ActiveDocument.Scintilla.Focus();
 				this.Activate();
 			}
-			if (File.Exists(Settings.Default.lfPath))
+			if (File.Exists(Settings.Current.lfPath))
 			{
 				solutionExplorer.refreshToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
 				solutionExplorer.PopulateTreeView(solutionExplorer.DestinationFolder);
@@ -153,8 +160,14 @@ namespace LF2.IDE
 				formTag.backgroundWorker_Refresh.RunWorkerAsync();
 			}
 
-			formEventLog.Log("MainForm Load: " + stopWatch.Elapsed.ToString(), false);
+			//CSScript.Evaluator.CompilerSettings.AssemblyReferences.AddRange(from a in Assembly.GetExecutingAssembly().GetReferencedAssemblies() select a.FullName);
+			//CSScript.Evaluator.CompilerSettings.Unsafe = true;
+
+			formEventLog.Log("MainForm Loaded: " + stopWatch.Elapsed, false);
 			stopWatch.Reset();
+
+			backgroundWorker_Util.RunWorkerAsync();
+			backgroundWorker_Plugin.RunWorkerAsync();
 		}
 
 		public WeifenLuo.WinFormsUI.Docking.DockPanel DockPanel { get { return dockPanel; } }
@@ -163,10 +176,10 @@ namespace LF2.IDE
 		{
 			foreach (DocumentForm df in dockPanel.Documents)
 			{
-				df.Scintilla.EndOfLine.IsVisible = Settings.Default.showEndOfLineChars;
-				df.Scintilla.LineWrapping.Mode = Settings.Default.lineWrappingMode;
-				df.Scintilla.Whitespace.Mode = Settings.Default.showWhiteSpaces ? ScintillaNET.WhitespaceMode.VisibleAlways : ScintillaNET.WhitespaceMode.Invisible;
-				
+				df.Scintilla.EndOfLine.IsVisible = Settings.Current.showEndOfLineChars;
+				df.Scintilla.LineWrapping.Mode = Settings.Current.lineWrappingMode;
+				df.Scintilla.Whitespace.Mode = Settings.Current.showWhiteSpaces ? ScintillaNET.WhitespaceMode.VisibleAlways : ScintillaNET.WhitespaceMode.Invisible;
+
 				switch (Path.GetExtension(df.TabText.TrimEnd(' ', '*')))
 				{
 					case ".dat":
@@ -189,18 +202,18 @@ namespace LF2.IDE
 						df.SetLanguage("cs");
 						break;
 					default:
-						df.SetLanguage(Settings.Default.lang);
+						df.SetLanguage(Settings.Current.lang);
 						break;
 				}
 			}
 		}
 
-		const string felPersist = "LF2.IDE.FormEventLog",
-			ftPersist = "LF2.IDE.FormTag",
-			ffPersist = "LF2.IDE.FormFrame",
-			fsPersist = "LF2.IDE.FormShape",
-			sePersist = "LF2.IDE.SolutionExplorer",
-			mpPersist = "LF2.IDE.MediaPlayer";
+		readonly string felPersist = typeof(FormEventLog).FullName,
+			ftPersist = typeof(FormTag).FullName,
+			ffPersist = typeof(FormFrame).FullName,
+			fsPersist = typeof(FormShape).FullName,
+			sePersist = typeof(SolutionExplorer).FullName,
+			mpPersist = typeof(MediaPlayer).FullName;
 
 		WeifenLuo.WinFormsUI.Docking.DockContent DockingDeserializer(string persistString)
 		{
@@ -242,7 +255,7 @@ namespace LF2.IDE
 			if (!File.Exists(fns))
 			{
 				MessageBox.Show("File '" + fns + "' not exists in target path", Program.Title);
-				Settings.Default.recentFileHistory.Remove(fns);
+				Settings.Current.recentFileHistory.Remove(fns);
 				updateHistory();
 			}
 			else
@@ -344,22 +357,22 @@ namespace LF2.IDE
 
 		public void addToHistory(string file)
 		{
-			if (!Settings.Default.recentFileHistory.Contains(file))
-				Settings.Default.recentFileHistory.Add(file);
+			if (!Settings.Current.recentFileHistory.Contains(file))
+				Settings.Current.recentFileHistory.Add(file);
 			else
 			{
-				Settings.Default.recentFileHistory.Remove(file);
-				Settings.Default.recentFileHistory.Add(file);
+				Settings.Current.recentFileHistory.Remove(file);
+				Settings.Current.recentFileHistory.Add(file);
 			}
-			if (Settings.Default.recentFileHistory.Count > 30)
-				for (int i = Settings.Default.recentFileHistory.Count - 30; i >= 0; i--)
-					Settings.Default.recentFileHistory.RemoveAt(i);
+			if (Settings.Current.recentFileHistory.Count > 30)
+				for (int i = Settings.Current.recentFileHistory.Count - 30; i >= 0; i--)
+					Settings.Current.recentFileHistory.RemoveAt(i);
 		}
 
 		public void updateHistory()
 		{
 			openRecentToolStripMenuItem.DropDownItems.Clear();
-			foreach (string rf in Settings.Default.recentFileHistory)
+			foreach (string rf in Settings.Current.recentFileHistory)
 			{
 				ToolStripMenuItem tsmi = new ToolStripMenuItem(rf);
 				tsmi.Click += new EventHandler(openRecent);
@@ -464,12 +477,12 @@ namespace LF2.IDE
 
 		void StartToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			string lfpath = Settings.Default.lfPath;
+			string lfpath = Settings.Current.lfPath;
 			if (File.Exists(lfpath))
 			{
 				ProcessStartInfo psi = new ProcessStartInfo();
-				psi.FileName = Settings.Default.lfPath;
-				psi.WorkingDirectory = Path.GetDirectoryName(Settings.Default.lfPath);
+				psi.FileName = Settings.Current.lfPath;
+				psi.WorkingDirectory = Path.GetDirectoryName(Settings.Current.lfPath);
 				Process.Start(psi);
 			}
 		}
@@ -478,7 +491,7 @@ namespace LF2.IDE
 
 		void CloseAllToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			foreach (Process prc in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Settings.Default.lfPath)))
+			foreach (Process prc in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Settings.Current.lfPath)))
 			{
 				if (!prc.HasExited)
 					prc.Kill();
@@ -495,7 +508,7 @@ namespace LF2.IDE
 
 		void MainFormFormClosed(object sender, FormClosedEventArgs e)
 		{
-			Settings.Default.Save();
+			Settings.Current.Save();
 			try
 			{
 				dockPanel.SaveAsXml(Program.dockingPath);
@@ -503,6 +516,15 @@ namespace LF2.IDE
 			catch (Exception ex)
 			{
 				formEventLog.Error(ex, "Xml Serialization Error");
+			}
+			try
+			{
+				foreach (string plugin in Settings.Current.activePlugins)
+					Plugins[plugin].OnExit(e.CloseReason);
+			}
+			catch (Exception ex)
+			{
+				formEventLog.Error(ex, "Plugin Manager Error");
 			}
 		}
 
@@ -615,14 +637,43 @@ namespace LF2.IDE
 			{
 				MessageBox.Show("File '" + fns + "' not exists in target path", Program.Title);
 				ActiveDocument.Scintilla.Modified = true;
-				if (Settings.Default.recentFileHistory.Contains(fns)) Settings.Default.recentFileHistory.Remove(fns);
 				updateHistory();
-				return;
 			}
-			ActiveDocument.Scintilla.Text = "";
-			ActiveDocument.Scintilla.UndoRedo.EmptyUndoBuffer();
-			ActiveDocument.Scintilla.Modified = false;
-			ActiveDocument.Scintilla.AppendText(File.ReadAllText(fns, Encoding.Default));
+			else if (ActiveDocument.Scintilla.Modified)
+			{
+				string message = String.Format(
+					"The data in the {0} file has changed.{1}{2}Do you want to discard the changes?",
+					ActiveDocument.TabText.TrimEnd(' ', '*'),
+					Environment.NewLine,
+					Environment.NewLine);
+
+				DialogResult dr = MessageBox.Show(this, message, Program.Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+				if (dr == DialogResult.No)
+					return;
+				else
+					Reopen(ActiveDocument, fns);
+			}
+			else
+				Reopen(ActiveDocument, fns);
+		}
+
+		void Reopen(DocumentForm doc, string file)
+		{
+			if (file.EndsWith(".dat"))
+			{
+				doc.Scintilla.Text = "";
+				doc.Scintilla.AppendText(LF2DataUtil.Decrypt(file));
+				doc.Scintilla.UndoRedo.EmptyUndoBuffer();
+				doc.Scintilla.Modified = false;
+			}
+			else
+			{
+				doc.Scintilla.Text = "";
+				doc.Scintilla.AppendText(File.ReadAllText(file, Encoding.Default));
+				doc.Scintilla.UndoRedo.EmptyUndoBuffer();
+				doc.Scintilla.Modified = false;
+				doc.Show(dockPanel);
+			}
 		}
 
 		void AboutToolStripButtonClick(object sender, EventArgs e)
@@ -659,7 +710,7 @@ namespace LF2.IDE
 
 		void SearchToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			Process.Start(Program.supportPage);
+			Process.Start(Program.webPage);
 		}
 
 		void AlgorithmToolStripMenuItemClick(object sender, EventArgs e)
@@ -669,7 +720,7 @@ namespace LF2.IDE
 
 		void ToolStripComboBox2TextChanged(object sender, EventArgs e)
 		{
-			Settings.Default.lang = syntaxLanguageToolStripComboBox.Text == "" ? "default" : syntaxLanguageToolStripComboBox.Text;
+			Settings.Current.lang = syntaxLanguageToolStripComboBox.Text == "" ? "default" : syntaxLanguageToolStripComboBox.Text;
 			implementSettings();
 			dockPanel.Refresh();
 		}
@@ -688,31 +739,31 @@ namespace LF2.IDE
 
 		void ToolStripButtonwwClick(object sender, EventArgs e)
 		{
-			if (Settings.Default.lineWrappingMode == ScintillaNET.LineWrappingMode.None)
+			if (Settings.Current.lineWrappingMode == ScintillaNET.LineWrappingMode.None)
 			{
-				Settings.Default.lineWrappingMode = ScintillaNET.LineWrappingMode.Word;
+				Settings.Current.lineWrappingMode = ScintillaNET.LineWrappingMode.Word;
 				textWrapToolStripButton.Checked = true;
 				textWrapToolStripButton.Image = imageList.Images[0];
 			}
-			else if (Settings.Default.lineWrappingMode == ScintillaNET.LineWrappingMode.Word)
+			else if (Settings.Current.lineWrappingMode == ScintillaNET.LineWrappingMode.Word)
 			{
-				Settings.Default.lineWrappingMode = ScintillaNET.LineWrappingMode.Char;
+				Settings.Current.lineWrappingMode = ScintillaNET.LineWrappingMode.Char;
 				textWrapToolStripButton.Checked = true;
 				textWrapToolStripButton.Image = imageList.Images[1];
 			}
-			else if (Settings.Default.lineWrappingMode == ScintillaNET.LineWrappingMode.Char)
+			else if (Settings.Current.lineWrappingMode == ScintillaNET.LineWrappingMode.Char)
 			{
-				Settings.Default.lineWrappingMode = ScintillaNET.LineWrappingMode.None;
+				Settings.Current.lineWrappingMode = ScintillaNET.LineWrappingMode.None;
 				textWrapToolStripButton.Checked = false;
 				textWrapToolStripButton.Image = imageList.Images[0];
 			}
-			textWrapToolStripButton.ToolTipText = "Wrap: " + Settings.Default.lineWrappingMode.ToString();
+			textWrapToolStripButton.ToolTipText = "Wrap: " + Settings.Current.lineWrappingMode.ToString();
 			implementSettings();
 		}
 
 		void ToolStripButtoneolClick(object sender, EventArgs e)
 		{
-			Settings.Default.showEndOfLineChars = Settings.Default.showWhiteSpaces = showAllCharsToolStripButton.Checked;
+			Settings.Current.showEndOfLineChars = Settings.Current.showWhiteSpaces = showAllCharsToolStripButton.Checked;
 			implementSettings();
 		}
 
@@ -771,16 +822,16 @@ namespace LF2.IDE
 		//	return bmp;
 		//}
 
-		//public string AviRecordDir { get { return Path.GetDirectoryName(Settings.Default.lfPath) + "\\records"; } }
+		//public string AviRecordDir { get { return Path.GetDirectoryName(Settings.Current.lfPath) + "\\records"; } }
 
 		void DebugToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			string lfpath = Settings.Default.lfPath;
+			string lfpath = Settings.Current.lfPath;
 			if (File.Exists(lfpath))
 			{
 				ProcessStartInfo psi = new ProcessStartInfo();
-				psi.FileName = Settings.Default.lfPath;
-				psi.WorkingDirectory = Path.GetDirectoryName(Settings.Default.lfPath);
+				psi.FileName = Settings.Current.lfPath;
+				psi.WorkingDirectory = Path.GetDirectoryName(Settings.Current.lfPath);
 				lfProc = Process.Start(psi);
 				lfProc.PriorityClass = ProcessPriorityClass.High;
 				FormWindowState fws = this.WindowState;
@@ -801,13 +852,13 @@ namespace LF2.IDE
 
 		void RestartToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			foreach (Process prc in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Settings.Default.lfPath)))
+			foreach (Process prc in Process.GetProcessesByName(Path.GetFileNameWithoutExtension(Settings.Current.lfPath)))
 			{
 				if (!prc.HasExited)
 				{
 					prc.Kill();
-					ProcessStartInfo psi = new ProcessStartInfo(Settings.Default.lfPath);
-					psi.WorkingDirectory = Path.GetDirectoryName(Settings.Default.lfPath);
+					ProcessStartInfo psi = new ProcessStartInfo(Settings.Current.lfPath);
+					psi.WorkingDirectory = Path.GetDirectoryName(Settings.Current.lfPath);
 					Process.Start(psi);
 				}
 			}
@@ -832,7 +883,7 @@ namespace LF2.IDE
 		{
 			try
 			{
-				Settings.Default.tabWidth = int.Parse(tabWidthToolStripComboBox.Text);
+				Settings.Current.tabWidth = int.Parse(tabWidthToolStripComboBox.Text);
 				implementSettings();
 			}
 			catch { }
@@ -901,13 +952,13 @@ namespace LF2.IDE
 
 		void RefreshAllToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			if (Settings.Default.lfPath == null || !File.Exists(Settings.Default.lfPath))
+			if (Settings.Current.lfPath == null || !File.Exists(Settings.Current.lfPath))
 			{
 				FormSettings f = new FormSettings();
 			re:
 				if (f.ShowDialog(this) == DialogResult.OK)
 				{
-					if (Settings.Default.lfPath == null || !File.Exists(Settings.Default.lfPath))
+					if (Settings.Current.lfPath == null || !File.Exists(Settings.Current.lfPath))
 						goto re;
 				}
 				else
@@ -919,7 +970,7 @@ namespace LF2.IDE
 				{
 					if (doc.TabText.TrimEnd(' ', '*').EndsWith(".dat"))
 					{
-						doc.ParseFiles(Path.GetDirectoryName(Settings.Default.lfPath));
+						doc.ParseFiles(Path.GetDirectoryName(Settings.Current.lfPath));
 						doc.ParseFrames();
 					}
 				}
@@ -943,13 +994,13 @@ namespace LF2.IDE
 
 		void RefreshCurrentToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			if (Settings.Default.lfPath == null || !File.Exists(Settings.Default.lfPath))
+			if (Settings.Current.lfPath == null || !File.Exists(Settings.Current.lfPath))
 			{
 				FormSettings f = new FormSettings();
 			re:
 				if (f.ShowDialog(this) == DialogResult.OK)
 				{
-					if (Settings.Default.lfPath == null || !File.Exists(Settings.Default.lfPath))
+					if (Settings.Current.lfPath == null || !File.Exists(Settings.Current.lfPath))
 						goto re;
 				}
 				else
@@ -957,7 +1008,7 @@ namespace LF2.IDE
 			}
 			try
 			{
-				ActiveDocument.ParseFiles(Path.GetDirectoryName(Settings.Default.lfPath));
+				ActiveDocument.ParseFiles(Path.GetDirectoryName(Settings.Current.lfPath));
 				ActiveDocument.ParseFrames();
 				lastActiveFrame = ActiveDocument.frames;
 				if (lastActiveFrame != null && lastActiveFrame.Length > 0)
@@ -1165,37 +1216,16 @@ namespace LF2.IDE
 
 		public UpdateState CheckForUpdates()
 		{
-			UpdateState update = UpdateState.None;
 			WebClient wc = new WebClient();
-			Match match = Regex.Match(wc.DownloadString(Program.supportPage), "{#UpdateCheckerArea:(.*):#}");
-			string[] version = match.Groups[1].Value.Split('.'), current = AboutForm.AssemblyVersion.Split('.');
-			uint maxLen = (uint)Math.Max(version.Length, current.Length);
-			uint[] vers = new uint[maxLen], curr = new uint[maxLen];
+			Match match = Regex.Match(wc.DownloadString(Program.webPage), "{#UpdateCheckerArea:(.*):#}");
+			Version version = new Version(match.Groups[1].Value), current = new Version(AboutForm.AssemblyVersion);
 
-			for (int i = 0; i < vers.Length || i < curr.Length; i++)
-			{
-				if (!uint.TryParse(version[i], out vers[i]))
-					vers[i] = 0;
-				if (!uint.TryParse(current[i], out curr[i]))
-					curr[i] = 0;
-			}
-
-			for (int i = 0; i < maxLen; i++)
-			{
-				if (vers[i] > curr[i])
-				{
-					update = UpdateState.Available;
-					break;
-				}
-				else
-					if (curr[i] > vers[i])
-					{
-						update = UpdateState.Developer;
-						break;
-					}
-			}
-
-			return update;
+			if (current > version)
+				return UpdateState.Developer;
+			else if (current == version)
+				return UpdateState.None;
+			else
+				return UpdateState.Available;
 		}
 
 		abstract class Notificable
@@ -1263,7 +1293,7 @@ namespace LF2.IDE
 				{
 					if (updateInfo.update == UpdateState.Available)
 					{
-						formEventLog.Log(Program.supportPage + "\r\n" + Program.downloadPage, "Update Found!", true);
+						formEventLog.Log(Program.webPage + "\r\n" + Program.downloadPage, "Update Found!", true);
 						formEventLog.Show();
 					}
 					else
@@ -1279,12 +1309,12 @@ namespace LF2.IDE
 
 		void CheckUpdatesAutoToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
 		{
-			Settings.Default.checkUpdatesAuto = checkUpdatesAutoToolStripMenuItem.Checked;
+			Settings.Current.checkUpdatesAuto = checkUpdatesAutoToolStripMenuItem.Checked;
 		}
 
 		private void clearRecentHistoryToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Settings.Default.recentFileHistory.Clear();
+			Settings.Current.recentFileHistory.Clear();
 			updateHistory();
 		}
 
@@ -1337,6 +1367,54 @@ namespace LF2.IDE
 		{
 			if (argsToolStripMenuItem.DropDownItems.Count != 0)
 				argsToolStripMenuItem.ShowDropDown();
+		}
+
+		private void backgroundWorker_Util_DoWork(object sender, DoWorkEventArgs e)
+		{
+			Stopwatch sw = Stopwatch.StartNew();
+			if (Directory.Exists(Program.utilDir))
+			{
+				UtilManager.GetUtils(Program.utilDir);
+				formEventLog.Log("Data Utils Loaded: " + sw.Elapsed, false);
+			}
+			sw.Reset();
+		}
+
+		private void backgroundWorker_Util_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			UtilManager.UtilLock = false;
+		}
+
+		private void backgroundWorker_Plugin_DoWork(object sender, DoWorkEventArgs e)
+		{
+			Stopwatch sw = Stopwatch.StartNew();
+			if (Directory.Exists(Program.plugDir))
+			{
+				Plugins.PlugOn(Program.plugDir);
+				formEventLog.Log("Plugins Loaded: " + sw.Elapsed, false);
+			}
+			sw.Reset();
+		}
+
+		private void backgroundWorker_Plugin_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		{
+			PluginLock = false;
+			try
+			{
+				foreach (string plugin in Settings.Current.activePlugins)
+					try
+					{
+						Plugins[plugin].Register();
+					}
+					catch (Exception ex)
+					{
+						formEventLog.Error(ex, "[" + plugin + "] : Plugin Registration Error");
+					}
+			}
+			catch (Exception ex)
+			{
+				formEventLog.Error(ex, "Plugin-List Registration Error");
+			}
 		}
 	}
 }

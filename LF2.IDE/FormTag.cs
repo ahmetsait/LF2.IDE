@@ -78,7 +78,7 @@ namespace LF2.IDE
 
 		string opointCachePath
 		{
-			get { return Path.GetDirectoryName(Settings.Default.lfPath) + "\\opoint.cache"; }
+			get { return Path.GetDirectoryName(Settings.Current.lfPath) + "\\opoint.cache"; }
 		}
 
 		private void Add(object sender, EventArgs e)
@@ -898,7 +898,7 @@ namespace LF2.IDE
 		{
 			List<Obj> opointCache = new List<Obj>(128);
 			string lfDir;
-			string data_txt = (lfDir = Path.GetDirectoryName(Settings.Default.lfPath)) + "\\data\\data.txt";
+			string data_txt = (lfDir = Path.GetDirectoryName(Settings.Current.lfPath)) + "\\data\\data.txt";
 			string data = File.ReadAllText(data_txt, Encoding.Default);
 			int st = data.IndexOf("<object>"), end = data.IndexOf("<object_end>", st + 8);
 			if (st < 0 || end < 0) return;

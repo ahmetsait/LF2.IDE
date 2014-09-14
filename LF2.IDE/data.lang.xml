@@ -60,64 +60,64 @@ wpoint_end zboundary zwidth
 <Snippet Shortcut="bdy" IsSurroundsWith="True">   bdy:
       kind: $k$  x: $x$  y: $y$  w: $w$  h: $h$
    bdy_end:$end$</Snippet>
-<Snippet Shortcut="itr0" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr0" IsSurroundsWith="True">itr:
       kind: 0  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  dvy: $dvy$  $av$rest: $rst$  fall: $f$  bdefend: $bd$  injury: $i$  zwidth: $zw$  effect: $e$
    itr_end:$end$</Snippet>
 <Snippet Shortcut="itr1" IsSurroundsWith="True">itr:
       kind: 1  x: $x$  y: $y$  w: $w$  h: $h$  catchingact: $ct$  caughtact: $cg$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr2" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr2" IsSurroundsWith="True">itr:
       kind: 2  x: $x$  y: $y$  w: $w$  h: $h$$  $av$rest: $rst$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr3" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr3" IsSurroundsWith="True">itr:
       kind: 3  x: $x$  y: $y$  w: $w$  h: $h$  catchingact: $ct$  caughtact: $cg$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr4" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr4" IsSurroundsWith="True">itr:
       kind: 4  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  $av$rest: $rst$  fall: $f$  bdefend: $bd$  injury: $i$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr5" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr5" IsSurroundsWith="True">itr:
       kind: 5  x: $x$  y: $y$  w: $w$  h: $h$  dvx: 8  fall: 20  bdefend: 16  injury: 789
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr6" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr6" IsSurroundsWith="True">itr:
       kind: 6  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr7" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr7" IsSurroundsWith="True">itr:
       kind: 7  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr8" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr8" IsSurroundsWith="True">itr:
       kind: 8  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  injury: $i$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr9" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr9" IsSurroundsWith="True">itr:
       kind: 9  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  $av$rest: $rst$  fall: $f$  injury: $i$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr10" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr10" IsSurroundsWith="True">itr:
       kind: 10  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$  injury: $i$  zwidth: $zw$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr11" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr11" IsSurroundsWith="True">itr:
       kind: 11  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$  injury: $i$  zwidth: $zw$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr14" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr14" IsSurroundsWith="True">itr:
       kind: 14  x: $x$  y: $y$  w: $w$  h: $h$  $av$rest: $rst$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr15" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr15" IsSurroundsWith="True">itr:
       kind: 15  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  dvy: $dvy$  $av$rest: $rst$  fall: $f$  bdefend: $bd$  injury: $i$  zwidth: $zw$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="itr16" IsSurroundsWith="True">   itr:
+<Snippet Shortcut="itr16" IsSurroundsWith="True">itr:
       kind: 16  x: $x$  y: $y$  w: $w$  h: $h$  dvx: $dvx$  dvy: $dvy$  $av$rest: $rst$  fall: $f$  bdefend: $bd$  injury: $i$  zwidth: $zw$
    itr_end:$end$</Snippet>
-<Snippet Shortcut="wpoint" IsSurroundsWith="True">   wpoint:
+<Snippet Shortcut="wpoint" IsSurroundsWith="True">wpoint:
       kind: $k$  x: $x$  y: $y$  weaponact: $wact$  attacking: $atk$  cover: $c$  dvx: $dvx$  dvy: $dvy$  dvz: $dvz$
    wpoint_end:$end$</Snippet>
-<Snippet Shortcut="opoint" IsSurroundsWith="True">   opoint:
+<Snippet Shortcut="opoint" IsSurroundsWith="True">opoint:
       kind: $k$  x: $x$  y: $y$  action: $act$  dvx: $dvx$  dvy: $dvy$  oid: $oid$  facing: $fc$
    opoint_end:$end$</Snippet>
-<Snippet Shortcut="cpoint1" IsSurroundsWith="True">   cpoint:
+<Snippet Shortcut="cpoint1" IsSurroundsWith="True">cpoint:
       kind: 1  x: $x$  y: $y$  injury: $i$  aaction: $vact$  vaction: $aact$  taction: $tact$  throwvx: $tx$  throwvy: $ty$  throwvz: $tz$  hurtable: $hrt$  throwinjury: $ti$  decrease: $dec$  dircontrol: $dir$  cover: $c$
    cpoint_end:$end$</Snippet>
-<Snippet Shortcut="cpoint2" IsSurroundsWith="True">   cpoint:
+<Snippet Shortcut="cpoint2" IsSurroundsWith="True">cpoint:
       kind: 2  x: $x$  y: $y$  fronthurtact: $fhrt$  backhurtact: $bhrt$
    cpoint_end:$end$</Snippet>
-<Snippet Shortcut="bpoint" IsSurroundsWith="True">   bpoint:
+<Snippet Shortcut="bpoint" IsSurroundsWith="True">bpoint:
       x: $x$  y: $y$
    bpoint_end:$end$</Snippet>
 <Snippet Shortcut="stage" IsSurroundsWith="True">&lt;stage&gt; id: $id$  #$comment$
@@ -130,7 +130,7 @@ wpoint_end zboundary zwidth
 <Snippet Shortcut="weapon_strength_list" IsSurroundsWith="True">&lt;weapon_strength_list&gt;
    
 &lt;weapon_strength_list_end&gt;$end$</Snippet>
-<Snippet Shortcut="entry" IsSurroundsWith="True">   entry: $index$ $style$ 
+<Snippet Shortcut="entry" IsSurroundsWith="True">entry: $index$ $style$ 
      dvx: $dvx$  fall: $f$  $av$rest: $rst$  bdefend: $bd$  injury: $i$  effect: $e$$end$</Snippet>
 <Snippet Shortcut="bmp_char" IsSurroundsWith="True">&lt;bmp_begin&gt;
 name: $Template$

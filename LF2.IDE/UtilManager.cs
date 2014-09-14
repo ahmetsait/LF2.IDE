@@ -7,29 +7,25 @@ namespace LF2.IDE
 {
 	public static class UtilManager
 	{
-		public static Dictionary<string, IDataUtil> Utils = GetUtils(Program.utilDir);
+		public static Plugger<DataUtil> Utils;
+		public static bool UtilLock = true;
 
-		public static IDataUtil ActiveUtil { get { return Utils[Settings.Default.dataUtil]; } }
+		public static DataUtil ActiveUtil { get { return Utils[Settings.Current.dataUtil]; } }
 
-		public static Dictionary<string, IDataUtil> GetUtils(string dir)
+		public static void GetUtils(string directory)
 		{
-			string[] files;
-			if (!Directory.Exists(dir) || (files = Directory.GetFiles(dir, "*.dll")).Length == 0)
-				return null;
-			Dictionary<string, IDataUtil> result = new Dictionary<string, IDataUtil>(1);
-			Type interfaceType = typeof(IDataUtil);
-			foreach (string file in files)
-			{
-				foreach (Type type in Assembly.LoadFile(Path.GetFullPath(file)).GetTypes())
-				{
-					if (interfaceType.IsAssignableFrom(type) && interfaceType != type)
-					{
-						IDataUtil instance = (IDataUtil)Activator.CreateInstance(type);
-						result[instance.ToString()] = instance;
-					}
-				}
-			}
-			return result;
+			Utils = new Plugger<DataUtil>();
+			if (Directory.Exists(directory))
+				Utils.PlugOn(directory);
 		}
+	}
+
+	public abstract class DataUtil
+	{
+		protected static string EncryptionKey { get { return Settings.Current.encryptionKey; } }
+		protected static string DecryptionKey { get { return Settings.Current.decryptionKey; } }
+
+		public abstract string Decrypt(string filepath);
+		public abstract void Encrypt(string filepath, string text);
 	}
 }
