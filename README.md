@@ -4,7 +4,7 @@ A Visual Editor for LF2 Data Files
 
 So what exactly LF2 is?
 -----------------------
-It's a 2D fighting game that made by Marti Wong & Starsky Wong. See [Official Website](lf2.net)
+It's a 2D fighting game that made by Marti Wong & Starsky Wong. See [Official Website](http://lf2.net)
 
 Google 'lf2' for a lot more info. 
 
