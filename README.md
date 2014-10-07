@@ -19,7 +19,7 @@ You can edit game characters, weapons, levels, even create your own ones and add
 
 Why would I need this to edit the game?
 ---------------------------------------
-Because the data files are encrypted and you would propably don't want to do these yourself:
+Because the data files are encrypted and you would probably don't want to do these yourself:
 * Decrypt data files to a plain text file
 * Open it
 * Edit as you wish
