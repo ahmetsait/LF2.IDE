@@ -196,7 +196,7 @@
 			this.newToolStripButton.Name = "newToolStripButton";
 			this.newToolStripButton.Size = new System.Drawing.Size(32, 24);
 			this.newToolStripButton.Text = "File";
-			this.newToolStripButton.ButtonClick += new System.EventHandler(this.NewToolStripButtonClick);
+			this.newToolStripButton.ButtonClick += new System.EventHandler(this.NewToolStripButton_Click);
 			// 
 			// reopenToolStripButton
 			// 
@@ -291,7 +291,7 @@
 			this.findToolStripButton.Name = "findToolStripButton";
 			this.findToolStripButton.Size = new System.Drawing.Size(23, 24);
 			this.findToolStripButton.Text = "Find...";
-			this.findToolStripButton.Click += new System.EventHandler(this.FindtoolStripButtonClick);
+			this.findToolStripButton.Click += new System.EventHandler(this.FindtoolStripButton_Click);
 			// 
 			// replaceToolStripButton
 			// 
@@ -301,7 +301,7 @@
 			this.replaceToolStripButton.Name = "replaceToolStripButton";
 			this.replaceToolStripButton.Size = new System.Drawing.Size(23, 24);
 			this.replaceToolStripButton.Text = "Replace...";
-			this.replaceToolStripButton.Click += new System.EventHandler(this.ReplaceToolStripButtonClick);
+			this.replaceToolStripButton.Click += new System.EventHandler(this.ReplaceToolStripButton_Click);
 			// 
 			// toolStripSeparator_mainToolStrip4
 			// 
@@ -512,7 +512,7 @@
 			this.settingsToolStripButton.Name = "settingsToolStripButton";
 			this.settingsToolStripButton.Size = new System.Drawing.Size(23, 24);
 			this.settingsToolStripButton.Text = "Settings";
-			this.settingsToolStripButton.Click += new System.EventHandler(this.SettingsToolStripButtonClick);
+			this.settingsToolStripButton.Click += new System.EventHandler(this.SettingsToolStripButton_Click);
 			// 
 			// zoomInToolStripButton
 			// 
@@ -780,7 +780,7 @@
 			this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
 			this.newToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
 			this.newToolStripMenuItem.Text = "&New";
-			this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripButtonClick);
+			this.newToolStripMenuItem.Click += new System.EventHandler(this.NewToolStripButton_Click);
 			// 
 			// openToolStripMenuItem
 			// 
@@ -1045,7 +1045,7 @@
 			this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
 			this.settingsToolStripMenuItem.Size = new System.Drawing.Size(230, 22);
 			this.settingsToolStripMenuItem.Text = "&Settings";
-			this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripButtonClick);
+			this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripButton_Click);
 			// 
 			// checkUpdatesAutoToolStripMenuItem
 			// 
@@ -1371,7 +1371,7 @@
 			this.Text = "LF2.IDE";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_Closing);
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormFormClosed);
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormForm_Closed);
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.Shown += new System.EventHandler(this.MainForm_Shown);
 			this.ResizeEnd += new System.EventHandler(this.MainFormResizeEnd);
