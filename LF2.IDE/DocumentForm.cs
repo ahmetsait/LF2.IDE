@@ -77,7 +77,7 @@ namespace LF2.IDE
 					TabText.TrimEnd(' ', '*'),
 					Environment.NewLine,
 					Environment.NewLine);
-				
+
 				DialogResult dr = MessageBox.Show(this, message, Program.Title, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
 				if (dr == DialogResult.Cancel)
 				{
@@ -394,13 +394,13 @@ namespace LF2.IDE
 					auto = false;
 					smart = false;
 				}
-				scintilla.AutoComplete.List.Sort();
+				Scintilla.AutoComplete.List.Sort();
 			}
 		}
 
 		void ScintillaCharAdded(object sender, CharAddedEventArgs e)
 		{
-			if (auto)
+			if (auto && Settings.Current.autoComplete)
 			{
 				if (scintilla.Lexing.WordChars.Contains(e.Ch.ToString()))
 				{
@@ -427,7 +427,7 @@ namespace LF2.IDE
 
 		void ScintillaKeyPress(object sender, KeyPressEventArgs e)
 		{
-			if (auto)
+			if (auto && Settings.Current.autoComplete)
 				if (e.KeyChar == ':' || e.KeyChar == '>')
 				{
 					e.Handled = true;
@@ -453,7 +453,7 @@ namespace LF2.IDE
 			if (lines != last_measure_lines)
 			{
 				last_measure_lines = lines;
-				scintilla.Margins[0].Width = TextRenderer.MeasureText(lines.ToString(), scintilla.Font).Width + scintilla.Zoom * 3;
+				Scintilla.Margins[0].Width = TextRenderer.MeasureText(lines.ToString(), Scintilla.Font).Width + Scintilla.Zoom * 3;
 			}
 		}
 
