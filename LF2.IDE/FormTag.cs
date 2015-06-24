@@ -126,7 +126,6 @@ namespace LF2.IDE
 
 		private void Generate(object sender, EventArgs e)
 		{
-			// TODO: Use string formatting or StringBuilder instead of string aritmetic for a better performance
 			string txt = "";
 			try
 			{
@@ -712,12 +711,13 @@ namespace LF2.IDE
 			public int id;
 			[ProtoMember(2)]
 			public string file;
-			public Bitmap[] bmpList;
 			[ProtoMember(4)]
 			public List<Frame> frames;
 
+			public Bitmap[] bmpList;
+
 			[ProtoMember(3)]
-			public byte[][] getBmpList
+			public byte[][] bmpLister
 			{
 				get
 				{
