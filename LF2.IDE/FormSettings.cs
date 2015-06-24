@@ -21,6 +21,7 @@ namespace LF2.IDE
 			textBox_DecryptionKey.Text = Settings.Current.decryptionKey;
 			textBox_Path.Text = (string.IsNullOrEmpty(Settings.Current.lfPath) ? "lf2.exe" : Settings.Current.lfPath);
 			radioButton_External.Checked = !(radioButton_Default.Checked = string.IsNullOrEmpty(Settings.Current.dataUtil));
+			checkBox_AutoComplete.Checked = Settings.Current.autoComplete;
 
 			if (UtilManager.UtilLock)
 			{
@@ -81,6 +82,7 @@ namespace LF2.IDE
 				Settings.Current.decryptionKey = textBox_DecryptionKey.Text;
 				Settings.Current.lfPath = (string.IsNullOrEmpty(textBox_Path.Text) ? "lf2.exe" : textBox_Path.Text);
 				Settings.Current.dataUtil = (radioButton_Default.Checked || string.IsNullOrEmpty(comboBox_DataUtils.Text)) ? null : comboBox_DataUtils.Text;
+				Settings.Current.autoComplete = checkBox_AutoComplete.Checked;
 
 				foreach(ListViewItem item in listView_Plugins.Items)
 				{
