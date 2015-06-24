@@ -931,7 +931,7 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.TabText = "Frame";
 			this.Text = "Frame";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormVisualFormClosing);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFrame_Closing);
 			((System.ComponentModel.ISupportInitialize)(this.numericUoDown_imageIndex)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_frameIndex)).EndInit();
 			this.splitContainer.Panel1.ResumeLayout(false);
