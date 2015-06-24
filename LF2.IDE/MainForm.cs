@@ -418,7 +418,7 @@ namespace LF2.IDE
 				ActiveDocument.SaveAs();
 		}
 
-		void FindtoolStripButtonClick(object sender, EventArgs e)
+		void FindtoolStripButton_Click(object sender, EventArgs e)
 		{
 			if (ActiveDocument != null)
 			{
@@ -426,34 +426,34 @@ namespace LF2.IDE
 			}
 		}
 
-		void CutToolStripMenuItemClick(object sender, System.EventArgs e)
+		void CutToolStripMenuItem_Click(object sender, System.EventArgs e)
 		{
 			cutToolStripButton.PerformClick();
 		}
 
-		void CopyToolStripMenuItemClick(object sender, EventArgs e)
+		void CopyToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			copyToolStripButton.PerformClick();
 		}
 
-		void PasteToolStripMenuItemClick(object sender, EventArgs e)
+		void PasteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			pasteToolStripButton.PerformClick();
 		}
 
-		void SaveToolStripMenuItemClick(object sender, EventArgs e)
+		void SaveToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			saveAllToolStripButton.PerformClick();
 		}
 
-		void SettingsToolStripButtonClick(object sender, EventArgs e)
+		void SettingsToolStripButton_Click(object sender, EventArgs e)
 		{
 			FormSettings fs = new FormSettings();
 			if (fs.ShowDialog() == DialogResult.OK)
 				implementSettings();
 		}
 
-		void NewToolStripButtonClick(object sender, EventArgs e)
+		void NewToolStripButton_Click(object sender, EventArgs e)
 		{
 			OpenWithText("", null);
 		}
@@ -467,7 +467,7 @@ namespace LF2.IDE
 			}
 		}
 
-		void ReplaceToolStripButtonClick(object sender, EventArgs e)
+		void ReplaceToolStripButton_Click(object sender, EventArgs e)
 		{
 			if (ActiveDocument != null)
 			{
@@ -506,7 +506,7 @@ namespace LF2.IDE
 			}
 		}
 
-		void MainFormFormClosed(object sender, FormClosedEventArgs e)
+		void MainFormForm_Closed(object sender, FormClosedEventArgs e)
 		{
 			Settings.Current.Save();
 			try
