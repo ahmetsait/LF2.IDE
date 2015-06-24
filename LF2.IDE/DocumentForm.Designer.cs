@@ -118,8 +118,8 @@
 
 		#endregion
 
-		public ScintillaNET.Scintilla scintilla;
 		public System.Windows.Forms.SaveFileDialog saveFileDialog;
+		private ScintillaNET.Scintilla scintilla;
 
 	}
 }
