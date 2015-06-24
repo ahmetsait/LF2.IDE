@@ -9,6 +9,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using Microsoft.VisualBasic.ApplicationServices;
+using ProtoBuf.Meta;
 
 namespace LF2.IDE
 {
@@ -23,6 +24,9 @@ namespace LF2.IDE
 				Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(true);
+
+				RuntimeTypeModel.Default.Add(typeof(Size), false).Add("Width", "Height");
+
 				using (MainForm = new MainForm(args))
 					SingleInstanceApplication.Run(MainForm, NewInstanceHandler);
 			}
