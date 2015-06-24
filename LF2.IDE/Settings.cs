@@ -30,7 +30,8 @@ namespace LF2.IDE
 		public bool showWhiteSpaces = false,
 			showEndOfLineChars = false,
 			reversePaint = true,
-			checkUpdatesAuto = true;
+			checkUpdatesAuto = true,
+			autoComplete = true;
 
 		public List<string> recentFileHistory = new List<string>(8),
 			activePlugins = new List<string>();
