@@ -1,4 +1,3 @@
-using ProtoBuf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -702,82 +701,44 @@ namespace LF2.IDE
 
 		// TODO: Instead of adding image data to "opoint.cache", reference their file name and make them load itself with protobuf assigments
 
-		public List<Obj> opointCache = new List<Obj>(64);
+		public List<Obj> opointCache = new List<Obj>(128);
 
-		[ProtoContract]
 		public class Obj
 		{
-			[ProtoMember(1)]
 			public int id;
-			[ProtoMember(2)]
 			public string file;
-			[ProtoMember(4)]
 			public List<Frame> frames;
 
-			public Bitmap[] bmpList;
+			public Dictionary<int, Bitmap> bmpList;
 
-			[ProtoMember(3)]
-			public byte[][] bmpLister
-			{
-				get
-				{
-					if (bmpList == null || bmpList.Length == 0)
-						return null;
-					byte[][] result = new byte[bmpList.Length][];
-					using (MemoryStream ms = new MemoryStream())
-					{
-						for (int i = 0; i < bmpList.Length; i++)
-						{
-							if (bmpList[i] != null)
-								bmpList[i].Save(ms, ImageFormat.Bmp);
-							result[i] = ms.ToArray();
-						}
-					}
-					return result;
-				}
-				set
-				{
-					if (value == null || value.Length == 0)
-					{
-						bmpList = new Bitmap[1];
-						return;
-					}
-					bmpList = new Bitmap[value.Length];
-					for (int i = 0; i < value.Length; i++)
-						using (MemoryStream ms = new MemoryStream(value[i]))
-							bmpList[i] = (Bitmap)Image.FromStream(ms);
-				}
-			}
+			public List<SpriteSheet> spriteSheet;
+			public Obj() { }
 
-			public Obj()
-			{
-
-			}
-
-			public Obj(int id, string file, Bitmap[] bmpList, List<Frame> frames)
+			public Obj(int id, string file, Dictionary<int, Bitmap> bmpList, List<Frame> frames)
 			{
 				this.id = id;
 				this.file = file;
 				this.bmpList = bmpList;
 				this.frames = frames;
 			}
+
+			public void LoadBmpList(string lfDir)
+			{
+				bmpList = new Dictionary<int, Bitmap>(1024);
+
+			}
 		}
 
-		[ProtoContract]
 		public class Frame
 		{
-			[ProtoMember(1)]
 			public int id;
-			[ProtoMember(2)]
 			public int pic;
 			public Point center;
-			[ProtoMember(3)]
 			public int centerX
 			{
 				get { return center.X; }
 				set { center.X = value; }
 			}
-			[ProtoMember(4)]
 			public int centerY
 			{
 				get { return center.Y; }
@@ -823,13 +784,13 @@ namespace LF2.IDE
 			return frames;
 		}
 
-		public List<FileMaker> ParseFiles(string lfDir, string dat)
+		public List<SpriteSheet> ParseFiles(string lfDir, string dat)
 		{
-			List<FileMaker> fileList = new List<FileMaker>(8);
+			List<SpriteSheet> fileList = new List<SpriteSheet>(8);
 			int begin = dat.IndexOf("<bmp_begin>"), end = dat.IndexOf("<bmp_end>", begin + 11);
 			if (begin < 0 || end < 0) return null;
 			string script = dat.Substring(begin + 11, end - begin);
-			MatchCollection matches = Regex.Matches(script, FileMaker.regexPattern);
+			MatchCollection matches = Regex.Matches(script, SpriteSheet.regexPattern);
 			if (matches.Count < 1) return null;
 			for (int i = 0; i < matches.Count; i++)
 			{
@@ -843,25 +804,19 @@ namespace LF2.IDE
 					h = int.Parse(matches[i].Groups[5].Value),
 					r = int.Parse(matches[i].Groups[6].Value),
 					c = int.Parse(matches[i].Groups[7].Value);
-				FileMaker fm = new FileMaker(si, ei, img.Tag as string, img, w, h, c, r);
+				SpriteSheet fm = new SpriteSheet(si, ei, img.Tag as string, img, w, h, c, r);
 				fileList.Add(fm);
 			}
 			return fileList;
 		}
 
-		public Bitmap[] ParseBmpList(List<FileMaker> fileList)
+		public Dictionary<int, Bitmap> ParseBmpList(List<SpriteSheet> fileList)
 		{
-			int top = 1;
-			foreach (FileMaker fm in fileList)
-				if (fm.endIndex + 1 > top) top = fm.endIndex + 1;
-
-			Bitmap[] frames = new Bitmap[top];
-			for (int i = 0; i < top; i++)
-				frames[i] = null;
+			Dictionary<int, Bitmap> frames = new Dictionary<int, Bitmap>(256);
 
 			for (int i = 0; i < fileList.Count; i++)
 			{
-				FileMaker fm = fileList[i];
+				SpriteSheet fm = fileList[i];
 				int k = fm.startIndex;
 				for (int r = 0; r < fm.row; r++)
 				{
@@ -870,7 +825,7 @@ namespace LF2.IDE
 						if (backgroundWorker_CreateOpointCache.CancellationPending) return frames;
 						Bitmap btm = new Bitmap(fm.w, fm.h, PixelFormat.Format32bppRgb);
 						using (Graphics g = Graphics.FromImage(btm))
-							g.DrawImage(fm.image, new Rectangle(0, 0, fm.w, fm.h), new Rectangle(c * (fm.w + 1), r * (fm.h + 1), fm.w, fm.h), GraphicsUnit.Pixel);
+							g.DrawImage(fm.sprite, new Rectangle(0, 0, fm.w, fm.h), new Rectangle(c * (fm.w + 1), r * (fm.h + 1), fm.w, fm.h), GraphicsUnit.Pixel);
 						frames[k] = btm;
 					}
 				}
@@ -880,8 +835,16 @@ namespace LF2.IDE
 
 		void OpointCacheButtonClick(object sender, EventArgs e)
 		{
+			StartCaching();
+		}
+
+		string cacheButtonString;
+
+		public void StartCaching()
+		{
 			if (!backgroundWorker_CreateOpointCache.IsBusy)
 			{
+				cacheButtonString = button_CreateOpointCache.Text;
 				opointCache.Clear();
 				opoint_oid.Items.Clear();
 				GC.Collect();
@@ -903,7 +866,7 @@ namespace LF2.IDE
 			int st = data.IndexOf("<object>"), end = data.IndexOf("<object_end>", st + 8);
 			if (st < 0 || end < 0) return;
 			data = data.Substring(st + 8, end - st);
-			MatchCollection matches = Regex.Matches(data, @"id: *(\d*) *.*file: *(.*)", RegexOptions.IgnoreCase);
+			MatchCollection matches = Regex.Matches(data, @"id: *(\d*) *.*file: *(.*)");
 			for (int i = 0; i < matches.Count; i++)
 			{
 				if (backgroundWorker_CreateOpointCache.CancellationPending)
@@ -923,15 +886,12 @@ namespace LF2.IDE
 				backgroundWorker_CreateOpointCache.ReportProgress((int)(i / (float)(matches.Count) * 100), file);
 
 				string dat = LF2DataUtil.Decrypt(lfDir + "\\" + file);
-				List<FileMaker> fileList = ParseFiles(lfDir, dat);
+				List<SpriteSheet> fileList = ParseFiles(lfDir, dat);
 				if (fileList == null) continue;
-				Bitmap[] bmpList = ParseBmpList(fileList);
+				Dictionary<int, Bitmap> bmpList = ParseBmpList(fileList);
 				List<Frame> frames = ParseFrames(dat);
 				opointCache.Add(new Obj(id, file, bmpList, frames));
 			}
-
-			using (FileStream fs = new FileStream(opointCachePath, FileMode.Create))
-				Serializer.Serialize<List<Obj>>(fs, opointCache);
 
 			e.Result = opointCache;
 		}
@@ -960,7 +920,7 @@ namespace LF2.IDE
 
 				mainForm.formEventLog.Log("Cache Creation: " + stopWatch.Elapsed, true);
 			}
-			button_CreateOpointCache.Text = "Create Opoint Cache";
+			button_CreateOpointCache.Text = cacheButtonString;
 			stopWatch.Reset();
 		}
 
@@ -979,7 +939,7 @@ namespace LF2.IDE
 			drawBox.AutoRefresh = false;
 			x = opoint_action.SelectedIndex = 0;
 			pic = o.frames[x].pic;
-			drawBox.PointImage = opointImage = ((pic != 999 && pic < o.bmpList.Length) ? o.bmpList[pic] : null);
+			drawBox.PointImage = opointImage = ((pic != 999 && pic < o.bmpList.Count) ? o.bmpList[pic] : null);
 			drawBox.PointImageOffset = opointOffset = o.frames[x].center;
 			drawBox.AutoRefresh = true;
 		}
@@ -999,55 +959,9 @@ namespace LF2.IDE
 			Obj o = opointCache[id];
 			pic = o.frames[x].pic;
 			drawBox.AutoRefresh = false;
-			drawBox.PointImage = opointImage = ((pic != 999 && pic < o.bmpList.Length) ? o.bmpList[pic] : null);
+			drawBox.PointImage = opointImage = ((pic != 999 && pic < o.bmpList.Count) ? o.bmpList[pic] : null);
 			drawBox.PointImageOffset = opointOffset = o.frames[x].center;
 			drawBox.AutoRefresh = true;
-		}
-
-		void RefreshViewerClick(object sender, EventArgs e)
-		{
-			if (!backgroundWorker_Refresh.IsBusy)
-			{
-				opointCache.Clear();
-				GC.Collect();
-				if (!stopWatch.IsRunning)
-					stopWatch.Start();
-				button_RefreshOpointViewer.Text = "...";
-				backgroundWorker_Refresh.RunWorkerAsync();
-			}
-		}
-
-		void CacheDeseralizerDoWork(object sender, DoWorkEventArgs e)
-		{
-			string cachePath = opointCachePath;
-			if (File.Exists(cachePath))
-			{
-				List<Obj> opointCache;
-				using (FileStream fs = new FileStream(cachePath, FileMode.Open))
-					opointCache = (List<Obj>)Serializer.Deserialize<List<Obj>>(fs);
-				e.Result = opointCache;
-			}
-		}
-
-		void CacheDeseralizerRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-		{
-			if (e.Error != null)
-			{
-				mainForm.formEventLog.Error(e.Error, "Opoint Cache Deserialization Error");
-			}
-			else if (e.Result != null)
-			{
-				opointCache.Clear();
-				opointCache.AddRange(e.Result as List<Obj>);
-
-				opoint_oid.Items.Clear();
-				foreach (Obj obj in opointCache)
-					opoint_oid.Items.Add(obj.id);
-
-				mainForm.formEventLog.Log("Cache Deserialization: " + stopWatch.Elapsed, true);
-			}
-			button_RefreshOpointViewer.Text = "Refresh";
-			stopWatch.Reset();
 		}
 	}
 }

@@ -161,7 +161,6 @@
 			this.tabPage_o = new System.Windows.Forms.TabPage();
 			this.groupBox_OpointPanel = new System.Windows.Forms.GroupBox();
 			this.progressBar_CacheCreation = new System.Windows.Forms.ProgressBar();
-			this.button_RefreshOpointViewer = new System.Windows.Forms.Button();
 			this.label_CacheCreationProgress = new System.Windows.Forms.Label();
 			this.button_CreateOpointCache = new System.Windows.Forms.Button();
 			this.label_oHint = new System.Windows.Forms.Label();
@@ -192,6 +191,7 @@
 			this.tabPage_w.SuspendLayout();
 			this.tabPage_o.SuspendLayout();
 			this.groupBox_OpointPanel.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
 			this.splitContainer.Panel1.SuspendLayout();
 			this.splitContainer.Panel2.SuspendLayout();
 			this.splitContainer.SuspendLayout();
@@ -1561,7 +1561,6 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox_OpointPanel.Controls.Add(this.progressBar_CacheCreation);
-			this.groupBox_OpointPanel.Controls.Add(this.button_RefreshOpointViewer);
 			this.groupBox_OpointPanel.Controls.Add(this.label_CacheCreationProgress);
 			this.groupBox_OpointPanel.Controls.Add(this.button_CreateOpointCache);
 			this.groupBox_OpointPanel.Location = new System.Drawing.Point(6, 137);
@@ -1580,20 +1579,6 @@
 			this.progressBar_CacheCreation.Size = new System.Drawing.Size(244, 23);
 			this.progressBar_CacheCreation.TabIndex = 11;
 			// 
-			// button_RefreshOpointViewer
-			// 
-			this.button_RefreshOpointViewer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button_RefreshOpointViewer.AutoSize = true;
-			this.button_RefreshOpointViewer.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-			this.button_RefreshOpointViewer.Location = new System.Drawing.Point(196, 19);
-			this.button_RefreshOpointViewer.Name = "button_RefreshOpointViewer";
-			this.button_RefreshOpointViewer.Size = new System.Drawing.Size(54, 23);
-			this.button_RefreshOpointViewer.TabIndex = 10;
-			this.button_RefreshOpointViewer.TabStop = false;
-			this.button_RefreshOpointViewer.Text = "Refresh";
-			this.button_RefreshOpointViewer.UseVisualStyleBackColor = true;
-			this.button_RefreshOpointViewer.Click += new System.EventHandler(this.RefreshViewerClick);
-			// 
 			// label_CacheCreationProgress
 			// 
 			this.label_CacheCreationProgress.AutoSize = true;
@@ -1609,10 +1594,10 @@
 			this.button_CreateOpointCache.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.button_CreateOpointCache.Location = new System.Drawing.Point(6, 19);
 			this.button_CreateOpointCache.Name = "button_CreateOpointCache";
-			this.button_CreateOpointCache.Size = new System.Drawing.Size(116, 23);
+			this.button_CreateOpointCache.Size = new System.Drawing.Size(90, 23);
 			this.button_CreateOpointCache.TabIndex = 10;
 			this.button_CreateOpointCache.TabStop = false;
-			this.button_CreateOpointCache.Text = "Create Opoint Cache";
+			this.button_CreateOpointCache.Text = "Reload Objects";
 			this.button_CreateOpointCache.UseVisualStyleBackColor = true;
 			this.button_CreateOpointCache.Click += new System.EventHandler(this.OpointCacheButtonClick);
 			// 
@@ -1790,7 +1775,7 @@
 			this.drawBox.Center = new System.Drawing.Point(-1, -1);
 			this.drawBox.DisplayMode = DrawBox.DisplayModes.Rectangle;
 			this.drawBox.DrawingMode = DrawBox.DrawingMode.Rectangle;
-			this.drawBox.ImageIntend = 1;
+			this.drawBox.ImageIndent = 1;
 			this.drawBox.Location = new System.Drawing.Point(11, 37);
 			this.drawBox.Name = "drawBox";
 			this.drawBox.PictureMode = DrawBox.PictureMode.CenterImage;
@@ -1819,11 +1804,6 @@
 			this.backgroundWorker_CreateOpointCache.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CreateOpointCache);
 			this.backgroundWorker_CreateOpointCache.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.OpointCacheCreatorProgressChanged);
 			this.backgroundWorker_CreateOpointCache.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.OpointCacheCreatorRunWorkerCompleted);
-			// 
-			// backgroundWorker_Refresh
-			// 
-			this.backgroundWorker_Refresh.DoWork += new System.ComponentModel.DoWorkEventHandler(this.CacheDeseralizerDoWork);
-			this.backgroundWorker_Refresh.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.CacheDeseralizerRunWorkerCompleted);
 			// 
 			// FormTag
 			// 
@@ -1868,12 +1848,12 @@
 			this.groupBox_OpointPanel.PerformLayout();
 			this.splitContainer.Panel1.ResumeLayout(false);
 			this.splitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
 			this.splitContainer.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
 		public System.ComponentModel.BackgroundWorker backgroundWorker_Refresh;
-		public System.Windows.Forms.Button button_RefreshOpointViewer;
 		public DrawBox.DrawBox drawBox;
 		public System.Windows.Forms.NumericUpDown numericUpDown_ImageIndex;
 		public System.Windows.Forms.RichTextBox richTextBox;
