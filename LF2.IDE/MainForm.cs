@@ -142,7 +142,7 @@ namespace LF2.IDE
 				if (lastActiveFrame != null && lastActiveFrame.Length > 0)
 				{
 					formTag.numericUpDown_ImageIndex.Maximum =
-					formFrame.numericUoDown_imageIndex.Maximum =
+					formFrame.numericUpDown_imageIndex.Maximum =
 					formShape.numericUpDown_ImageIndex.Maximum = lastActiveFrame.Length - 1;
 					formTag.drawBox.Image =
 					formFrame.drawBox.Image =
@@ -156,8 +156,7 @@ namespace LF2.IDE
 				solutionExplorer.refreshToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Text;
 				solutionExplorer.PopulateTreeView(solutionExplorer.DestinationFolder);
 				formTag.stopWatch.Start();
-				formTag.button_RefreshOpointViewer.Text = "...";
-				formTag.backgroundWorker_Refresh.RunWorkerAsync();
+				formTag.StartCaching();
 			}
 
 			//CSScript.Evaluator.CompilerSettings.AssemblyReferences.AddRange(from a in Assembly.GetExecutingAssembly().GetReferencedAssemblies() select a.FullName);
@@ -541,10 +540,10 @@ namespace LF2.IDE
 					lastActiveDoc = ActiveDocument;
 					lastActiveFrame = lastActiveDoc.frames;
 					formTag.numericUpDown_ImageIndex.Maximum =
-					formFrame.numericUoDown_imageIndex.Maximum =
+					formFrame.numericUpDown_imageIndex.Maximum =
 					formShape.numericUpDown_ImageIndex.Maximum = lastActiveFrame.Length - 1;
 					formTag.numericUpDown_ImageIndex.Value = lastActiveDoc.frameIndexTag;
-					formFrame.numericUoDown_imageIndex.Value = lastActiveDoc.frameIndexFrame;
+					formFrame.numericUpDown_imageIndex.Value = lastActiveDoc.frameIndexFrame;
 					formShape.numericUpDown_ImageIndex.Value = lastActiveDoc.frameIndexShape;
 					formTag.drawBox.Image = lastActiveFrame[lastActiveDoc.frameIndexTag];
 					formFrame.drawBox.Image = lastActiveFrame[lastActiveDoc.frameIndexFrame];
@@ -822,7 +821,7 @@ namespace LF2.IDE
 		//	return bmp;
 		//}
 
-		//public string AviRecordDir { get { return Path.GetDirectoryName(Settings.Current.lfPath) + "\\records"; } }
+		//public string AviRecordDir { get { return Path.GetDirectoryName(Settings.Current.lfPath) + "\\Records"; } }
 
 		void DebugToolStripMenuItemClick(object sender, EventArgs e)
 		{
@@ -978,9 +977,9 @@ namespace LF2.IDE
 				if (lastActiveFrame != null && lastActiveFrame.Length > 0)
 				{
 					formTag.numericUpDown_ImageIndex.Maximum =
-					formFrame.numericUoDown_imageIndex.Maximum =
+					formFrame.numericUpDown_imageIndex.Maximum =
 					formShape.numericUpDown_ImageIndex.Maximum = lastActiveFrame.Length - 1;
-					formTag.numericUpDown_ImageIndex.Value = formFrame.numericUoDown_imageIndex.Value = formShape.numericUpDown_ImageIndex.Value = 0;
+					formTag.numericUpDown_ImageIndex.Value = formFrame.numericUpDown_imageIndex.Value = formShape.numericUpDown_ImageIndex.Value = 0;
 					formTag.drawBox.Image =
 					formFrame.drawBox.Image =
 					formShape.drawBox.Image = lastActiveFrame[0];
@@ -1014,9 +1013,9 @@ namespace LF2.IDE
 				if (lastActiveFrame != null && lastActiveFrame.Length > 0)
 				{
 					formTag.numericUpDown_ImageIndex.Maximum =
-					formFrame.numericUoDown_imageIndex.Maximum =
+					formFrame.numericUpDown_imageIndex.Maximum =
 					formShape.numericUpDown_ImageIndex.Maximum = lastActiveFrame.Length - 1;
-					formTag.numericUpDown_ImageIndex.Value = formFrame.numericUoDown_imageIndex.Value = formShape.numericUpDown_ImageIndex.Value = 0;
+					formTag.numericUpDown_ImageIndex.Value = formFrame.numericUpDown_imageIndex.Value = formShape.numericUpDown_ImageIndex.Value = 0;
 					formTag.drawBox.Image =
 					formFrame.drawBox.Image =
 					formShape.drawBox.Image = lastActiveFrame[0];
