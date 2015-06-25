@@ -30,9 +30,9 @@ namespace LF2.IDE
 		void ImageIndexChanged(object sender, EventArgs e)
 		{
 			if (mainForm.lastActiveFrame != null)
-				drawBox.Image = mainForm.lastActiveFrame[mainForm.lastActiveDoc.frameIndexFrame = (int)numericUoDown_imageIndex.Value];
-
-			numericUoDown_imageIndex.Refresh();
+				drawBox.Image = mainForm.lastActiveFrame[mainForm.lastActiveDoc.frameIndexFrame = (int)numericUpDown_imageIndex.Value];
+			
+			numericUpDown_imageIndex.Refresh();
 		}
 
 		private void Insert(object sender, EventArgs e)
@@ -44,7 +44,7 @@ namespace LF2.IDE
 		private void Generate(object sender, EventArgs e)
 		{
 			int nextStep; int.TryParse(next.Text.Trim(), out nextStep);
-			StringBuilder str = new StringBuilder().AppendFormat("<frame> {0} {1}\n   pic: {2}  state: {3}  wait: {4}  next: {5}  dvx: {6}  dvy: {7}{8}  centerx: {9}  centery: {10}", numericUpDown_frameIndex.Value, ComboBox_caption.Text.Trim(), numericUoDown_imageIndex.Value, state.Text.Trim(), wait.Text.Trim(), next.Text.Trim(), dvx.Text.Trim(), dvy.Text.Trim(), (dvz.Text != "" ? "  dvz: " + dvz.Text.Trim() : ""), centerx.Text.Trim(), centery.Text.Trim());
+			StringBuilder str = new StringBuilder().AppendFormat("<frame> {0} {1}\n   pic: {2}  state: {3}  wait: {4}  next: {5}  dvx: {6}  dvy: {7}{8}  centerx: {9}  centery: {10}", numericUpDown_frameIndex.Value, ComboBox_caption.Text.Trim(), numericUpDown_imageIndex.Value, state.Text.Trim(), wait.Text.Trim(), next.Text.Trim(), dvx.Text.Trim(), dvy.Text.Trim(), (dvz.Text != "" ? "  dvz: " + dvz.Text.Trim() : ""), centerx.Text.Trim(), centery.Text.Trim());
 			str.Append(hit_a.Text.Trim() == "" ? "" : "  hit_a: " + hit_a.Text.Trim());
 			str.Append(hit_d.Text.Trim() == "" ? "" : "  hit_d: " + hit_d.Text.Trim());
 			str.Append(hit_j.Text.Trim() == "" ? "" : "  hit_j: " + hit_j.Text.Trim());
@@ -62,7 +62,7 @@ namespace LF2.IDE
 
 			for (int i = 0; i < frameCount.Value; i++)
 			{
-				str = new StringBuilder().AppendFormat("<frame> {0} {1}\n   pic: {2}  state: {3}  wait: {4}  next: {5}  dvx: {6}  dvy: {7}{8}  centerx: {9}  centery: {10}", numericUpDown_frameIndex.Value, ComboBox_caption.Text.Trim(), numericUoDown_imageIndex.Value, state.Text.Trim(), wait.Text.Trim(), next.Text.Trim(), dvx.Text.Trim(), dvy.Text.Trim(), (dvz.Text != "" ? "  dvz: " + dvz.Text.Trim() : ""), centerx.Text.Trim(), centery.Text.Trim());
+				str = new StringBuilder().AppendFormat("<frame> {0} {1}\n   pic: {2}  state: {3}  wait: {4}  next: {5}  dvx: {6}  dvy: {7}{8}  centerx: {9}  centery: {10}", numericUpDown_frameIndex.Value, ComboBox_caption.Text.Trim(), numericUpDown_imageIndex.Value, state.Text.Trim(), wait.Text.Trim(), next.Text.Trim(), dvx.Text.Trim(), dvy.Text.Trim(), (dvz.Text != "" ? "  dvz: " + dvz.Text.Trim() : ""), centerx.Text.Trim(), centery.Text.Trim());
 				str.Append(hit_a.Text.Trim() == "" ? "" : "  hit_a: " + hit_a.Text.Trim());
 				str.Append(hit_d.Text.Trim() == "" ? "" : "  hit_d: " + hit_d.Text.Trim());
 				str.Append(hit_j.Text.Trim() == "" ? "" : "  hit_j: " + hit_j.Text.Trim());
