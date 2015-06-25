@@ -205,7 +205,7 @@
 			this.drawBox.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("drawBox.BackgroundImage")));
 			this.drawBox.DisplayMode = DrawBox.DisplayModes.Point;
 			this.drawBox.DrawingMode = DrawBox.DrawingMode.Point;
-			this.drawBox.ImageIntend = 1;
+			this.drawBox.ImageIndent = 1;
 			this.drawBox.Location = new System.Drawing.Point(12, 12);
 			this.drawBox.Name = "drawBox";
 			this.drawBox.PictureMode = DrawBox.PictureMode.CenterImage;
