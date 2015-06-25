@@ -35,7 +35,7 @@
 			this.button_Clip = new System.Windows.Forms.Button();
 			this.label_dvz = new System.Windows.Forms.Label();
 			this.dvz = new System.Windows.Forms.TextBox();
-			this.numericUoDown_imageIndex = new System.Windows.Forms.NumericUpDown();
+			this.numericUpDown_imageIndex = new System.Windows.Forms.NumericUpDown();
 			this.numericUpDown_frameIndex = new System.Windows.Forms.NumericUpDown();
 			this.button_Generate = new System.Windows.Forms.Button();
 			this.richTextBox = new System.Windows.Forms.RichTextBox();
@@ -92,7 +92,7 @@
 			this.frameCount = new System.Windows.Forms.NumericUpDown();
 			this.next = new System.Windows.Forms.TextBox();
 			this.label_frameCount = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.numericUoDown_imageIndex)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_imageIndex)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_frameIndex)).BeginInit();
 			this.splitContainer.Panel1.SuspendLayout();
 			this.splitContainer.Panel2.SuspendLayout();
@@ -155,19 +155,19 @@
 			this.dvz.Size = new System.Drawing.Size(60, 20);
 			this.dvz.TabIndex = 9;
 			// 
-			// numericUoDown_imageIndex
+			// numericUpDown_imageIndex
 			// 
-			this.numericUoDown_imageIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.numericUoDown_imageIndex.Location = new System.Drawing.Point(134, 164);
-			this.numericUoDown_imageIndex.Maximum = new decimal(new int[] {
+			this.numericUpDown_imageIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.numericUpDown_imageIndex.Location = new System.Drawing.Point(134, 164);
+			this.numericUpDown_imageIndex.Maximum = new decimal(new int[] {
             0,
             0,
             0,
             0});
-			this.numericUoDown_imageIndex.Name = "numericUoDown_imageIndex";
-			this.numericUoDown_imageIndex.Size = new System.Drawing.Size(52, 20);
-			this.numericUoDown_imageIndex.TabIndex = 3;
-			this.numericUoDown_imageIndex.ValueChanged += new System.EventHandler(this.ImageIndexChanged);
+			this.numericUpDown_imageIndex.Name = "numericUpDown_imageIndex";
+			this.numericUpDown_imageIndex.Size = new System.Drawing.Size(52, 20);
+			this.numericUpDown_imageIndex.TabIndex = 3;
+			this.numericUpDown_imageIndex.ValueChanged += new System.EventHandler(this.ImageIndexChanged);
 			// 
 			// numericUpDown_frameIndex
 			// 
@@ -711,7 +711,7 @@
 			this.splitContainer.Panel1.Controls.Add(this.hit_ja);
 			this.splitContainer.Panel1.Controls.Add(this.label_hit_Fa);
 			this.splitContainer.Panel1.Controls.Add(this.frameCount);
-			this.splitContainer.Panel1.Controls.Add(this.numericUoDown_imageIndex);
+			this.splitContainer.Panel1.Controls.Add(this.numericUpDown_imageIndex);
 			this.splitContainer.Panel1.Controls.Add(this.hit_Dj);
 			this.splitContainer.Panel1.Controls.Add(this.label_hit_Ua);
 			this.splitContainer.Panel1.Controls.Add(this.numericUpDown_frameIndex);
@@ -932,7 +932,7 @@
 			this.TabText = "Frame";
 			this.Text = "Frame";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormFrame_Closing);
-			((System.ComponentModel.ISupportInitialize)(this.numericUoDown_imageIndex)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_imageIndex)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_frameIndex)).EndInit();
 			this.splitContainer.Panel1.ResumeLayout(false);
 			this.splitContainer.Panel1.PerformLayout();
@@ -944,7 +944,7 @@
 		}
 		public System.Windows.Forms.NumericUpDown frameCount;
 		public DrawBox.DrawBox drawBox;
-		public System.Windows.Forms.NumericUpDown numericUoDown_imageIndex;
+		public System.Windows.Forms.NumericUpDown numericUpDown_imageIndex;
 		public System.Windows.Forms.Label label_nextOfLastFrame;
 		public System.Windows.Forms.ComboBox nextOfLastFrame;
 		public System.Windows.Forms.Label label_frameCount;
