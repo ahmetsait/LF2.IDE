@@ -25,8 +25,6 @@ namespace LF2.IDE
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(true);
 
-				RuntimeTypeModel.Default.Add(typeof(Size), false).Add("Width", "Height");
-
 				using (MainForm = new MainForm(args))
 					SingleInstanceApplication.Run(MainForm, NewInstanceHandler);
 			}
