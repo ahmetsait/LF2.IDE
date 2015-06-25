@@ -538,6 +538,7 @@
     <PostBuildEvent>del "$(TargetDir)CSScriptLibrary.xml"
 del "$(TargetDir)protobuf-net.xml"
 del "$(TargetDir)protobuf-net.pdb"
+del "$(TargetDir)protobuf-net.pri"
 del "$(TargetDir)ScintillaNET.pdb"
 del "$(TargetDir)ScintillaNET.xml"</PostBuildEvent>
   </PropertyGroup>
