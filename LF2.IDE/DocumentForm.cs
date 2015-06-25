@@ -17,7 +17,7 @@ namespace LF2.IDE
 		private string _filePath;
 		private bool _issaved;
 
-		public List<FileMaker> fileList = new List<FileMaker>(0);
+		public List<SpriteSheet> spriteList = new List<SpriteSheet>(0);
 		public Bitmap[] frames;
 		public int frameIndexTag;
 		public int frameIndexFrame;
@@ -280,12 +280,12 @@ namespace LF2.IDE
 
 		public void ParseFiles(string lfdir)
 		{
-			fileList.Clear();
+			spriteList.Clear();
 			string dat = scintilla.Text;
 			int begin = dat.IndexOf("<bmp_begin>"), end = dat.IndexOf("<bmp_end>", begin + 11);
 			if (begin < 0 || end < 0) return;
 			string script = dat.Substring(begin + 11, end - begin);
-			MatchCollection matches = Regex.Matches(script, FileMaker.regexPattern);
+			MatchCollection matches = Regex.Matches(script, SpriteSheet.regexPattern);
 			if (matches.Count < 1) return;
 			for (int i = 0; i < matches.Count; i++)
 			{
@@ -298,24 +298,24 @@ namespace LF2.IDE
 					h = int.Parse(matches[i].Groups[5].Value.Trim()),
 					r = int.Parse(matches[i].Groups[6].Value.Trim()),
 					c = int.Parse(matches[i].Groups[7].Value.Trim());
-				FileMaker fm = new FileMaker(si, ei, img.Tag as string, img, w, h, c, r);
-				fileList.Add(fm);
+				SpriteSheet fm = new SpriteSheet(si, ei, img.Tag as string, img, w, h, c, r);
+				spriteList.Add(fm);
 			}
 		}
 
 		public void ParseFrames()
 		{
 			int top = 1;
-			foreach (FileMaker fm in fileList)
+			foreach (SpriteSheet fm in spriteList)
 				if (fm.endIndex + 1 > top) top = fm.endIndex + 1;
 
 			frames = new Bitmap[top];
 			for (int i = 0; i < top; i++)
 				frames[i] = null;
 
-			for (int i = 0; i < fileList.Count; i++)
+			for (int i = 0; i < spriteList.Count; i++)
 			{
-				FileMaker fm = fileList[i];
+				SpriteSheet fm = spriteList[i];
 				int k = fm.startIndex;
 				for (int r = 0; r < fm.row; r++)
 				{
@@ -323,7 +323,7 @@ namespace LF2.IDE
 					{
 						Bitmap btm = new Bitmap(fm.w, fm.h, PixelFormat.Format32bppRgb);
 						using (Graphics g = Graphics.FromImage(btm))
-							g.DrawImage(fm.image, new Rectangle(0, 0, fm.w, fm.h), new Rectangle(c * (fm.w + 1), r * (fm.h + 1), fm.w, fm.h), GraphicsUnit.Pixel);
+							g.DrawImage(fm.sprite, new Rectangle(0, 0, fm.w, fm.h), new Rectangle(c * (fm.w + 1), r * (fm.h + 1), fm.w, fm.h), GraphicsUnit.Pixel);
 						frames[k] = btm;
 					}
 				}
