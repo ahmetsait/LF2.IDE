@@ -257,15 +257,15 @@ namespace DrawBox
 		}
 		public event EventHandler SmoothingChanged;
 
-		int imageIntend = 0;
+		int imageIndent = 0;
 		[DefaultValue(0)]
-		public int ImageIntend
+		public int ImageIndent
 		{
-			get { return imageIntend; }
+			get { return imageIndent; }
 			set
 			{
-				int old = imageIntend;
-				imageIntend = value;
+				int old = imageIndent;
+				imageIndent = value;
 				if (autoRefresh) this.Refresh();
 
 				if (old != value && ImageIntendChanged != null)
@@ -469,7 +469,7 @@ namespace DrawBox
 				pointImage = value;
 				if (autoRefresh) this.Refresh();
 
-				if (old != value && PointImageChanged != null)
+				if (!Object.ReferenceEquals(old, value) && PointImageChanged != null)
 				{
 					PointImageChanged(this, EventArgs.Empty);
 				}
@@ -836,7 +836,7 @@ namespace DrawBox
 					this.Size = image.Size;
 				if (autoRefresh) this.Refresh();
 
-				if (old != value && ImageChanged != null)
+				if (!Object.ReferenceEquals(old, value) && ImageChanged != null)
 				{
 					ImageChanged(this, EventArgs.Empty);
 				}
@@ -905,7 +905,7 @@ namespace DrawBox
 
 		#region Methods
 
-		public DrawBox Clone() { return (DrawBox)MemberwiseClone(); }
+		//public DrawBox Clone() { return (DrawBox)MemberwiseClone(); }
 
 		private bool HasFlag(DisplayModes mode, DisplayModes flag) { return (mode & flag) != 0; }
 
@@ -928,7 +928,7 @@ namespace DrawBox
 		{
 			if (pictureMode == PictureMode.AutoSize && image != null && this.Dock == DockStyle.None)
 			{
-				base.SetBoundsCore(x, y, image.Width + imageIntend, image.Height + imageIntend, specified);
+				base.SetBoundsCore(x, y, image.Width + imageIndent, image.Height + imageIndent, specified);
 				if (autoRefresh) this.Refresh();
 			}
 			else
@@ -953,7 +953,7 @@ namespace DrawBox
 			e.Graphics.InterpolationMode = interpolation;
 			e.Graphics.SmoothingMode = smoothing;
 
-			Rectangle matrix = Matrix, dest = new Rectangle(imageIntend, imageIntend, matrix.Width, matrix.Height);
+			Rectangle matrix = Matrix, dest = new Rectangle(imageIndent, imageIndent, matrix.Width, matrix.Height);
 			e.Graphics.TranslateTransform(matrix.X, matrix.Y);
 
 			if (HasFlag(displayMode, DisplayModes.Center) && trancparency)
@@ -978,17 +978,17 @@ namespace DrawBox
 									g.DrawImage(image, new Rectangle(0, 0, tex.Width, tex.Height), 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, imageAttr);
 								using (TextureBrush b = new TextureBrush(tex))
 								{
-									e.Graphics.TranslateTransform(imageIntend, imageIntend);
-									e.Graphics.FillRectangle(b, 0, 0, this.Width - imageIntend, this.Height - imageIntend);
-									e.Graphics.TranslateTransform(-imageIntend, -imageIntend);
+									e.Graphics.TranslateTransform(imageIndent, imageIndent);
+									e.Graphics.FillRectangle(b, 0, 0, this.Width - imageIndent, this.Height - imageIndent);
+									e.Graphics.TranslateTransform(-imageIndent, -imageIndent);
 								}
 							}
 						else
 							using (TextureBrush b = new TextureBrush(image))
 							{
-								e.Graphics.TranslateTransform(imageIntend, imageIntend);
+								e.Graphics.TranslateTransform(imageIndent, imageIndent);
 								e.Graphics.FillRectangle(b, 0, 0, this.Width, this.Height);
-								e.Graphics.TranslateTransform(-imageIntend, -imageIntend);
+								e.Graphics.TranslateTransform(-imageIndent, -imageIndent);
 							}
 						break;
 					default:
@@ -1036,7 +1036,7 @@ namespace DrawBox
 				else if (DrawingMode == DrawingMode.RectangleVector)
 					e.Graphics.TranslateTransform(rectangle.X + rectangle.Width / 2, rectangle.Y + rectangle.Height / 2);
 				else
-					e.Graphics.TranslateTransform(matrix.Width / 2 + imageIntend, matrix.Height / 2 + imageIntend);
+					e.Graphics.TranslateTransform(matrix.Width / 2 + imageIndent, matrix.Height / 2 + imageIndent);
 				e.Graphics.DrawLine(vectorPen, 0, 0, vector.X, vector.Y);
 				e.Graphics.TranslateTransform(vector.X, vector.Y);
 				float f = (float)(Radian2Degree(Math.Atan((vector.Y) / (double)(vector.X))) + ((vector.X) < 0 ? -90 : 90));
@@ -1047,8 +1047,8 @@ namespace DrawBox
 
 			if (HasFlag(displayMode, DisplayModes.Zwidth) && image != null)
 			{
-				e.Graphics.DrawLine(zwidthPen, imageIntend, imageIntend - zwidth - 1, imageIntend + matrix.Width - 1, imageIntend - zwidth - 1);
-				e.Graphics.DrawLine(zwidthPen, imageIntend, imageIntend + matrix.Height + zwidth, imageIntend + matrix.Width - 1, imageIntend + matrix.Height + zwidth);
+				e.Graphics.DrawLine(zwidthPen, imageIndent, imageIndent - zwidth - 1, imageIndent + matrix.Width - 1, imageIndent - zwidth - 1);
+				e.Graphics.DrawLine(zwidthPen, imageIndent, imageIndent + matrix.Height + zwidth, imageIndent + matrix.Width - 1, imageIndent + matrix.Height + zwidth);
 			}
 
 			if (HasFlag(displayMode, DisplayModes.Center) && !trancparency)
@@ -1056,10 +1056,10 @@ namespace DrawBox
 
 			if (HasFlag(displayMode, DisplayModes.Table) && table.X > 0 && table.Y > 0)
 			{
-				for (int i = table.X - 1; i <= matrix.Width + imageIntend; i += table.X)
-					e.Graphics.DrawLine(tablePen, i, 0, i, matrix.Height + imageIntend);
-				for (int j = table.Y - 1; j <= matrix.Height + imageIntend; j += table.Y)
-					e.Graphics.DrawLine(tablePen, 0, j, matrix.Width + imageIntend, j);
+				for (int i = table.X - 1; i <= matrix.Width + imageIndent; i += table.X)
+					e.Graphics.DrawLine(tablePen, i, 0, i, matrix.Height + imageIndent);
+				for (int j = table.Y - 1; j <= matrix.Height + imageIndent; j += table.Y)
+					e.Graphics.DrawLine(tablePen, 0, j, matrix.Width + imageIndent, j);
 			}
 		}
 
@@ -1128,7 +1128,7 @@ namespace DrawBox
 				case DrawingMode.Vector:
 					if (LeftOrRightMouse)
 					{
-						Vector = new Point((e.X - matrix.X - matrix.Width / 2 - imageIntend) / vectorDivision, (e.Y - matrix.Y - matrix.Height / 2 - imageIntend) / vectorDivision);
+						Vector = new Point((e.X - matrix.X - matrix.Width / 2 - imageIndent) / vectorDivision, (e.Y - matrix.Y - matrix.Height / 2 - imageIndent) / vectorDivision);
 						if (showBoundToolTip)
 							toolTipB.Show((lastBounds = lastBBounds = vector).ToString(), this, controlMouseLocationB);
 						b = true;
@@ -1239,7 +1239,7 @@ namespace DrawBox
 				case DrawingMode.Vector:
 					if (LeftOrRightMouse)
 					{
-						Vector = new Point((e.X - matrix.X - matrix.Width / 2 - imageIntend) / vectorDivision, (e.Y - matrix.Y - matrix.Height / 2 - imageIntend) / vectorDivision);
+						Vector = new Point((e.X - matrix.X - matrix.Width / 2 - imageIndent) / vectorDivision, (e.Y - matrix.Y - matrix.Height / 2 - imageIndent) / vectorDivision);
 						if (showBoundToolTip)
 							toolTipB.Show((lastBounds = lastBBounds = vector).ToString(), this, controlMouseLocationB);
 					}
