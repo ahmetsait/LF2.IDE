@@ -316,7 +316,7 @@ namespace LF2.IDE
 				}
 				redoBuffer.Clear();
 				undoBuffer.Push((bool[,])texture.Clone());
-				texture = Texture;
+				Texture = texture;
 				modified = true;
 				PicDraw();
 				reSize();
