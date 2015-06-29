@@ -279,13 +279,11 @@ namespace LF2.IDE
 
 		void WeaponactChanged(object sender, EventArgs e)
 		{
-			drawBox.AutoRefresh = false;
 			drawBox.PointImage = weaponactImage = (Image)Properties.Resources.ResourceManager.GetObject("weapon" + wpoint_weaponact.Text);
 			if (drawBox.PointImage != null)
 				drawBox.PointImageOffset = weaponPoints[wpoint_weaponact.SelectedIndex];
 			else
 				drawBox.PointImageOffset = Point.Empty;
-			drawBox.AutoRefresh = true;
 		}
 
 		void NewLine(object sender, EventArgs e)
@@ -300,6 +298,7 @@ namespace LF2.IDE
 				drawBox.Image = mainForm.lastActiveFrame[mainForm.lastActiveDoc.frameIndexTag = (int)numericUpDown_ImageIndex.Value];
 
 			numericUpDown_ImageIndex.Refresh();
+			drawBox.Refresh();
 		}
 
 		void CopyToClipboard(object sender, EventArgs e)
@@ -315,7 +314,6 @@ namespace LF2.IDE
 
 		void TagChanged(object sender, EventArgs e)
 		{
-			drawBox.AutoRefresh = false;
 			drawBox.Cover = false;
 			drawBox.PointImage = null;
 			drawBox.PointImageOffset = Point.Empty;
@@ -438,7 +436,6 @@ namespace LF2.IDE
 					catch { drawBox.Point = Point.Empty; }
 					break;
 			}
-			drawBox.AutoRefresh = true;
 		}
 
 		void CoverChanged(object sender, EventArgs e)
@@ -487,6 +484,7 @@ namespace LF2.IDE
 					break;
 			}
 			editing = false;
+			drawBox.Refresh();
 		}
 
 		void DrawBoxVectorChanged(object sender, EventArgs e)
@@ -520,6 +518,7 @@ namespace LF2.IDE
 					break;
 			}
 			editing = false;
+			drawBox.Refresh();
 		}
 
 		void DrawBoxRectangleChanged(object sender, EventArgs e)
@@ -551,6 +550,7 @@ namespace LF2.IDE
 					break;
 			}
 			editing = false;
+			drawBox.Refresh();
 		}
 
 		void BdyRectangleChanged(object sender, EventArgs e)
@@ -655,7 +655,6 @@ namespace LF2.IDE
 
 		void VactionChanged(object sender, EventArgs e)
 		{
-			drawBox.AutoRefresh = false;
 			bool dir = (cpoint_dircontrol.Text == "0" || cpoint_dircontrol.Text == "");
 			vactionImageMirror = (Image)(vactionImage = (Image)Properties.Resources.ResourceManager.GetObject("caught" + caughtPoints[cpoint_vaction.SelectedIndex, 1])).Clone();
 			if (vactionImage == null)
@@ -675,15 +674,13 @@ namespace LF2.IDE
 				drawBox.PointImage = vactionImage;
 				drawBox.PointImageOffset = new Point(caughtPoints[cpoint_vaction.SelectedIndex, 2], caughtPoints[cpoint_vaction.SelectedIndex, 3]);
 			}
-
-			drawBox.AutoRefresh = true;
+			drawBox.Refresh();
 		}
 
 		void DircontrolChanged(object sender, EventArgs e)
 		{
 			if (vactionImage == null) return;
 
-			drawBox.AutoRefresh = false;
 
 			if (cpoint_dircontrol.Text == "0" || cpoint_dircontrol.Text == "")
 			{
@@ -696,7 +693,6 @@ namespace LF2.IDE
 				drawBox.PointImageOffset = new Point(caughtPoints[cpoint_vaction.SelectedIndex, 2], caughtPoints[cpoint_vaction.SelectedIndex, 3]);
 			}
 
-			drawBox.AutoRefresh = true;
 		}
 
 		// TODO: Instead of adding image data to "opoint.cache", reference their file name and make them load itself with protobuf assigments
@@ -936,12 +932,11 @@ namespace LF2.IDE
 			opoint_action.Items.Clear();
 			for (int i = 0; i < o.frames.Count; i++)
 				opoint_action.Items.Add(o.frames[i].id);
-			drawBox.AutoRefresh = false;
 			x = opoint_action.SelectedIndex = 0;
 			pic = o.frames[x].pic;
-			drawBox.PointImage = opointImage = ((pic != 999 && pic < o.bmpList.Count) ? o.bmpList[pic] : null);
+			drawBox.PointImage = opointImage = ((pic != 999 && o.bmpList.ContainsKey(pic)) ? o.bmpList[pic] : null);
 			drawBox.PointImageOffset = opointOffset = o.frames[x].center;
-			drawBox.AutoRefresh = true;
+			drawBox.Refresh();
 		}
 
 		Image opointImage;
@@ -958,10 +953,9 @@ namespace LF2.IDE
 			if (x < 0) return;
 			Obj o = opointCache[id];
 			pic = o.frames[x].pic;
-			drawBox.AutoRefresh = false;
-			drawBox.PointImage = opointImage = ((pic != 999 && pic < o.bmpList.Count) ? o.bmpList[pic] : null);
+			drawBox.PointImage = opointImage = ((pic != 999 && o.bmpList.ContainsKey(pic)) ? o.bmpList[pic] : null);
 			drawBox.PointImageOffset = opointOffset = o.frames[x].center;
-			drawBox.AutoRefresh = true;
+			drawBox.Refresh();
 		}
 	}
 }
