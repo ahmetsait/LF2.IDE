@@ -65,10 +65,12 @@
 			this.scintilla.Margins.Margin2.Width = 16;
 			this.scintilla.Name = "scintilla";
 			this.scintilla.Scrolling.HorizontalWidth = 1;
-			this.scintilla.Size = new System.Drawing.Size(584, 466);
+			this.scintilla.Size = new System.Drawing.Size(584, 467);
 			this.scintilla.Snippets.ActiveSnippetColor = System.Drawing.Color.DarkBlue;
 			this.scintilla.Styles.BraceBad.Size = 9F;
 			this.scintilla.Styles.BraceLight.Size = 9F;
+			this.scintilla.Styles.CallTip.FontName = "Tahoma";
+			this.scintilla.Styles.CallTip.Size = 8.25F;
 			this.scintilla.Styles.ControlChar.Size = 9F;
 			this.scintilla.Styles.Default.BackColor = System.Drawing.SystemColors.Window;
 			this.scintilla.Styles.Default.Size = 9F;
@@ -95,7 +97,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(584, 466);
+			this.ClientSize = new System.Drawing.Size(584, 467);
 			this.Controls.Add(this.scintilla);
 			this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
