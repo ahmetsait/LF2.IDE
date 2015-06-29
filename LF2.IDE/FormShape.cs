@@ -47,6 +47,7 @@ namespace LF2.IDE
 				drawBox.Image = mainForm.lastActiveFrame[mainForm.lastActiveDoc.frameIndexShape = (int)numericUpDown_ImageIndex.Value];
 
 			numericUpDown_ImageIndex.Refresh();
+			drawBox.Refresh();
 		}
 
 		void ShapeChanged(object sender, EventArgs e)
@@ -122,6 +123,7 @@ namespace LF2.IDE
 					break;
 			}
 			richTextBox.Refresh();
+			drawBox.Refresh();
 		}
 
 		void CopyToClipboard(object sender, EventArgs e)
