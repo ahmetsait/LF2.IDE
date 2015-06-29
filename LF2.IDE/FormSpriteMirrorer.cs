@@ -59,11 +59,9 @@ namespace LF2.IDE
 
 		void ComboBoxModeSelectedIndexChanged(object sender, EventArgs e)
 		{
-			drawBox_ModifedSprite.AutoRefresh = false;
 			(drawBox_ModifedSprite.Image = bmp = (Bitmap)original.Clone()).RotateFlip((RotateFlipType)RotateFlipType.Parse(typeof(RotateFlipType), (string)comboBox_Mode.SelectedItem));
-			drawBox_ModifedSprite.AutoRefresh = true;
 		}
-
+		
 		void ButtonApplyClick(object sender, EventArgs e)
 		{
 			FormImageSaver saver = new FormImageSaver(bmp, path, false, mainForm);
