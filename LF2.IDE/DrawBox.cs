@@ -84,14 +84,6 @@ namespace DrawBox
 
 		private readonly ImageAttributes imageAttr = new ImageAttributes();
 
-		bool autoRefresh = true;
-		[DefaultValue(true)]
-		public bool AutoRefresh
-		{
-			get { return autoRefresh; }
-			set { autoRefresh = value; if (autoRefresh) this.Refresh(); }
-		}
-
 		int vectorDivision = 1;
 		[DefaultValue(1)]
 		public int VectorDivision
@@ -109,7 +101,7 @@ namespace DrawBox
 			{
 				bool old = trancparency;
 				trancparency = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && TrancparencyChanged != null)
 				{
@@ -129,7 +121,7 @@ namespace DrawBox
 				Color old = trancparencyKey;
 				trancparencyKey = value;
 				imageAttr.SetColorKey(trancparencyKey, trancparencyKey);
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && TrancparencyKeyChanged != null)
 				{
@@ -148,7 +140,7 @@ namespace DrawBox
 			{
 				DrawingMode old = drawingMode;
 				drawingMode = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && DrawingModeChanged != null)
 				{
@@ -167,7 +159,7 @@ namespace DrawBox
 			{
 				DisplayModes old = displayMode;
 				displayMode = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && DisplayModeChanged != null)
 				{
@@ -190,7 +182,7 @@ namespace DrawBox
 				if (pictureMode == PictureMode.AutoSize && image != null)
 					this.Size = image.Size;
 
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && PictureModeChanged != null)
 				{
@@ -209,7 +201,7 @@ namespace DrawBox
 			{
 				InterpolationMode old = interpolation;
 				interpolation = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && InterpolationChanged != null)
 				{
@@ -228,7 +220,7 @@ namespace DrawBox
 			{
 				InterpolationMode old = backgroundInterpolation;
 				backgroundInterpolation = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && BackgroundInterpolationChanged != null)
 				{
@@ -247,7 +239,7 @@ namespace DrawBox
 			{
 				SmoothingMode old = smoothing;
 				smoothing = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && SmoothingChanged != null)
 				{
@@ -266,7 +258,7 @@ namespace DrawBox
 			{
 				int old = imageIndent;
 				imageIndent = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && ImageIntendChanged != null)
 				{
@@ -317,7 +309,7 @@ namespace DrawBox
 			{
 				Point old = point;
 				point = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && PointChanged != null)
 				{
@@ -336,7 +328,7 @@ namespace DrawBox
 			{
 				Point old = vector;
 				vector = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && VectorChanged != null)
 				{
@@ -355,7 +347,7 @@ namespace DrawBox
 			{
 				Rectangle old = rectangle;
 				rectangle = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && RectangleChanged != null)
 				{
@@ -374,7 +366,7 @@ namespace DrawBox
 			{
 				int old = zwidth;
 				zwidth = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && ZwidthChanged != null)
 				{
@@ -393,7 +385,7 @@ namespace DrawBox
 			{
 				Point old = table;
 				table = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && TableChanged != null)
 				{
@@ -412,7 +404,7 @@ namespace DrawBox
 			{
 				Point old = center;
 				center = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && CenterChanged != null)
 				{
@@ -431,7 +423,7 @@ namespace DrawBox
 			{
 				Pen old = pointPen;
 				pointPen = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && PointPenChanged != null)
 				{
@@ -449,7 +441,7 @@ namespace DrawBox
 			{
 				Color old = pointPen.Color;
 				pointPen.Color = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && PointPenChanged != null)
 				{
@@ -467,7 +459,7 @@ namespace DrawBox
 			{
 				Image old = pointImage;
 				pointImage = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (!Object.ReferenceEquals(old, value) && PointImageChanged != null)
 				{
@@ -486,7 +478,7 @@ namespace DrawBox
 			{
 				bool old = cover;
 				cover = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && CoverChanged != null)
 				{
@@ -505,7 +497,7 @@ namespace DrawBox
 			{
 				Point old = pointImageOffset;
 				pointImageOffset = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && PointImageOffsetChanged != null)
 				{
@@ -524,7 +516,7 @@ namespace DrawBox
 			{
 				SolidBrush old = vectorBrush;
 				vectorBrush = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && VectorBrushChanged != null)
 				{
@@ -542,7 +534,7 @@ namespace DrawBox
 			{
 				Color old = vectorBrush.Color;
 				vectorBrush.Color = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && VectorBrushChanged != null)
 				{
@@ -560,7 +552,7 @@ namespace DrawBox
 			{
 				Pen old = vectorPen;
 				vectorPen = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && VectorPenChanged != null)
 				{
@@ -578,7 +570,7 @@ namespace DrawBox
 			{
 				Color old = vectorPen.Color;
 				vectorPen.Color = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && VectorPenChanged != null)
 				{
@@ -601,7 +593,7 @@ namespace DrawBox
 			{
 				Pen old = rectanglePen;
 				rectanglePen = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && RectanglePenChanged != null)
 				{
@@ -619,7 +611,7 @@ namespace DrawBox
 			{
 				Color old = rectanglePen.Color;
 				rectanglePen.Color = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && RectanglePenChanged != null)
 				{
@@ -637,7 +629,7 @@ namespace DrawBox
 			{
 				SolidBrush old = rectangleBrush;
 				rectangleBrush = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && RectangleBrushChanged != null)
 				{
@@ -655,7 +647,7 @@ namespace DrawBox
 			{
 				Color old = rectangleBrush.Color;
 				rectangleBrush.Color = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && RectangleBrushChanged != null)
 				{
@@ -688,7 +680,7 @@ namespace DrawBox
 			{
 				Pen old = zwidthPen;
 				zwidthPen = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && ZwidthPenChanged != null)
 				{
@@ -706,7 +698,7 @@ namespace DrawBox
 			{
 				Color old = zwidthPen.Color;
 				zwidthPen.Color = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && ZwidthPenChanged != null)
 				{
@@ -724,7 +716,7 @@ namespace DrawBox
 			{
 				SolidBrush old = centerBrush;
 				centerBrush = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && CenterBrushChanged != null)
 				{
@@ -742,7 +734,7 @@ namespace DrawBox
 			{
 				Color old = centerBrush.Color;
 				centerBrush.Color = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && CenterBrushChanged != null)
 				{
@@ -760,7 +752,7 @@ namespace DrawBox
 			{
 				Pen old = tablePen;
 				tablePen = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && TablePenChanged != null)
 				{
@@ -778,7 +770,7 @@ namespace DrawBox
 			{
 				Color old = tablePen.Color;
 				tablePen.Color = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && TablePenChanged != null)
 				{
@@ -796,7 +788,7 @@ namespace DrawBox
 			{
 				Pen old = coordinatePen;
 				coordinatePen = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && CoordinatePenChanged != null)
 				{
@@ -814,7 +806,7 @@ namespace DrawBox
 			{
 				Color old = coordinatePen.Color;
 				coordinatePen.Color = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && CoordinatePenChanged != null)
 				{
@@ -834,7 +826,7 @@ namespace DrawBox
 				image = value;
 				if (pictureMode == PictureMode.AutoSize)
 					this.Size = image.Size;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (!Object.ReferenceEquals(old, value) && ImageChanged != null)
 				{
@@ -853,7 +845,7 @@ namespace DrawBox
 			{
 				bool old = showCoordinateSystem;
 				showCoordinateSystem = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && ShowCoordinateSystemChanged != null)
 				{
@@ -872,7 +864,7 @@ namespace DrawBox
 			{
 				bool old = showCoordinateToolTip;
 				showCoordinateToolTip = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && ShowCoordinateToolTipChanged != null)
 				{
@@ -891,7 +883,7 @@ namespace DrawBox
 			{
 				bool old = showBoundToolTip;
 				showBoundToolTip = value;
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 
 				if (old != value && ShowBoundToolTipChanged != null)
 				{
@@ -929,12 +921,12 @@ namespace DrawBox
 			if (pictureMode == PictureMode.AutoSize && image != null && this.Dock == DockStyle.None)
 			{
 				base.SetBoundsCore(x, y, image.Width + imageIndent, image.Height + imageIndent, specified);
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 			}
 			else
 			{
 				base.SetBoundsCore(x, y, width, height, specified);
-				if (autoRefresh) this.Refresh();
+				base.Invalidate();
 			}
 		}
 
@@ -1341,7 +1333,7 @@ namespace DrawBox
 			base.OnMouseLeave(e);
 			if (showCoordinateToolTip)
 				toolTipC.Show(relativeMouseLocation.X + "," + relativeMouseLocation.Y, this, controlMouseLocationC, 1);
-			if (autoRefresh) this.Refresh();
+			base.Invalidate();
 		}
 
 		#endregion
