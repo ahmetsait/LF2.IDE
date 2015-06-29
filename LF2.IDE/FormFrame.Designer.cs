@@ -94,6 +94,7 @@
 			this.label_frameCount = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_imageIndex)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_frameIndex)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
 			this.splitContainer.Panel1.SuspendLayout();
 			this.splitContainer.Panel2.SuspendLayout();
 			this.splitContainer.SuspendLayout();
@@ -937,6 +938,7 @@
 			this.splitContainer.Panel1.ResumeLayout(false);
 			this.splitContainer.Panel1.PerformLayout();
 			this.splitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
 			this.splitContainer.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.frameCount)).EndInit();
 			this.ResumeLayout(false);
