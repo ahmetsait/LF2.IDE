@@ -1,22 +1,16 @@
-﻿using CSScriptLibrary;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LF2.IDE
@@ -24,7 +18,7 @@ namespace LF2.IDE
 	public partial class MainForm : Form
 	{
 		[DllImport("InstantDataModifier.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern void InstantDataModifier(string data, int procId, int objId, int datType);
+		public static extern int InstantDataModifier(string data, int procId, int objId, int datType);
 
 		string[] args;
 		public static Stopwatch stopWatch;
