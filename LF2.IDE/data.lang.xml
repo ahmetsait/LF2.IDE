@@ -12,9 +12,9 @@ aaction action arest attacking background background_end backhurtact bdefend bdy
 boss bound bpoint bpoint_end catchingact caughtact centerx centery col cover cpoint cpoint_end dash_distance
 dash_distancez dash_height decrease dircontrol dvx dvy dvz effect email end entry facing fall file
 file_editing file_editing_end frame frame_end fronthurtact head heavy_running_speed heavy_running_speedz
-heavy_walking_speed heavy_walking_speedz hit_a hit_d hit_Da hit_Dj hit_Fa hit_Fj hit_j hit_ja hit_Ua hit_Uj
-hp hurtable id injury itr itr_end jump_distance jump_distancez jump_height kind layer layer_end mp music name
-next object object_end oid opoint opoint_end phase phase_end pic ratio row rowing_distance rowing_height
+heavy_walking_speed heavy_walking_speedz height hit_a hit_d hit_Da hit_Dj hit_Fa hit_Fj hit_j hit_ja hit_Ua hit_Uj
+hp hurtable id injury itr itr_end jump_distance jump_distancez jump_height kind layer layer_end loop mp music name
+next object object_end oid opoint opoint_end phase phase_end pic ratio rect row rowing_distance rowing_height
 running_frame_rate running_speed running_speedz shadow shadowsize small soldier sound stage stage_end state
 taction throwinjury throwvx throwvy throwvz times transparency type vaction vrest wait walking_frame_rate
 walking_speed walking_speedz weapon_broken_sound weapon_drop_hurt weapon_drop_sound weapon_hit_sound
@@ -32,9 +32,9 @@ wpoint_end zboundary zwidth
 			running_frame_rate running_speed running_speedz heavy_walking_speed heavy_walking_speedz
 			heavy_running_speed heavy_running_speedz jump_height jump_distance jump_distancez dash_height
 			dash_distance dash_distancez rowing_height rowing_distance kind pic state wait next dvx dvy dvz centerx
-			centery sound hit_Fa hit_Ua hit_Da hit_Fj hit_Uj hit_Dj hit_a hit_d hit_j hit_ja arest vrest fall bdefend injury
+			centery sound hit_fa hit_ua hit_da hit_fj hit_uj hit_dj hit_a hit_d hit_j hit_ja arest vrest fall bdefend injury
 			zwidth effect catchingact caughtact weaponact attacking cover action oid facing vaction aaction taction
-			throwvx throwvy throwvz hurtable throwinjury decrease dircontrol fronthurtact backhurtact width zboundary
+			throwvx throwvy throwvz hurtable throwinjury decrease dircontrol fronthurtact backhurtact width height loop rect zboundary
 			shadow shadowsize transparency weapon_hit_sound weapon_drop_sound weapon_broken_sound weapon_hp entry
 			weapon_drop_hurt id type bound music hp times ratio when_clear_goto_phase reserve mp</Keywords>
 		</Lexer>
