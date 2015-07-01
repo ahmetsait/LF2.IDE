@@ -17,7 +17,7 @@ namespace LF2.IDE
 			string error = ex.ToString();
 
 			if (this.InvokeRequired)
-				this.Invoke((Action)(() => MessageBox.Show(error, title, MessageBoxButtons.OK, MessageBoxIcon.Error)));
+				this.Invoke((Action)(() => MessageBox.Show(error, "[Async] " + title, MessageBoxButtons.OK, MessageBoxIcon.Error)));
 			else
 				MessageBox.Show(error, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
 			try
@@ -29,55 +29,43 @@ namespace LF2.IDE
 
 		public void Log(string logMessage, string logTitle, bool stepCaret)
 		{
-			if (this.InvokeRequired)
-				this.Invoke((Action)(() =>
+			Action act = (Action)(() =>
 				{
 					Log(">>\t" + logTitle, false);
 					int caret = richTextBox.Text.Length;
-					richTextBox.AppendText("\r\n" + logMessage);
-					if (stepCaret)
-					{
-						richTextBox.SelectionStart = caret;
-						richTextBox.ScrollToCaret();
-					}
-				}));
+					richTextBox.AppendText(Environment.NewLine + logMessage);
+					StepCaret(stepCaret);
+				});
+
+			if (this.InvokeRequired)
+				this.Invoke(act);
 			else
-			{
-				Log(">>\t" + logTitle, false);
-				int caret = richTextBox.Text.Length;
-				richTextBox.AppendText("\r\n" + logMessage);
-				if (stepCaret)
-				{
-					richTextBox.SelectionStart = caret;
-					richTextBox.ScrollToCaret();
-				}
-			}
+				act();
 		}
 
 		public void Log(string logMessage, bool stepCaret)
 		{
-			if (this.InvokeRequired)
-				this.Invoke((Action)(() =>
+			Action act = (Action)(() =>
 				{
 					if (!string.IsNullOrEmpty(richTextBox.Text))
-						richTextBox.AppendText("\r\n\r\n");
+						richTextBox.AppendText(System.Environment.NewLine + System.Environment.NewLine);
 					richTextBox.AppendText(logMessage);
-					if (stepCaret)
-					{
-						richTextBox.SelectionStart = richTextBox.Text.Length;
-						richTextBox.ScrollToCaret();
-					}
-				}));
+					StepCaret(stepCaret);
+				});
+
+			if (richTextBox.InvokeRequired)
+				richTextBox.Invoke(act);
 			else
+				act();
+		}
+
+		private void StepCaret(bool condition)
+		{
+			if (condition)
 			{
-				if (!string.IsNullOrEmpty(richTextBox.Text))
-					richTextBox.AppendText("\r\n\r\n");
-				richTextBox.AppendText(logMessage);
-				if (stepCaret)
-				{
-					richTextBox.SelectionStart = richTextBox.Text.Length;
-					richTextBox.ScrollToCaret();
-				}
+				richTextBox.Select(richTextBox.Text.Length, 0);
+				richTextBox.ScrollToCaret();
+				richTextBox.Update();
 			}
 		}
 
