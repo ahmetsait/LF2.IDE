@@ -237,7 +237,7 @@
 			this.filterToolStripLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.filterToolStripLabel.Size = new System.Drawing.Size(43, 22);
 			this.filterToolStripLabel.Text = "Filter :";
-			this.filterToolStripLabel.Click += new System.EventHandler(this.FilterToolStripLabelClick);
+			this.filterToolStripLabel.Click += new System.EventHandler(this.RefreshToolStripButtonClick);
 			// 
 			// filterToolStripComboBox
 			// 
@@ -342,7 +342,7 @@
 			this.multiSelectToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.multiSelectToolStripButton.Name = "multiSelectToolStripButton";
 			this.multiSelectToolStripButton.RightToLeft = System.Windows.Forms.RightToLeft.No;
-			this.multiSelectToolStripButton.Size = new System.Drawing.Size(23, 22);
+			this.multiSelectToolStripButton.Size = new System.Drawing.Size(23, 20);
 			this.multiSelectToolStripButton.Text = "Toggle Multi-Select";
 			this.multiSelectToolStripButton.CheckStateChanged += new System.EventHandler(this.MultiSelectToolStripButtonCheckedChanged);
 			// 
@@ -536,7 +536,7 @@
             this.deleteToolStripMenuItem2,
             this.copyToolStripMenuItem2});
 			this.datContextMenuStrip.Name = "datContextMenuStrip";
-			this.datContextMenuStrip.Size = new System.Drawing.Size(200, 142);
+			this.datContextMenuStrip.Size = new System.Drawing.Size(153, 164);
 			// 
 			// editToolStripMenuItem1
 			// 
@@ -549,8 +549,8 @@
 			// editWithoutDecryptionToolStripMenuItem
 			// 
 			this.editWithoutDecryptionToolStripMenuItem.Name = "editWithoutDecryptionToolStripMenuItem";
-			this.editWithoutDecryptionToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-			this.editWithoutDecryptionToolStripMenuItem.Text = "Edit without Decryption";
+			this.editWithoutDecryptionToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.editWithoutDecryptionToolStripMenuItem.Text = "Raw Edit";
 			this.editWithoutDecryptionToolStripMenuItem.Click += new System.EventHandler(this.EditWithoutDecryptionToolStripMenuItemClick);
 			// 
 			// runToolStripMenuItem4
@@ -855,7 +855,6 @@
 			this.populateTreeView.WorkerReportsProgress = true;
 			this.populateTreeView.WorkerSupportsCancellation = true;
 			this.populateTreeView.DoWork += new System.ComponentModel.DoWorkEventHandler(this.PopulateTreeViewDoWork);
-			this.populateTreeView.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.PopulateTreeViewProgressChanged);
 			this.populateTreeView.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.PopulateTreeViewRunWorkerCompleted);
 			// 
 			// SolutionExplorer
