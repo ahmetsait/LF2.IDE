@@ -14,7 +14,7 @@ namespace LF2.IDE
 		public static Settings Current = new Settings();
 
 		public static readonly string SettingsDir = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\LF2.IDE",
-			SettingsPath = SettingsDir + "\\lf2.ide.config";
+			SettingsPath = SettingsDir + "\\Settings.xml";
 
 		public string lfPath = "lf2.exe",
 			encryptionKey = "odBearBecauseHeIsVeryGoodSiuHungIsAGo",
