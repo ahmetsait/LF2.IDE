@@ -39,13 +39,13 @@ namespace LF2.IDE
 		private void Insert(object sender, EventArgs e)
 		{
 			if (mainForm.ActiveDocument != null)
-				mainForm.ActiveDocument.Scintilla.Selection.Text = mainForm.ActiveDocument.Scintilla.EndOfLine.Mode == ScintillaNET.EndOfLineMode.LF ? richTextBox.Text.Replace("\r", ""): richTextBox.Text;
+				mainForm.ActiveDocument.Scintilla.Selection.Text = mainForm.ActiveDocument.Scintilla.EndOfLine.Mode == ScintillaNET.EndOfLineMode.LF ? richTextBox.Text.Replace("\r", string.Empty) : richTextBox.Text;
 		}
 
 		private void Generate(object sender, EventArgs e)
 		{
 			int nextStep; int.TryParse(next.Text.Trim(), out nextStep);
-			StringBuilder str = new StringBuilder().AppendFormat("<frame> {0} {1}\n   pic: {2}  state: {3}  wait: {4}  next: {5}  dvx: {6}  dvy: {7}{8}  centerx: {9}  centery: {10}", numericUpDown_frameIndex.Value, ComboBox_caption.Text.Trim(), numericUpDown_imageIndex.Value, state.Text.Trim(), wait.Text.Trim(), next.Text.Trim(), dvx.Text.Trim(), dvy.Text.Trim(), (dvz.Text != "" ? "  dvz: " + dvz.Text.Trim() : ""), centerx.Text.Trim(), centery.Text.Trim());
+			StringBuilder str = new StringBuilder().AppendFormat("<frame> {0} {1}\r\n   pic: {2}  state: {3}  wait: {4}  next: {5}  dvx: {6}  dvy: {7}{8}  centerx: {9}  centery: {10}", numericUpDown_frameIndex.Value, ComboBox_caption.Text.Trim(), numericUpDown_imageIndex.Value, state.Text.Trim(), wait.Text.Trim(), next.Text.Trim(), dvx.Text.Trim(), dvy.Text.Trim(), (dvz.Text != "" ? "  dvz: " + dvz.Text.Trim() : ""), centerx.Text.Trim(), centery.Text.Trim());
 			str.Append(hit_a.Text.Trim() == "" ? "" : "  hit_a: " + hit_a.Text.Trim());
 			str.Append(hit_d.Text.Trim() == "" ? "" : "  hit_d: " + hit_d.Text.Trim());
 			str.Append(hit_j.Text.Trim() == "" ? "" : "  hit_j: " + hit_j.Text.Trim());
@@ -56,14 +56,14 @@ namespace LF2.IDE
 			str.Append(hit_Uj.Text.Trim() == "" ? "" : "  hit_Uj: " + hit_Uj.Text.Trim());
 			str.Append(hit_Dj.Text.Trim() == "" ? "" : "  hit_Dj: " + hit_Dj.Text.Trim());
 			str.Append(hit_ja.Text.Trim() == "" ? "" : "  hit_ja: " + hit_ja.Text.Trim());
-			str.Append(sound.Text.Trim() == "" ? "" : "\n  sound: " + sound.Text.Trim());
+			str.Append(sound.Text.Trim() == "" ? "" : "\r\n  sound: " + sound.Text.Trim());
 			if (checkBox_AddTags.Checked && mainForm.formTag.richTextBox.Text != "")
-				str.Append("\n" + mainForm.formTag.richTextBox.Text);
-			str.Append("\n<frame_end>");
+				str.Append("\r\n" + mainForm.formTag.richTextBox.Text);
+			str.Append("\r\n<frame_end>");
 
 			for (int i = 0; i < frameCount.Value; i++)
 			{
-				str.AppendFormat("\n\n<frame> {0} {1}\n   pic: {2}  state: {3}  wait: {4}  next: {5}  dvx: {6}  dvy: {7}{8}  centerx: {9}  centery: {10}", numericUpDown_frameIndex.Value, ComboBox_caption.Text.Trim(), numericUpDown_imageIndex.Value, state.Text.Trim(), wait.Text.Trim(), next.Text.Trim(), dvx.Text.Trim(), dvy.Text.Trim(), (dvz.Text != "" ? "  dvz: " + dvz.Text.Trim() : ""), centerx.Text.Trim(), centery.Text.Trim());
+				str.AppendFormat("\r\n\r\n<frame> {0} {1}\r\n   pic: {2}  state: {3}  wait: {4}  next: {5}  dvx: {6}  dvy: {7}{8}  centerx: {9}  centery: {10}", numericUpDown_frameIndex.Value, ComboBox_caption.Text.Trim(), numericUpDown_imageIndex.Value, state.Text.Trim(), wait.Text.Trim(), next.Text.Trim(), dvx.Text.Trim(), dvy.Text.Trim(), (dvz.Text != "" ? "  dvz: " + dvz.Text.Trim() : ""), centerx.Text.Trim(), centery.Text.Trim());
 				str.Append(hit_a.Text.Trim() == "" ? "" : "  hit_a: " + hit_a.Text.Trim());
 				str.Append(hit_d.Text.Trim() == "" ? "" : "  hit_d: " + hit_d.Text.Trim());
 				str.Append(hit_j.Text.Trim() == "" ? "" : "  hit_j: " + hit_j.Text.Trim());
@@ -74,16 +74,16 @@ namespace LF2.IDE
 				str.Append(hit_Uj.Text.Trim() == "" ? "" : "  hit_Uj: " + hit_Uj.Text.Trim());
 				str.Append(hit_Dj.Text.Trim() == "" ? "" : "  hit_Dj: " + hit_Dj.Text.Trim());
 				str.Append(hit_ja.Text.Trim() == "" ? "" : "  hit_ja: " + hit_ja.Text.Trim());
-				str.Append(sound.Text.Trim() == "" ? "" : "\n  sound: " + sound.Text.Trim());
+				str.Append(sound.Text.Trim() == "" ? "" : "\r\n  sound: " + sound.Text.Trim());
 				if (checkBox_AddTags.Checked && mainForm.formTag.richTextBox.Text != "")
-					str.Append("\n" + mainForm.formTag.richTextBox.Text);
-				str.Append("\n<frame_end>");
+					str.Append("\r\n" + mainForm.formTag.richTextBox.Text);
+				str.Append("\r\n<frame_end>");
 			}
 
 			if (string.IsNullOrEmpty(richTextBox.Text))
 				richTextBox.Text = str.ToString();
 			else
-				richTextBox.Text += "\n\n" + str.ToString();
+				richTextBox.Text += "\r\n\n" + str.ToString();
 
 			richTextBox.SelectionStart = richTextBox.Text.Length;
 			richTextBox.ScrollToCaret();
@@ -117,7 +117,7 @@ namespace LF2.IDE
 		void NewLine(object sender, EventArgs e)
 		{
 			if (mainForm.ActiveDocument != null)
-				mainForm.ActiveDocument.Scintilla.Selection.Text = (mainForm.ActiveDocument.Scintilla.EndOfLine.Mode == ScintillaNET.EndOfLineMode.LF ? "\n" : "\r\n");
+				mainForm.ActiveDocument.Scintilla.Selection.Text = (mainForm.ActiveDocument.Scintilla.EndOfLine.Mode == ScintillaNET.EndOfLineMode.LF ? "\n" : System.Environment.NewLine);
 		}
 
 		void FormFrame_Closing(object sender, FormClosingEventArgs e)
