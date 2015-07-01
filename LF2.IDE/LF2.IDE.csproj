@@ -132,32 +132,30 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AxInterop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\assemblies\AxInterop.WMPLib.dll</HintPath>
+    <Reference Include="AxInterop.WMPLib">
+      <HintPath>..\assemblies\WMPLib\AxInterop.WMPLib.dll</HintPath>
     </Reference>
-    <Reference Include="CSScriptLibrary">
-      <HintPath>..\assemblies\CSScriptLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.WMPLib">
-      <HintPath>..\assemblies\Interop.WMPLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="protobuf-net">
       <HintPath>..\assemblies\protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="ScintillaNET, Version=2.5.2.0, Culture=neutral, PublicKeyToken=948d6c9751444115, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\assemblies\ScintillaNET.dll</HintPath>
+    <Reference Include="CSScriptLibrary">
+      <HintPath>..\assemblies\CSScriptLibrary\CSScriptLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\assemblies\WMPLib\Interop.WMPLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="ScintillaNET">
+      <HintPath>..\assemblies\ScintillaNET v2.5.2\ScintillaNET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.2.2864.18696, Culture=neutral, PublicKeyToken=d481317c817cec47, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\assemblies\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\assemblies\WeifenLuo.WinFormsUI.Docking\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -167,8 +165,9 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="IDL.cs" />
+    <Compile Include="sGame.cs" />
     <Compile Include="SpriteSheet.cs" />
-    <Compile Include="Version.cs" />
     <None Include="DataUtils\UnsafeLF2DataAlgorithm.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -350,6 +349,7 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Resources\Menu\excol.png" />
     <None Include="Templates\AI.as">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -381,26 +381,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\assemblies\SciLexer.dll">
+    <None Include="..\assemblies\ScintillaNET v2.5.2\SciLexer.dll">
       <Link>SciLexer.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\assemblies\SciLexer64.dll">
+    </None>
+    <None Include="..\assemblies\ScintillaNET v2.5.2\SciLexer64.dll">
       <Link>SciLexer64.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
     <Content Include="Main.ico" />
     <Content Include="Main_.ico" />
     <Content Include="Resources\Bitmap Icons\favicon128x128.bmp" />
@@ -495,8 +483,12 @@
     <Content Include="Resources\Menu\bigger.png" />
     <Content Include="Resources\Menu\collapse.png" />
     <Content Include="Resources\Menu\ControlPanel.png" />
+    <Content Include="Resources\Menu\ControlPanel16.png" />
+    <Content Include="Resources\Menu\ControlPanelCubic16.png" />
+    <Content Include="Resources\Menu\ControlPanelLinear16.png" />
     <Content Include="Resources\Menu\debugrun.png" />
     <Content Include="Resources\Menu\eol.PNG" />
+    <Content Include="Resources\Menu\excoltemp.png" />
     <Content Include="Resources\Menu\execute.png" />
     <Content Include="Resources\Menu\exit.png" />
     <Content Include="Resources\Menu\expand.png" />
