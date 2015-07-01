@@ -41,7 +41,7 @@
 			this.richTextBox.Location = new System.Drawing.Point(0, 0);
 			this.richTextBox.Name = "richTextBox";
 			this.richTextBox.ReadOnly = true;
-			this.richTextBox.Size = new System.Drawing.Size(492, 224);
+			this.richTextBox.Size = new System.Drawing.Size(484, 216);
 			this.richTextBox.TabIndex = 0;
 			this.richTextBox.TabStop = false;
 			this.richTextBox.Text = "";
@@ -51,8 +51,13 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(492, 224);
+			this.ClientSize = new System.Drawing.Size(484, 216);
 			this.Controls.Add(this.richTextBox);
+			this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)(((((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft) 
+            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockRight) 
+            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockTop) 
+            | WeifenLuo.WinFormsUI.Docking.DockAreas.DockBottom)));
+			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.HideOnClose = true;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
