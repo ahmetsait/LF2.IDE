@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace LF2.IDE
@@ -16,27 +17,46 @@ namespace LF2.IDE
 		{
 			mainForm = main;
 			InitializeComponent();
-			ilm = new IconListManager(imageListSmall, imageListLarge);
+			iconListManager = new IconListManager(imageListSmall, imageListLarge);
 		}
 
 		MainForm mainForm;
 		public Stopwatch stopWatch = new Stopwatch();
 
+		// These are not used
+		public TreeNode GetFiltered(TreeNode node, string pattern)
+		{
+			TreeNode result = node.Clone() as TreeNode;
+			foreach (TreeNode tn in result.Nodes)
+				GetFilteredRef(tn, pattern);
+			for (int i = result.Nodes.Count - 1; i >= 0; i--)
+				if (result.Nodes[i].Tag is FileInfo && !Regex.IsMatch((result.Nodes[i].Tag as FileInfo).Name, pattern, RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
+					result.Nodes.RemoveAt(i);
+			return result;
+		}
+		void GetFilteredRef(TreeNode node, string pattern)
+		{
+			foreach (TreeNode tn in node.Nodes)
+				GetFilteredRef(tn, pattern);
+			for (int i = node.Nodes.Count - 1; i >= 0; i--)
+				if (node.Nodes[i].Tag is FileInfo && !Regex.IsMatch((node.Nodes[i].Tag as FileInfo).Name, pattern, RegexOptions.CultureInvariant | RegexOptions.IgnoreCase))
+					node.Nodes.RemoveAt(i);
+		}
+
 		public string DestinationFolder { get { return Path.GetDirectoryName(Settings.Current.lfPath); } }
 
 		public void PopulateTreeView(string target)
 		{
-			DirectoryInfo info = new DirectoryInfo(target);
-			if (info.Exists)
+			if (Directory.Exists(target))
 			{
-				stopWatch.Start();
-				populateTreeView.RunWorkerAsync(info);
+				stopWatch.Restart();
+				populateTreeView.RunWorkerAsync(target);
 			}
 		}
 
 		void PopulateTreeViewDoWork(object sender, DoWorkEventArgs e)
 		{
-			DirectoryInfo info = e.Argument as DirectoryInfo;
+			DirectoryInfo info = new DirectoryInfo(e.Argument as string);
 			TreeNode rootNode = new TreeNode(info.Name, 0, 1);
 			rootNode.Tag = info;
 			GetEverything(info.GetDirectories(), rootNode);
@@ -44,23 +64,19 @@ namespace LF2.IDE
 			{
 				if (populateTreeView.CancellationPending)
 					break;
-				int img = ilm.AddFileIcon(file.FullName);
+				int img = iconListManager.AddFileIcon(file.FullName);
 				TreeNode item = new TreeNode(file.Name, img, img);
 				item.Tag = file;
 				rootNode.Nodes.Add(item);
 			}
-			populateTreeView.ReportProgress(int.MaxValue, rootNode);
-		}
-
-		void PopulateTreeViewProgressChanged(object sender, ProgressChangedEventArgs e)
-		{
-			treeView.Nodes.Clear();
-			TreeNode rootNode = e.UserState as TreeNode;
-			treeView.Nodes.Add(rootNode);
+			e.Result = rootNode;
 		}
 
 		void PopulateTreeViewRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
+			treeView.Nodes.Clear();
+			TreeNode rootNode = e.Result as TreeNode;
+			treeView.Nodes.Add(rootNode);
 			refreshToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
 			mainForm.formEventLog.Log("Solution Explorer Load (" + filterToolStripComboBox.Text + "): " + stopWatch.Elapsed, true);
 			stopWatch.Reset();
@@ -86,7 +102,7 @@ namespace LF2.IDE
 				{
 					if (populateTreeView.CancellationPending)
 						return;
-					int img = ilm.AddFileIcon(file.FullName);
+					int img = iconListManager.AddFileIcon(file.FullName);
 					TreeNode item = new TreeNode(file.Name, img, img);
 					item.Tag = file;
 					aNode.Nodes.Add(item);
@@ -116,7 +132,7 @@ namespace LF2.IDE
 			this.Show();
 		}
 
-		IconListManager ilm;
+		IconListManager iconListManager;
 
 		void treeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
@@ -291,13 +307,16 @@ namespace LF2.IDE
 				{
 					FileInfo fi = (FileInfo)node.Tag;
 					fi.Refresh();
+					string fns = fi.Directory.FullName + "\\" + e.Label;
 					if (fi.Exists)
 					{
-						string fns = fi.Directory.FullName + "\\" + e.Label;
-						fi.MoveTo(fns);
-						FileInfo file = new FileInfo(fns);
-						node.Tag = file;
-						node.ImageIndex = node.SelectedImageIndex = ilm.AddFileIcon(fns);
+						if (!File.Exists(fns))
+						{
+							fi.MoveTo(fns);
+							FileInfo file = new FileInfo(fns);
+							node.Tag = file;
+							node.ImageIndex = node.SelectedImageIndex = iconListManager.AddFileIcon(fns);
+						}
 					}
 					else
 					{
@@ -308,21 +327,22 @@ namespace LF2.IDE
 				{
 					DirectoryInfo di = (DirectoryInfo)node.Tag;
 					di.Refresh();
+					string fms = di.Parent.FullName + "\\" + e.Label;
 					if (di.Exists)
 					{
-						string fms = di.Parent.FullName + "\\" + e.Label;
-						di.MoveTo(fms);
-						DirectoryInfo dir = new DirectoryInfo(fms);
-						node.Tag = dir;
-						node.Nodes.Clear();
-						GetEverything(dir.GetDirectories(), node);
-						foreach (FileInfo file in dir.GetFiles(filterToolStripComboBox.Text))
-						{
-							int img = ilm.AddFileIcon(file.FullName);
-							TreeNode item = new TreeNode(file.Name, img, img);
-							item.Tag = file;
-							node.Nodes.Add(item);
-						}
+						if(Directory.Exists(fms))
+							di.MoveTo(fms);
+							DirectoryInfo dir = new DirectoryInfo(fms);
+							node.Tag = dir;
+							node.Nodes.Clear();
+							GetEverything(dir.GetDirectories(), node);
+							foreach (FileInfo file in dir.GetFiles(filterToolStripComboBox.Text))
+							{
+								int img = iconListManager.AddFileIcon(file.FullName);
+								TreeNode item = new TreeNode(file.Name, img, img);
+								item.Tag = file;
+								node.Nodes.Add(item);
+							}
 					}
 					else
 					{
