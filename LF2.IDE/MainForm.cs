@@ -17,9 +17,6 @@ namespace LF2.IDE
 {
 	public partial class MainForm : Form
 	{
-		[DllImport("InstantDataModifier.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
-		public static extern int InstantDataModifier(string data, int procId, int objId, int datType);
-
 		string[] args;
 		public static Stopwatch stopWatch;
 
@@ -887,17 +884,6 @@ namespace LF2.IDE
 			formEventLog.Show();
 		}
 
-		void ToolStripButton4CheckStateChanged(object sender, EventArgs e)
-		{
-			//if (toolStripButton4.Checked)
-			//{
-			//	toolStrip2.BringToFront();
-			//	toolStrip3.BringToFront();
-			//	dockPanel.BringToFront();
-			//}
-			jumpToToolStrip.Visible = jumpToToolStripButton.Checked;
-		}
-
 		void TransparencyToolToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			if (openFileDialog_Image.ShowDialog() == DialogResult.OK)
@@ -1316,7 +1302,7 @@ namespace LF2.IDE
 			if (e.KeyData == Keys.Enter)
 			{
 				e.SuppressKeyPress = e.Handled = true;
-				toolStripButtonF.PerformClick();
+				toolStripButtonFold.PerformClick();
 			}
 		}
 
@@ -1325,7 +1311,7 @@ namespace LF2.IDE
 			if (e.KeyData == Keys.Enter)
 			{
 				e.SuppressKeyPress = e.Handled = true;
-				toolStripButtonUF.PerformClick();
+				toolStripButtonUnfold.PerformClick();
 			}
 		}
 
@@ -1408,6 +1394,16 @@ namespace LF2.IDE
 			{
 				formEventLog.Error(ex, "Plugin-List Registration Error");
 			}
+		}
+
+		private void jumpToToolStripButton_CheckedChanged(object sender, EventArgs e)
+		{
+			jumpToToolStrip.Visible = jumpToToolStripButton.Checked;
+		}
+
+		private void toolStripButtonFolding_CheckedChanged(object sender, EventArgs e)
+		{
+			toolStrip_Fold.Visible = toolStripButtonFolding.Checked;
 		}
 	}
 }
