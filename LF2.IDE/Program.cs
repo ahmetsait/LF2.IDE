@@ -30,7 +30,8 @@ namespace LF2.IDE
 			}
 			catch (Exception ex)
 			{
-				File.AppendAllText(exeDir + "\\FatalError.log", ex.ToString() + "\r\n\r\n", Encoding.Default);
+				string nl = Environment.NewLine;
+				File.AppendAllText(exeDir + "\\FatalError.log", ex.ToString() + nl + nl, Encoding.Default);
 				Process.Start(exeDir + "\\FatalError.log");
 			}
 			finally
