@@ -356,7 +356,7 @@ namespace DrawBox
 			}
 		}
 		public event EventHandler RectangleChanged;
-
+		
 		int zwidth;
 		[DefaultValue(0)]
 		public int Zwidth
