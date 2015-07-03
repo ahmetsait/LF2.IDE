@@ -87,9 +87,10 @@ namespace LF2.IDE
 				int fend = mainForm.ActiveDocument.Scintilla.Text.IndexOf("<frame_end>", mainForm.ActiveDocument.Scintilla.CurrentPos);
 				int fbegin = mainForm.ActiveDocument.Scintilla.Text.IndexOf("<frame>", mainForm.ActiveDocument.Scintilla.CurrentPos);
 				if (fend >= 0 && (fbegin < 0 || fend < fbegin))
-					mainForm.ActiveDocument.Scintilla.InsertText(fend, richTextBox.Text + "\n");
+					mainForm.ActiveDocument.Scintilla.InsertText(fend, richTextBox.Text + mainForm.ActiveDocument.Scintilla.EndOfLine.EolString);
 				else
 					mainForm.ActiveDocument.Scintilla.Selection.Text = richTextBox.Text;
+				mainForm.ActiveDocument.Scintilla.EndOfLine.ConvertAllLines(mainForm.ActiveDocument.Scintilla.EndOfLine.Mode);
 			}
 		}
 
@@ -123,145 +124,153 @@ namespace LF2.IDE
 			bpoint_x.Text = bpoint_y.Text = "";
 		}
 
-		private void Generate(object sender, EventArgs e)
+		public string Generate(int tag)
 		{
 			string txt = "";
+			switch (tag)
+			{
+				case 0:
+					txt = "   bdy:\r\n      kind: " + bdy_kind.Text + "  x: " + bdy_x.Text + "  y: " + bdy_y.Text + "  w: " + bdy_w.Text + "  h: " + bdy_h.Text + "\r\n   bdy_end:";
+					break;
+				case 1:
+					txt = "   itr:\r\n      kind: " + itr_kind.Text;
+					switch (itr_kind.Text)
+					{
+						case "0":
+						case "6":
+							txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + "  dvy: " + itr_dvy.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_fall.Text != "" ? "  fall: " + itr_fall.Text : "") + (itr_bdefend.Text == "" ? "" : "  bdefend: " + itr_bdefend.Text) + "  injury: " + itr_injury.Text + (itr_zwidth.Text == "" ? "" : "  zwidth: " + itr_zwidth.Text) + (itr_effect.Text == "" ? "" : "\r\n      effect: " + itr_effect.Text);
+							break;
+						case "1":
+						case "3":
+							txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  catchingact: " + itr_catchingact.Text + "  caughtact: " + itr_caughtact.Text;
+							break;
+						case "2":
+						case "7":
+						case "14":
+							txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_effect.Text == "" ? "" : "\r\n      effect: " + itr_effect.Text);
+							break;
+						case "4":
+							txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_fall.Text != "" ? "  fall: " + itr_fall.Text : "") + (itr_bdefend.Text == "" ? "" : "  bdefend: " + itr_bdefend.Text) + "  injury: " + itr_injury.Text;
+							break;
+						case "5":
+							txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: 8  fall: 20  bdefend: 16  injury: 789";
+							break;
+						case "10":
+						case "11":
+							txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + "  injury: " + itr_injury.Text + (itr_zwidth.Text == "" ? "" : "  zwidth: " + itr_zwidth.Text);
+							break;
+						case "15":
+						case "16":
+							txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + "  dvy: " + itr_dvy.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_fall.Text != "" ? "  fall: " + itr_fall.Text : "") + (itr_bdefend.Text == "" ? "" : "  bdefend: " + itr_bdefend.Text) + "  injury: " + itr_injury.Text + (itr_zwidth.Text == "" ? "" : "  zwidth: " + itr_zwidth.Text);
+							break;
+						case "8":
+							txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + "  injury: " + itr_injury.Text;
+							break;
+						case "9":
+							txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_fall.Text != "" ? "  fall: " + itr_fall.Text : "") + "  injury: " + itr_injury.Text;
+							break;
+						default:
+							if (itr_x.Text != "")
+								txt += "  x: " + itr_x.Text;
+							if (itr_y.Text != "")
+								txt += "  y: " + itr_y.Text;
+							if (itr_w.Text != "")
+								txt += "  w: " + itr_w.Text;
+							if (itr_h.Text != "")
+								txt += "  h: " + itr_h.Text;
+							if (itr_dvx.Text != "")
+								txt += "  dvx: " + itr_dvx.Text;
+							if (itr_dvy.Text != "")
+								txt += "  dvy: " + itr_dvy.Text;
+							if (itr_arest.Text != "")
+								txt += "  arest: " + itr_arest.Text;
+							if (itr_vrest.Text != "")
+								txt += "  vrest: " + itr_vrest.Text;
+							if (itr_fall.Text != "")
+								txt += "  fall: " + itr_fall.Text;
+							if (itr_bdefend.Text != "")
+								txt += "  bdefend: " + itr_bdefend.Text;
+							if (itr_injury.Text != "")
+								txt += "  injury: " + itr_injury.Text;
+							if (itr_zwidth.Text != "")
+								txt += "  zwidth: " + itr_zwidth.Text;
+							if (itr_effect.Text != "")
+								txt += "\r\n      effect: " + itr_effect.Text;
+							if (itr_catchingact.Text != "")
+								txt += "  catchingact: " + itr_catchingact.Text;
+							if (itr_caughtact.Text != "")
+								txt += "  caughtact: " + itr_caughtact.Text;
+							break;
+					}
+					txt += "\r\n   itr_end:";
+					break;
+				case 2:
+					txt += "   wpoint:\r\n      kind: " + wpoint_kind.Text + "  x: " + wpoint_x.Text + "  y: " + wpoint_y.Text + "  weaponact: " + wpoint_weaponact.Text + "  attacking: " + wpoint_attacking.Text + "  cover: " + wpoint_cover.Text + "  dvx: " + wpoint_dvx.Text + "  dvy: " + wpoint_dvy.Text + "  dvz: " + wpoint_dvz.Text + "\r\n   wpoint_end:";
+					break;
+				case 3:
+					txt += "   opoint:\r\n      kind: " + opoint_kind.Text + "  x: " + opoint_x.Text + "  y: " + opoint_y.Text + "  action: " + opoint_action.Text + "  dvx: " + opoint_dvx.Text + "  dvy: " + opoint_dvy.Text + "  oid: " + opoint_oid.Text + "  facing: " + opoint_facing.Text + "\r\n   opoint_end:";
+					break;
+				case 4:
+					txt += "   cpoint:\r\n      kind: " + cpoint_kind.Text;
+					if (cpoint_x.Text != "")
+						txt += "  x: " + cpoint_x.Text;
+					if (cpoint_y.Text != "")
+						txt += "  y: " + cpoint_y.Text;
+					if (cpoint_injury.Text != "")
+						txt += "  injury: " + cpoint_injury.Text;
+					if (cpoint_vaction.Text != "")
+						txt += "  vaction: " + cpoint_vaction.Text;
+					if (cpoint_aaction.Text != "")
+						txt += "  aaction: " + cpoint_aaction.Text;
+					if (cpoint_taction.Text != "")
+						txt += "  taction: " + cpoint_taction.Text;
+					if (cpoint_throwvx.Text != "")
+						txt += "  throwvx: " + cpoint_throwvx.Text;
+					if (cpoint_throwvy.Text != "")
+						txt += "  throwvy: " + cpoint_throwvy.Text;
+					if (cpoint_throwvz.Text != "")
+						txt += "  throwvz: " + cpoint_throwvz.Text;
+					if (cpoint_hurtable.Text != "")
+						txt += "  hurtable: " + cpoint_hurtable.Text;
+					if (cpoint_throwinjury.Text != "")
+						txt += "  throwinjury: " + cpoint_throwinjury.Text;
+					if (cpoint_decrease.Text != "")
+						txt += "  decrease: " + cpoint_decrease.Text;
+					if (cpoint_dircontrol.Text != "")
+						txt += "  dircontrol: " + cpoint_dircontrol.Text;
+					if (cpoint_cover.Text != "")
+						txt += "  cover: " + cpoint_cover.Text;
+					if (cpoint_fronthurtact.Text != "")
+						txt += "  fronthurtact: " + cpoint_fronthurtact.Text;
+					if (cpoint_backhurtact.Text != "")
+						txt += "  backhurtact: " + cpoint_backhurtact.Text;
+					txt += "\r\n   cpoint_end:";
+					break;
+				case 5:
+					txt += "   bpoint:\r\n      x: " + bpoint_x.Text + "  y: " + bpoint_y.Text + "\r\n   bpoint_end:";
+					break;
+			}
+
+			return txt;
+		}
+
+		private void Generate(object sender, EventArgs e)
+		{
+			string txt = null;
 			try
 			{
-				switch (tabControl_Tags.SelectedIndex)
-				{
-					case 0:
-						txt = "   bdy:\n      kind: " + bdy_kind.Text + "  x: " + bdy_x.Text + "  y: " + bdy_y.Text + "  w: " + bdy_w.Text + "  h: " + bdy_h.Text + "\n   bdy_end:";
-						break;
-					case 1:
-						txt = "   itr:\n      kind: " + itr_kind.Text;
-						switch (itr_kind.Text)
-						{
-							case "0":
-							case "6":
-								txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + "  dvy: " + itr_dvy.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_fall.Text != "" ? "  fall: " + itr_fall.Text : "") + (itr_bdefend.Text == "" ? "" : "  bdefend: " + itr_bdefend.Text) + "  injury: " + itr_injury.Text + (itr_zwidth.Text == "" ? "" : "  zwidth: " + itr_zwidth.Text) + (itr_effect.Text == "" ? "" : "\n      effect: " + itr_effect.Text);
-								break;
-							case "1":
-							case "3":
-								txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  catchingact: " + itr_catchingact.Text + "  caughtact: " + itr_caughtact.Text;
-								break;
-							case "2":
-							case "7":
-							case "14":
-								txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_effect.Text == "" ? "" : "\n      effect: " + itr_effect.Text);
-								break;
-							case "4":
-								txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_fall.Text != "" ? "  fall: " + itr_fall.Text : "") + (itr_bdefend.Text == "" ? "" : "  bdefend: " + itr_bdefend.Text) + "  injury: " + itr_injury.Text;
-								break;
-							case "5":
-								txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: 8  fall: 20  bdefend: 16  injury: 789";
-								break;
-							case "10":
-							case "11":
-								txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + "  injury: " + itr_injury.Text + (itr_zwidth.Text == "" ? "" : "  zwidth: " + itr_zwidth.Text);
-								break;
-							case "15":
-							case "16":
-								txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + "  dvy: " + itr_dvy.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_fall.Text != "" ? "  fall: " + itr_fall.Text : "") + (itr_bdefend.Text == "" ? "" : "  bdefend: " + itr_bdefend.Text) + "  injury: " + itr_injury.Text + (itr_zwidth.Text == "" ? "" : "  zwidth: " + itr_zwidth.Text);
-								break;
-							case "8":
-								txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + "  injury: " + itr_injury.Text;
-								break;
-							case "9":
-								txt += "  x: " + itr_x.Text + "  y: " + itr_y.Text + "  w: " + itr_w.Text + "  h: " + itr_h.Text + "  dvx: " + itr_dvx.Text + (itr_arest.Text != "" ? "  arest: " + itr_arest.Text : "") + (itr_vrest.Text != "" ? "  vrest: " + itr_vrest.Text : "") + (itr_fall.Text != "" ? "  fall: " + itr_fall.Text : "") + "  injury: " + itr_injury.Text;
-								break;
-							default:
-								if (itr_x.Text != "")
-									txt += "  x: " + itr_x.Text;
-								if (itr_y.Text != "")
-									txt += "  y: " + itr_y.Text;
-								if (itr_w.Text != "")
-									txt += "  w: " + itr_w.Text;
-								if (itr_h.Text != "")
-									txt += "  h: " + itr_h.Text;
-								if (itr_dvx.Text != "")
-									txt += "  dvx: " + itr_dvx.Text;
-								if (itr_dvy.Text != "")
-									txt += "  dvy: " + itr_dvy.Text;
-								if (itr_arest.Text != "")
-									txt += "  arest: " + itr_arest.Text;
-								if (itr_vrest.Text != "")
-									txt += "  vrest: " + itr_vrest.Text;
-								if (itr_fall.Text != "")
-									txt += "  fall: " + itr_fall.Text;
-								if (itr_bdefend.Text != "")
-									txt += "  bdefend: " + itr_bdefend.Text;
-								if (itr_injury.Text != "")
-									txt += "  injury: " + itr_injury.Text;
-								if (itr_zwidth.Text != "")
-									txt += "  zwidth: " + itr_zwidth.Text;
-								if (itr_effect.Text != "")
-									txt += "\n      effect: " + itr_effect.Text;
-								if (itr_catchingact.Text != "")
-									txt += "  catchingact: " + itr_catchingact.Text;
-								if (itr_caughtact.Text != "")
-									txt += "  caughtact: " + itr_caughtact.Text;
-								break;
-						}
-						txt += "\n   itr_end:";
-						break;
-					case 2:
-						txt += "   wpoint:\n      kind: " + wpoint_kind.Text + "  x: " + wpoint_x.Text + "  y: " + wpoint_y.Text + "  weaponact: " + wpoint_weaponact.Text + "  attacking: " + wpoint_attacking.Text + "  cover: " + wpoint_cover.Text + "  dvx: " + wpoint_dvx.Text + "  dvy: " + wpoint_dvy.Text + "  dvz: " + wpoint_dvz.Text + "\n   wpoint_end:";
-						break;
-					case 3:
-						txt += "   opoint:\n      kind: " + opoint_kind.Text + "  x: " + opoint_x.Text + "  y: " + opoint_y.Text + "  action: " + opoint_action.Text + "  dvx: " + opoint_dvx.Text + "  dvy: " + opoint_dvy.Text + "  oid: " + opoint_oid.Text + "  facing: " + opoint_facing.Text + "\n   opoint_end:";
-						break;
-					case 4:
-						txt += "   cpoint:\n      kind: " + cpoint_kind.Text;
-						if (cpoint_x.Text != "")
-							txt += "  x: " + cpoint_x.Text;
-						if (cpoint_y.Text != "")
-							txt += "  y: " + cpoint_y.Text;
-						if (cpoint_injury.Text != "")
-							txt += "  injury: " + cpoint_injury.Text;
-						if (cpoint_vaction.Text != "")
-							txt += "  vaction: " + cpoint_vaction.Text;
-						if (cpoint_aaction.Text != "")
-							txt += "  aaction: " + cpoint_aaction.Text;
-						if (cpoint_taction.Text != "")
-							txt += "  taction: " + cpoint_taction.Text;
-						if (cpoint_throwvx.Text != "")
-							txt += "  throwvx: " + cpoint_throwvx.Text;
-						if (cpoint_throwvy.Text != "")
-							txt += "  throwvy: " + cpoint_throwvy.Text;
-						if (cpoint_throwvz.Text != "")
-							txt += "  throwvz: " + cpoint_throwvz.Text;
-						if (cpoint_hurtable.Text != "")
-							txt += "  hurtable: " + cpoint_hurtable.Text;
-						if (cpoint_throwinjury.Text != "")
-							txt += "  throwinjury: " + cpoint_throwinjury.Text;
-						if (cpoint_decrease.Text != "")
-							txt += "  decrease: " + cpoint_decrease.Text;
-						if (cpoint_dircontrol.Text != "")
-							txt += "  dircontrol: " + cpoint_dircontrol.Text;
-						if (cpoint_cover.Text != "")
-							txt += "  cover: " + cpoint_cover.Text;
-						if (cpoint_fronthurtact.Text != "")
-							txt += "  fronthurtact: " + cpoint_fronthurtact.Text;
-						if (cpoint_backhurtact.Text != "")
-							txt += "  backhurtact: " + cpoint_backhurtact.Text;
-						txt += "\n   cpoint_end:";
-						break;
-					case 5:
-						txt += "   bpoint:\n      x: " + bpoint_x.Text + "  y: " + bpoint_y.Text + "\n   bpoint_end:";
-						break;
-				}
+				txt = Generate(tabControl_Tags.SelectedIndex);
 			}
 			catch (Exception ex)
 			{
 				mainForm.formEventLog.Error(ex, "ERROR");
 			}
-			if (txt != "")
+			if (!string.IsNullOrEmpty(txt))
 			{
 				if (richTextBox.Text == "")
 					richTextBox.Text = txt;
 				else
-					richTextBox.AppendText("\n" + txt);
+					richTextBox.AppendText("\r\n" + txt);
 
 				richTextBox.SelectionStart = richTextBox.Text.Length;
 				richTextBox.ScrollToCaret();
@@ -289,7 +298,7 @@ namespace LF2.IDE
 		void NewLine(object sender, EventArgs e)
 		{
 			if (mainForm.ActiveDocument != null)
-				mainForm.ActiveDocument.Scintilla.Selection.Text = (mainForm.ActiveDocument.Scintilla.EndOfLine.Mode == ScintillaNET.EndOfLineMode.LF ? "\n" : "\r\n");
+				mainForm.ActiveDocument.Scintilla.Selection.Text = mainForm.ActiveDocument.Scintilla.EndOfLine.EolString;
 		}
 
 		void ImageIndexChanged(object sender, EventArgs e)
@@ -695,8 +704,6 @@ namespace LF2.IDE
 
 		}
 
-		// TODO: Instead of adding image data to "opoint.cache", reference their file name and make them load itself with protobuf assigments
-
 		public List<Obj> opointCache = new List<Obj>(128);
 
 		public class Obj
@@ -956,6 +963,11 @@ namespace LF2.IDE
 			drawBox.PointImage = opointImage = ((pic != 999 && o.bmpList.ContainsKey(pic)) ? o.bmpList[pic] : null);
 			drawBox.PointImageOffset = opointOffset = o.frames[x].center;
 			drawBox.Refresh();
+		}
+
+		private void button_AddBdy_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
