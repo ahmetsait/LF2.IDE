@@ -55,7 +55,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -66,7 +66,7 @@
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>false</DebugSymbols>
     <UseVSHostingProcess>false</UseVSHostingProcess>
-    <Prefer32Bit>false</Prefer32Bit>
+    <Prefer32Bit>true</Prefer32Bit>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -133,21 +133,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.WMPLib">
-      <HintPath>..\assemblies\WMPLib\AxInterop.WMPLib.dll</HintPath>
+      <HintPath>..\Assemblies\WMPLib\AxInterop.WMPLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.WMPLib">
+      <HintPath>..\Assemblies\WMPLib\Interop.WMPLib.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
     </Reference>
     <Reference Include="protobuf-net">
-      <HintPath>..\assemblies\protobuf-net.dll</HintPath>
+      <HintPath>..\Assemblies\protobuf-net\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="CSScriptLibrary">
-      <HintPath>..\assemblies\CSScriptLibrary\CSScriptLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <HintPath>..\assemblies\WMPLib\Interop.WMPLib.dll</HintPath>
+      <HintPath>..\Assemblies\CSScriptLibrary\CSScriptLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="ScintillaNET">
-      <HintPath>..\assemblies\ScintillaNET v2.5.2\ScintillaNET.dll</HintPath>
+      <HintPath>..\Assemblies\ScintillaNET v2.5.2\ScintillaNET.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -155,7 +156,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WeifenLuo.WinFormsUI.Docking">
-      <HintPath>..\assemblies\WeifenLuo.WinFormsUI.Docking\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <HintPath>..\Assemblies\WeifenLuo.WinFormsUI.Docking\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -381,11 +382,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\assemblies\ScintillaNET v2.5.2\SciLexer.dll">
+    <None Include="..\Assemblies\ScintillaNET v2.5.2\SciLexer.dll">
       <Link>SciLexer.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\assemblies\ScintillaNET v2.5.2\SciLexer64.dll">
+    <None Include="..\Assemblies\ScintillaNET v2.5.2\SciLexer64.dll">
       <Link>SciLexer64.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
