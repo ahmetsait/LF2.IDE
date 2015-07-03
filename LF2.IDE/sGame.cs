@@ -239,11 +239,3 @@ public struct sBackground
 	int[] layer_y;
 	int[] layer_height;
 }
-
-[StructLayout(LayoutKind.Sequential)]
-public struct sFileManager
-{
-	sDataFile[] datas;
-	sStage[] stages;
-	sBackground[] backgrounds;
-}
