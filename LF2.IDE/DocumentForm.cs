@@ -418,7 +418,7 @@ namespace LF2.IDE
 					}
 				}
 			}
-			if (e.Ch == '\n' && smart)
+			if (Scintilla.EndOfLine.EolString[Scintilla.EndOfLine.EolString.Length - 1] == e.Ch && smart)
 			{
 				scintilla.Lines.Current.Indentation = scintilla.Lines.Current.Previous.Indentation;
 				scintilla.CurrentPos = scintilla.Lines.Current.IndentPosition;

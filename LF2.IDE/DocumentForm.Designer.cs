@@ -100,6 +100,7 @@
 			this.ClientSize = new System.Drawing.Size(584, 467);
 			this.Controls.Add(this.scintilla);
 			this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
+			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
@@ -122,6 +123,5 @@
 
 		public System.Windows.Forms.SaveFileDialog saveFileDialog;
 		private ScintillaNET.Scintilla scintilla;
-
 	}
 }
