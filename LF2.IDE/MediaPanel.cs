@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Media;
@@ -7,11 +7,12 @@ using System.Security.Principal;
 
 namespace LF2.IDE
 {
-	public partial class MediaPlayer : WeifenLuo.WinFormsUI.Docking.DockContent
+	public partial class MediaPanel : WeifenLuo.WinFormsUI.Docking.DockContent
 	{
-		public MediaPlayer()
+		public MediaPanel()
 		{
 			InitializeComponent();
+			
 		}
 
 		void OpenFileButtonClick(object sender, EventArgs e)
