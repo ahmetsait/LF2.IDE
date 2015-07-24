@@ -17,7 +17,7 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-    <SignAssembly>False</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <DelaySign>False</DelaySign>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
@@ -42,7 +42,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NoWin32Manifest>False</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -131,22 +130,24 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>LF2.IDE.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.WMPLib">
-      <HintPath>..\Assemblies\WMPLib\AxInterop.WMPLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Interop.WMPLib">
-      <HintPath>..\Assemblies\WMPLib\Interop.WMPLib.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="protobuf-net">
-      <HintPath>..\Assemblies\protobuf-net\protobuf-net.dll</HintPath>
+      <HintPath>..\assemblies\WMPLib\AxInterop.WMPLib.dll</HintPath>
     </Reference>
     <Reference Include="CSScriptLibrary">
       <HintPath>..\Assemblies\CSScriptLibrary\CSScriptLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.WMPLib">
+      <HintPath>..\assemblies\WMPLib\Interop.WMPLib.dll</HintPath>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="protobuf-net">
+      <HintPath>..\assemblies\protobuf-net\protobuf-net.dll</HintPath>
+    </Reference>
     <Reference Include="ScintillaNET">
       <HintPath>..\Assemblies\ScintillaNET v2.5.2\ScintillaNET.dll</HintPath>
     </Reference>
@@ -165,6 +166,9 @@
     </Compile>
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TagBox.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="IDL.cs" />
     <Compile Include="sGame.cs" />
@@ -260,13 +264,14 @@
     <Compile Include="FormShape.Designer.cs">
       <DependentUpon>FormShape.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaPlayer.cs">
+    <Compile Include="MediaPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MediaPlayer.Designer.cs">
-      <DependentUpon>MediaPlayer.cs</DependentUpon>
+    <Compile Include="MediaPanel.Designer.cs">
+      <DependentUpon>MediaPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="IconLib.cs" />
+    <None Include="LF2.IDE.snk" />
     <None Include="Plugins\ExamplePlugin.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -324,8 +329,8 @@
     <EmbeddedResource Include="FormShape.resx">
       <DependentUpon>FormShape.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaPlayer.resx">
-      <DependentUpon>MediaPlayer.cs</DependentUpon>
+    <EmbeddedResource Include="MediaPanel.resx">
+      <DependentUpon>MediaPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PreviewForm.resx">
       <DependentUpon>PreviewForm.cs</DependentUpon>
@@ -420,6 +425,7 @@
     <Content Include="Resources\check.bmp" />
     <Content Include="Resources\Cursors\bdy.png" />
     <Content Include="Resources\Cursors\bpoint.png" />
+    <None Include="Resources\Cursors\center.png" />
     <Content Include="Resources\Cursors\cpoint.png" />
     <Content Include="Resources\Cursors\itr.png" />
     <Content Include="Resources\Cursors\opoint.png" />
