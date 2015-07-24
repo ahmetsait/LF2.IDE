@@ -1,6 +1,6 @@
 ﻿namespace LF2.IDE
 {
-	partial class MediaPlayer
+	partial class MediaPanel
 	{
 		/// <summary>
 		/// Designer variable used to keep track of non-visual components.
@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MediaPlayer));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MediaPanel));
 			this.imageList = new System.Windows.Forms.ImageList(this.components);
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.axWindowsMediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
@@ -82,7 +82,7 @@
     "";
 			this.openFileDialog.FilterIndex = 3;
 			// 
-			// MediaPlayer
+			// MediaPanel
 			// 
 			this.AutoHidePortion = 300D;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
