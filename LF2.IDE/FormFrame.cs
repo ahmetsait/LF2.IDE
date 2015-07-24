@@ -58,8 +58,11 @@ namespace LF2.IDE
 			str.Append(hit_Dj.Text.Trim() == "" ? "" : "  hit_Dj: " + hit_Dj.Text.Trim());
 			str.Append(hit_ja.Text.Trim() == "" ? "" : "  hit_ja: " + hit_ja.Text.Trim());
 			str.Append(sound.Text.Trim() == "" ? "" : "\r\n  sound: " + sound.Text.Trim());
-			if (checkBox_AddTags.Checked && mainForm.formTag.richTextBox.Text != "")
-				str.Append("\r\n" + mainForm.formTag.richTextBox.Text);
+
+			string tags = mainForm.formTag.Generate();
+
+			if (checkBox_AddTags.Checked && tags != "")
+				str.Append("\r\n" + tags);
 			str.Append("\r\n<frame_end>");
 
 			for (int i = 0; i < frameCount.Value; i++)
@@ -76,8 +79,8 @@ namespace LF2.IDE
 				str.Append(hit_Dj.Text.Trim() == "" ? "" : "  hit_Dj: " + hit_Dj.Text.Trim());
 				str.Append(hit_ja.Text.Trim() == "" ? "" : "  hit_ja: " + hit_ja.Text.Trim());
 				str.Append(sound.Text.Trim() == "" ? "" : "\r\n  sound: " + sound.Text.Trim());
-				if (checkBox_AddTags.Checked && mainForm.formTag.richTextBox.Text != "")
-					str.Append("\r\n" + mainForm.formTag.richTextBox.Text);
+				if (checkBox_AddTags.Checked && tags != "")
+					str.Append("\r\n" + tags);
 				str.Append("\r\n<frame_end>");
 			}
 
