@@ -68,7 +68,7 @@ namespace LF2.IDE
 				formFrame = new FormFrame(this);
 				formShape = new FormShape(this);
 				solutionExplorer = new SolutionExplorer(this);
-				media = new MediaPlayer();
+				media = new MediaPanel();
 			}
 			else
 			{
@@ -109,7 +109,7 @@ namespace LF2.IDE
 		public FormFrame formFrame;
 		public FormShape formShape;
 		public SolutionExplorer solutionExplorer;
-		public MediaPlayer media;
+		public MediaPanel media;
 		public FormEventLog formEventLog;
 
 		public static Plugger<Plugin> Plugins = new Plugger<Plugin>();
@@ -135,7 +135,7 @@ namespace LF2.IDE
 					formTag.numericUpDown_ImageIndex.Maximum =
 					formFrame.numericUpDown_imageIndex.Maximum =
 					formShape.numericUpDown_ImageIndex.Maximum = lastActiveFrame.Length - 1;
-					formTag.drawBox.Image =
+					formTag.tagBox.Image =
 					formFrame.drawBox.Image =
 					formShape.drawBox.Image = lastActiveFrame[0];
 				}
@@ -203,7 +203,7 @@ namespace LF2.IDE
 			ffPersist = typeof(FormFrame).FullName,
 			fsPersist = typeof(FormShape).FullName,
 			sePersist = typeof(SolutionExplorer).FullName,
-			mpPersist = typeof(MediaPlayer).FullName;
+			mpPersist = typeof(MediaPanel).FullName;
 
 		WeifenLuo.WinFormsUI.Docking.DockContent DockingDeserializer(string persistString)
 		{
@@ -218,7 +218,7 @@ namespace LF2.IDE
 			else if (persistString == sePersist)
 				return solutionExplorer = new SolutionExplorer(this);
 			else if (persistString == mpPersist)
-				return media = new MediaPlayer();
+				return media = new MediaPanel();
 			else return null;
 		}
 
@@ -536,7 +536,7 @@ namespace LF2.IDE
 					formTag.numericUpDown_ImageIndex.Value = lastActiveDoc.frameIndexTag;
 					formFrame.numericUpDown_imageIndex.Value = lastActiveDoc.frameIndexFrame;
 					formShape.numericUpDown_ImageIndex.Value = lastActiveDoc.frameIndexShape;
-					formTag.drawBox.Image = lastActiveFrame[lastActiveDoc.frameIndexTag];
+					formTag.tagBox.Image = lastActiveFrame[lastActiveDoc.frameIndexTag];
 					formFrame.drawBox.Image = lastActiveFrame[lastActiveDoc.frameIndexFrame];
 					formShape.drawBox.Image = lastActiveFrame[lastActiveDoc.frameIndexShape];
 				}
@@ -960,7 +960,7 @@ namespace LF2.IDE
 					formFrame.numericUpDown_imageIndex.Maximum =
 					formShape.numericUpDown_ImageIndex.Maximum = lastActiveFrame.Length - 1;
 					formTag.numericUpDown_ImageIndex.Value = formFrame.numericUpDown_imageIndex.Value = formShape.numericUpDown_ImageIndex.Value = 0;
-					formTag.drawBox.Image =
+					formTag.tagBox.Image =
 					formFrame.drawBox.Image =
 					formShape.drawBox.Image = lastActiveFrame[0];
 				}
@@ -996,7 +996,7 @@ namespace LF2.IDE
 					formFrame.numericUpDown_imageIndex.Maximum =
 					formShape.numericUpDown_ImageIndex.Maximum = lastActiveFrame.Length - 1;
 					formTag.numericUpDown_ImageIndex.Value = formFrame.numericUpDown_imageIndex.Value = formShape.numericUpDown_ImageIndex.Value = 0;
-					formTag.drawBox.Image =
+					formTag.tagBox.Image =
 					formFrame.drawBox.Image =
 					formShape.drawBox.Image = lastActiveFrame[0];
 				}
