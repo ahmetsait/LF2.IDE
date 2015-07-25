@@ -35,7 +35,12 @@
         </member>
         <member name="M:ProtoBuf.BclHelpers.WriteDateTime(System.DateTime,ProtoBuf.ProtoWriter)">
             <summary>
-            Writes a DateTime to a protobuf stream
+            Writes a DateTime to a protobuf stream, excluding the <c>Kind</c>
+            </summary>
+        </member>
+        <member name="M:ProtoBuf.BclHelpers.WriteDateTimeWithKind(System.DateTime,ProtoBuf.ProtoWriter)">
+            <summary>
+            Writes a DateTime to a protobuf stream, including the <c>Kind</c>
             </summary>
         </member>
         <member name="M:ProtoBuf.BclHelpers.ReadDecimal(ProtoBuf.ProtoReader)">
@@ -175,6 +180,14 @@
             It is the callers responsibility to ensure that the variable's
             scope fully-encapsulates the "using"; if not, the variable
             may be re-used (and thus re-assigned) unexpectedly.
+            </summary>
+        </member>
+        <member name="T:ProtoBuf.ProtoConverterAttribute">
+            <summary>
+            Indicates that a static member should be considered the same as though
+            were an implicit / explicit conversion operator; in particular, this
+            is useful for conversions that operator syntax does not allow, such as
+            to/from interface types.
             </summary>
         </member>
         <member name="T:ProtoBuf.DataFormat">
@@ -723,6 +736,11 @@
             Provides protobuf serialization support for a number of types
             </summary>
         </member>
+        <member name="M:ProtoBuf.Meta.TypeModel.SerializeDateTimeKind">
+            <summary>
+            Should the <c>Kind</c> be included on date/time values?
+            </summary>
+        </member>
         <member name="M:ProtoBuf.Meta.TypeModel.MapType(System.Type)">
             <summary>
             Resolve a System.Type to the compiler-specific type
@@ -1116,6 +1134,11 @@
             Invoked after an object is deserialized
             </summary>
         </member>
+        <member name="M:ProtoBuf.Meta.RuntimeTypeModel.SerializeDateTimeKind">
+            <summary>
+            Should the <c>Kind</c> be included on date/time values?
+            </summary>
+        </member>
         <member name="M:ProtoBuf.Meta.RuntimeTypeModel.GetTypes">
             <summary>
             Returns a sequence of the Type instances that can be
@@ -1253,6 +1276,11 @@
             <summary>
             Global switch that determines whether types with a <c>.ToString()</c> and a <c>Parse(string)</c>
             should be serialized as strings.
+            </summary>
+        </member>
+        <member name="P:ProtoBuf.Meta.RuntimeTypeModel.IncludeDateTimeKind">
+            <summary>
+            Global switch that determines whether DateTime serialization should include the <c>Kind</c> of the date/time.
             </summary>
         </member>
         <member name="P:ProtoBuf.Meta.RuntimeTypeModel.Default">
