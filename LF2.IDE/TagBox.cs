@@ -74,7 +74,24 @@ namespace TagBox
 
 	public class Bdy
 	{
-		public int kind;
+		public event EventHandler DataChanged;
+
+		private int _kind;
+		public int kind
+		{
+			get { return _kind; }
+			set
+			{
+				_kind = value;
+
+				if (KindChanged != null)
+					KindChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler KindChanged;
+
 		public int x;
 		public int y;
 		public int w;
@@ -86,26 +103,180 @@ namespace TagBox
 		}
 
 		public Rectangle Rectangle { get { return new Rectangle(x, y, w, h); } set { x = value.X; y = value.Y; w = value.Width; h = value.Height; } }
+
+		public Point Point { get { return new Point(x, y); } set { x = value.X; y = value.Y; } }
 	}
 
 	public class Itr
 	{
-		public int kind;
+		public event EventHandler DataChanged;
+
+		private int _kind;
+		public int kind
+		{
+			get { return _kind; }
+			set
+			{
+				_kind = value;
+
+				if (KindChanged != null)
+					KindChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler KindChanged;
+
 		public int x;
 		public int y;
 		public int w;
 		public int h;
 		public int dvx;
 		public int dvy;
-		public int arest;
-		public int vrest;
-		public int fall;
-		public int bdefend;
-		public int injury;
-		public int zwidth;
-		public int effect;
-		public int catchingact;
-		public int caughtact;
+
+		private int _arest;
+		public int arest
+		{
+			get { return _arest; }
+			set
+			{
+				_arest = value;
+
+				if (ArestChanged != null)
+					ArestChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler ArestChanged;
+
+		private int _vrest;
+		public int vrest
+		{
+			get { return _vrest; }
+			set
+			{
+				_vrest = value;
+
+				if (VrestChanged != null)
+					VrestChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler VrestChanged;
+
+		private int _fall;
+		public int fall
+		{
+			get { return _fall; }
+			set
+			{
+				_fall = value;
+
+				if (FallChanged != null)
+					FallChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler FallChanged;
+
+		private int _bdefend;
+		public int bdefend
+		{
+			get { return _bdefend; }
+			set
+			{
+				_bdefend = value;
+
+				if (BdefendChanged != null)
+					BdefendChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler BdefendChanged;
+
+		private int _injury;
+		public int injury
+		{
+			get { return _injury; }
+			set
+			{
+				_injury = value;
+
+				if (injuryChanged != null)
+					injuryChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler injuryChanged;
+
+		private int _zwidth;
+		public int zwidth
+		{
+			get { return _zwidth; }
+			set
+			{
+				_zwidth = value;
+
+				if (ZwidthChanged != null)
+					ZwidthChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler ZwidthChanged;
+
+		private int _effect;
+		public int effect
+		{
+			get { return _effect; }
+			set
+			{
+				_effect = value;
+
+				if (EffectChanged != null)
+					EffectChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler EffectChanged;
+
+		private int _catchingact;
+		public int catchingact
+		{
+			get { return _catchingact; }
+			set
+			{
+				_catchingact = value;
+
+				if (CatchingactChanged != null)
+					CatchingactChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler CatchingactChanged;
+
+		private int _caughtact;
+		public int caughtact
+		{
+			get { return _caughtact; }
+			set
+			{
+				_caughtact = value;
+
+				if (CaughtactChanged != null)
+					CaughtactChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler CaughtactChanged;
 
 		public Itr(Rectangle rect)
 		{
@@ -115,19 +286,97 @@ namespace TagBox
 		public Rectangle Rectangle { get { return new Rectangle(x, y, w, h); } set { x = value.X; y = value.Y; w = value.Width; h = value.Height; } }
 
 		public Point Vector { get { return new Point(dvx, dvy); } set { dvx = value.X; dvy = value.Y; } }
+
+		public Point Point { get { return new Point(x, y); } set { x = value.X; y = value.Y; } }
 	}
 
 	public class WPoint
 	{
-		public int kind;
+		public event EventHandler DataChanged;
+
+		private int _kind;
+		public int kind
+		{
+			get { return _kind; }
+			set
+			{
+				_kind = value;
+
+				if (KindChanged != null)
+					KindChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler KindChanged;
+
 		public int x;
 		public int y;
-		public int weaponact;
-		public int attacking;
-		public int cover;
+
+		private int _weaponact;
+		public int weaponact
+		{
+			get { return _weaponact; }
+			set
+			{
+				_weaponact = value;
+
+				if (WeaponactChanged != null)
+					WeaponactChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler WeaponactChanged;
+
+		private int _attacking;
+		public int attacking
+		{
+			get { return _attacking; }
+			set
+			{
+				_attacking = value;
+
+				if (AttackingChanged != null)
+				{
+					AttackingChanged(this, EventArgs.Empty);
+				}
+			}
+		}
+		public event EventHandler AttackingChanged;
+
+		private int _cover;
+		public int cover
+		{
+			get { return _cover; }
+			set
+			{
+				_cover = value;
+
+				if (CoverChanged != null)
+				{
+					CoverChanged(this, EventArgs.Empty);
+				}
+			}
+		}
+		public event EventHandler CoverChanged;
+
 		public int dvx;
 		public int dvy;
-		public int dvz;
+
+		private int _dvz;
+		public int dvz
+		{
+			get { return _dvz; }
+			set
+			{
+				_dvz = value;
+
+				if (DvzChanged != null)
+				{
+					DvzChanged(this, EventArgs.Empty);
+				}
+			}
+		}
+		public event EventHandler DvzChanged;
 
 		public Point Point { get { return new Point(x, y); } set { x = value.X; y = value.Y; } }
 
@@ -136,14 +385,78 @@ namespace TagBox
 
 	public class OPoint
 	{
-		public int kind;
+		public event EventHandler DataChanged;
+
+		private int _kind;
+		public int kind
+		{
+			get { return _kind; }
+			set
+			{
+				_kind = value;
+
+				if (KindChanged != null)
+					KindChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler KindChanged;
+
 		public int x;
 		public int y;
-		public int action;
+
+		private int _action;
+		public int action
+		{
+			get { return _action; }
+			set
+			{
+				_action = value;
+
+				if (ActionChanged != null)
+					ActionChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler ActionChanged;
+
 		public int dvx;
 		public int dvy;
-		public int oid;
-		public int facing;
+
+		private int _oid;
+		public int oid
+		{
+			get { return _oid; }
+			set
+			{
+				_oid = value;
+
+				if (OidChanged != null)
+					OidChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler OidChanged;
+
+		private int _facing;
+		public int facing
+		{
+			get { return _facing; }
+			set
+			{
+				_facing = value;
+
+				if (FacingChanged != null)
+					FacingChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+
+		public event EventHandler FacingChanged;
 
 		public Point Point { get { return new Point(x, y); } set { x = value.X; y = value.Y; } }
 
@@ -152,27 +465,226 @@ namespace TagBox
 
 	public class CPoint
 	{
-		public int kind;
+		public event EventHandler DataChanged;
+
+		private int _kind;
+		public int kind
+		{
+			get { return _kind; }
+			set
+			{
+				_kind = value;
+
+				if (KindChanged != null)
+					KindChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler KindChanged;
+
 		public int x;
 		public int y;
-		public int injury;
-		public int vaction;
-		public int aaction;
-		public int taction;
-		public int throwx;
-		public int throwy;
-		public int throwz;
-		public int hurtable;
-		public int throwinjury;
-		public int decrease;
-		public int dircontrol;
-		public int cover;
-		public int fronthurtact;
-		public int backhurtact;
+
+		private int _injury;
+		public int injury
+		{
+			get { return _injury; }
+			set
+			{
+				_injury = value;
+
+				if (injuryChanged != null)
+					injuryChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler injuryChanged;
+
+		private int _vaction;
+		public int vaction
+		{
+			get { return _vaction; }
+			set
+			{
+				_vaction = value;
+
+				if (VactionChanged != null)
+					VactionChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler VactionChanged;
+
+		private int _aaction;
+		public int aaction
+		{
+			get { return _aaction; }
+			set
+			{
+				_aaction = value;
+
+				if (AactionChanged != null)
+					AactionChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler AactionChanged;
+
+		private int _taction;
+		public int taction
+		{
+			get { return _taction; }
+			set
+			{
+				_taction = value;
+
+				if (TactionChanged != null)
+					TactionChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler TactionChanged;
+
+		public int throwvx;
+		public int throwvy;
+
+		private int _throwvz;
+		public int throwvz
+		{
+			get { return _throwvz; }
+			set
+			{
+				_throwvz = value;
+
+				if (ThrowvzChanged != null)
+					ThrowvzChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler ThrowvzChanged;
+
+		private int _hurtable;
+		public int hurtable
+		{
+			get { return _hurtable; }
+			set
+			{
+				_hurtable = value;
+
+				if (HurtableChanged != null)
+					HurtableChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler HurtableChanged;
+
+		private int _throwinjury;
+		public int throwinjury
+		{
+			get { return _throwinjury; }
+			set
+			{
+				_throwinjury = value;
+
+				if (ThrowinjuryChanged != null)
+					ThrowinjuryChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler ThrowinjuryChanged;
+
+		private int _decrease;
+		public int decrease
+		{
+			get { return _decrease; }
+			set
+			{
+				_decrease = value;
+
+				if (DecreaseChanged != null)
+					DecreaseChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler DecreaseChanged;
+
+		private int _dircontrol;
+		public int dircontrol
+		{
+			get { return _dircontrol; }
+			set
+			{
+				_dircontrol = value;
+
+				if (DircontrolChanged != null)
+					DircontrolChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler DircontrolChanged;
+
+		private int _cover;
+		public int cover
+		{
+			get { return _cover; }
+			set
+			{
+				_cover = value;
+
+				if (CoverChanged != null)
+					CoverChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler CoverChanged;
+
+		private int _fronthurtact;
+		public int fronthurtact
+		{
+			get { return _fronthurtact; }
+			set
+			{
+				_fronthurtact = value;
+
+				if (FronthurtactChanged != null)
+					FronthurtactChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+		public event EventHandler FronthurtactChanged;
+
+		private int _backhurtact;
+		public int backhurtact
+		{
+			get { return _backhurtact; }
+			set
+			{
+				_backhurtact = value;
+
+				if (BackhurtactChanged != null)
+					BackhurtactChanged(this, EventArgs.Empty);
+				if (DataChanged != null)
+					DataChanged(this, EventArgs.Empty);
+			}
+		}
+
+		public event EventHandler BackhurtactChanged;
 
 		public Point Point { get { return new Point(x, y); } set { x = value.X; y = value.Y; } }
 
-		public Point Vector { get { return new Point(throwx, throwy); } set { throwx = value.X; throwy = value.Y; } }
+		public Point Vector { get { return new Point(throwvx, throwvy); } set { throwvx = value.X; throwvy = value.Y; } }
 	}
 
 	#endregion
@@ -429,13 +941,13 @@ namespace TagBox
 				tagData = value;
 				base.Invalidate();
 
-				if (!object.ReferenceEquals(old, value) && TagDataChanged != null)
+				if (!object.ReferenceEquals(old, value) && TagDataSet != null)
 				{
-					TagDataChanged(this, EventArgs.Empty);
+					TagDataSet(this, EventArgs.Empty);
 				}
 			}
 		}
-		public event EventHandler TagDataChanged;
+		public event EventHandler TagDataSet;
 
 		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public List<Bdy> BdyTags
@@ -451,8 +963,6 @@ namespace TagBox
 				{
 					if (BdyTagsSet != null)
 						BdyTagsSet(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
@@ -473,15 +983,14 @@ namespace TagBox
 				{
 					if (ItrTagsSet != null)
 						ItrTagsSet(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler ItrTagsSet;
 		public event EventHandler ItrRectangleChanged;
+		public event EventHandler ItrVectorChanged;
 
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public WPoint WPoint
 		{
 			get { return tagData == null ? null : tagData.wpoint; }
@@ -495,18 +1004,14 @@ namespace TagBox
 
 				if (old != value)
 				{
-					if (WPointPointChanged != null)
-						WPointPointChanged(this, EventArgs.Empty);
 					if (WPointChanged != null)
 						WPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler WPointChanged;
-		
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public Point? WPointPoint
 		{
 			get { return tagData == null ? null : tagData.wpoint == null ? null : (Point?)tagData.wpoint.Point; }
@@ -523,16 +1028,16 @@ namespace TagBox
 				{
 					if (WPointPointChanged != null)
 						WPointPointChanged(this, EventArgs.Empty);
+					if (drawingMode == global::TagBox.DrawingMode.WPoint && ActivePointChanged != null)
+						ActivePointChanged(this, EventArgs.Empty);
 					if (WPointChanged != null)
 						WPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler WPointPointChanged;
 
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public Point? WPointVector
 		{
 			get { return tagData == null ? null : tagData.wpoint == null ? null : (Point?)tagData.wpoint.Vector; }
@@ -549,16 +1054,16 @@ namespace TagBox
 				{
 					if (WPointVectorChanged != null)
 						WPointVectorChanged(this, EventArgs.Empty);
+					if (drawingMode == global::TagBox.DrawingMode.WPoint && ActiveVectorChanged != null)
+						ActiveVectorChanged(this, EventArgs.Empty);
 					if (WPointChanged != null)
 						WPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler WPointVectorChanged;
 
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public OPoint OPoint
 		{
 			get { return tagData == null ? null : tagData.opoint; }
@@ -572,18 +1077,14 @@ namespace TagBox
 
 				if (old != value)
 				{
-					if (OPointPointChanged != null)
-						OPointPointChanged(this, EventArgs.Empty);
 					if (OPointChanged != null)
 						OPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler OPointChanged;
-		
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public Point? OPointPoint
 		{
 			get { return tagData == null ? null : tagData.opoint == null ? null : (Point?)tagData.opoint.Point; }
@@ -600,16 +1101,16 @@ namespace TagBox
 				{
 					if (OPointPointChanged != null)
 						OPointPointChanged(this, EventArgs.Empty);
+					if (drawingMode == global::TagBox.DrawingMode.OPoint && ActivePointChanged != null)
+						ActivePointChanged(this, EventArgs.Empty);
 					if (OPointChanged != null)
 						OPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler OPointPointChanged;
 
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public Point? OPointVector
 		{
 			get { return tagData == null ? null : tagData.opoint == null ? null : (Point?)tagData.opoint.Vector; }
@@ -626,16 +1127,16 @@ namespace TagBox
 				{
 					if (OPointVectorChanged != null)
 						OPointVectorChanged(this, EventArgs.Empty);
+					if (drawingMode == global::TagBox.DrawingMode.OPoint && ActiveVectorChanged != null)
+						ActiveVectorChanged(this, EventArgs.Empty);
 					if (OPointChanged != null)
 						OPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler OPointVectorChanged;
 
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public CPoint CPoint
 		{
 			get { return tagData == null ? null : tagData.cpoint; }
@@ -649,18 +1150,14 @@ namespace TagBox
 
 				if (old != value)
 				{
-					if (CPointPointChanged != null)
-						CPointPointChanged(this, EventArgs.Empty);
 					if (CPointChanged != null)
 						CPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler<EventArgs> CPointChanged;
-		
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public Point? CPointPoint
 		{
 			get { return tagData == null ? null : tagData.cpoint == null ? null : (Point?)tagData.cpoint.Point; }
@@ -677,16 +1174,16 @@ namespace TagBox
 				{
 					if (CPointPointChanged != null)
 						CPointPointChanged(this, EventArgs.Empty);
+					if (drawingMode == global::TagBox.DrawingMode.CPoint && ActivePointChanged != null)
+						ActivePointChanged(this, EventArgs.Empty);
 					if (CPointChanged != null)
 						CPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler CPointPointChanged;
 
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public Point? CPointVector
 		{
 			get { return tagData == null ? null : tagData.cpoint == null ? null : (Point?)tagData.cpoint.Vector; }
@@ -703,16 +1200,16 @@ namespace TagBox
 				{
 					if (CPointVectorChanged != null)
 						CPointVectorChanged(this, EventArgs.Empty);
+					if (drawingMode == global::TagBox.DrawingMode.CPoint && ActiveVectorChanged != null)
+						ActiveVectorChanged(this, EventArgs.Empty);
 					if (CPointChanged != null)
 						CPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler CPointVectorChanged;
 
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public Point? BPoint
 		{
 			get { return tagData == null ? null : tagData.bpoint; }
@@ -727,14 +1224,14 @@ namespace TagBox
 				{
 					if (BPointChanged != null)
 						BPointChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
+					if (drawingMode == global::TagBox.DrawingMode.BPoint && ActivePointChanged != null)
+						ActivePointChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler BPointChanged;
 
-		[DefaultValue(null), Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
+		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never), ReadOnly(true)]
 		public Point? Center
 		{
 			get { return tagData == null ? null : tagData.center; }
@@ -749,14 +1246,14 @@ namespace TagBox
 				{
 					if (CenterChanged != null)
 						CenterChanged(this, EventArgs.Empty);
-					if (TagDataChanged != null)
-						TagDataChanged(this, EventArgs.Empty);
+					if (drawingMode == global::TagBox.DrawingMode.Center && ActivePointChanged != null)
+						ActivePointChanged(this, EventArgs.Empty);
 				}
 			}
 		}
 		public event EventHandler CenterChanged;
 
-		[DefaultValue(null), Browsable(false)]
+		[Browsable(false)]
 		public Bdy ActiveBdy
 		{
 			get
@@ -766,7 +1263,7 @@ namespace TagBox
 		}
 
 		int? activeBdyIndex = null;
-		[DefaultValue(null), Browsable(false)]
+		[Browsable(false)]
 		public int? ActiveBdyIndex
 		{
 			get { return activeBdyIndex; }
@@ -798,7 +1295,7 @@ namespace TagBox
 		}
 		public event EventHandler ActiveBdyChanged;
 
-		[DefaultValue(null), Browsable(false)]
+		[Browsable(false)]
 		public Itr ActiveItr
 		{
 			get
@@ -807,8 +1304,36 @@ namespace TagBox
 			}
 		}
 
+		[Browsable(false)]
+		public Point? ActiveItrVector
+		{
+			get
+			{
+				return activeItrIndex.HasValue ? ItrTags[activeItrIndex.Value].Vector : Point.Empty;
+			}
+			set
+			{
+				if (activeItrIndex.HasValue)
+				{
+					var old = ItrTags[activeItrIndex.Value].Vector;
+					ItrTags[activeItrIndex.Value].Vector = value.HasValue ? value.Value : Point.Empty;
+					if (displayModes.HasFlag(DisplayModes.Itr))
+						base.Invalidate();
+
+					if (old != value)
+					{
+						if (ItrVectorChanged != null)
+							ItrVectorChanged(this, EventArgs.Empty);
+						if (drawingMode == global::TagBox.DrawingMode.Itr && ActiveVectorChanged != null)
+							ActiveVectorChanged(this, EventArgs.Empty);
+						base.Invalidate();
+					}
+				}
+			}
+		}
+
 		int? activeItrIndex = null;
-		[DefaultValue(null), Browsable(false)]
+		[Browsable(false)]
 		public int? ActiveItrIndex
 		{
 			get { return activeItrIndex; }
@@ -840,7 +1365,7 @@ namespace TagBox
 		}
 		public event EventHandler ActiveItrChanged;
 
-		[DefaultValue(typeof(Rectangle), "-1, -1, 0, 0")]
+		[Browsable(false), ReadOnly(true)]
 		public Rectangle ActiveRectangle
 		{
 			get
@@ -849,16 +1374,16 @@ namespace TagBox
 				{
 					case DrawingMode.Bdy:
 						if (!activeBdyIndex.HasValue)
-							return new Rectangle(-1, -1, 0, 0);
+							return Rectangle.Empty;
 						else
 							return GetRectangleNormalized(BdyTags[activeBdyIndex.Value].Rectangle);
 					case DrawingMode.Itr:
 						if (!activeItrIndex.HasValue)
-							return new Rectangle(-1, -1, 0, 0);
+							return Rectangle.Empty;
 						else
 							return GetRectangleNormalized(ItrTags[activeItrIndex.Value].Rectangle);
 					default:
-						return new Rectangle(-1, -1, 0, 0);
+						return Rectangle.Empty;
 				}
 			}
 			set
@@ -875,10 +1400,10 @@ namespace TagBox
 
 							if (old != value)
 							{
+								if (BdyRectangleChanged != null)
+									BdyRectangleChanged(this, EventArgs.Empty);
 								if (ActiveRectangleChanged != null)
 									ActiveRectangleChanged(this, EventArgs.Empty);
-								if (TagDataChanged != null)
-									TagDataChanged(this, EventArgs.Empty);
 								base.Invalidate();
 							}
 						}
@@ -893,10 +1418,10 @@ namespace TagBox
 
 							if (old != value)
 							{
+								if (ItrRectangleChanged != null)
+									ItrRectangleChanged(this, EventArgs.Empty);
 								if (ActiveRectangleChanged != null)
 									ActiveRectangleChanged(this, EventArgs.Empty);
-								if (TagDataChanged != null)
-									TagDataChanged(this, EventArgs.Empty);
 								base.Invalidate();
 							}
 						}
@@ -905,6 +1430,116 @@ namespace TagBox
 			}
 		}
 		public event EventHandler ActiveRectangleChanged;
+
+		[Browsable(false)]
+		public Point ActivePoint
+		{
+			get
+			{
+				switch (drawingMode)
+				{
+					case DrawingMode.Bdy:
+						return activeBdyIndex.HasValue && BdyTags != null ? BdyTags[activeBdyIndex.Value].Point : Point.Empty;
+					case DrawingMode.Itr:
+						return activeItrIndex.HasValue && ItrTags != null ? ItrTags[activeItrIndex.Value].Point : Point.Empty;
+					case DrawingMode.WPoint:
+						return WPointPoint.HasValue ? WPointPoint.Value : Point.Empty;
+					case DrawingMode.OPoint:
+						return OPointPoint.HasValue ? OPointPoint.Value : Point.Empty;
+					case DrawingMode.CPoint:
+						return CPointPoint.HasValue ? CPointPoint.Value : Point.Empty;
+					case DrawingMode.BPoint:
+						return BPoint.HasValue ? BPoint.Value : Point.Empty;
+					case DrawingMode.Center:
+						return Center.HasValue ? Center.Value : Point.Empty;
+					default:
+						return Point.Empty;
+				}
+			}
+			set
+			{
+				switch (drawingMode)
+				{
+					case DrawingMode.Bdy:
+						if (activeBdyIndex.HasValue && BdyTags != null)
+							BdyTags[activeBdyIndex.Value].Point = value;
+						if (ActivePointChanged != null)
+							ActivePointChanged(this, EventArgs.Empty);
+						break;
+					case DrawingMode.Itr:
+						if (activeItrIndex.HasValue && ItrTags != null)
+							ItrTags[activeItrIndex.Value].Point = value;
+						if (ActivePointChanged != null)
+							ActivePointChanged(this, EventArgs.Empty);
+						break;
+					case DrawingMode.WPoint:
+						WPointPoint = value;
+						if (ActivePointChanged != null)
+							ActivePointChanged(this, EventArgs.Empty);
+						break;
+					case DrawingMode.OPoint:
+						OPointPoint = value;
+						if (ActivePointChanged != null)
+							ActivePointChanged(this, EventArgs.Empty);
+						break;
+					case DrawingMode.CPoint:
+						CPointPoint = value;
+						if (ActivePointChanged != null)
+							ActivePointChanged(this, EventArgs.Empty);
+						break;
+					case DrawingMode.BPoint:
+						BPoint = value;
+						if (ActivePointChanged != null)
+							ActivePointChanged(this, EventArgs.Empty);
+						break;
+					case DrawingMode.Center:
+						Center = value;
+						if (ActivePointChanged != null)
+							ActivePointChanged(this, EventArgs.Empty);
+						break;
+				}
+			}
+		}
+		public event EventHandler ActivePointChanged;
+
+		[Browsable(false)]
+		public Point? ActiveVector
+		{
+			get
+			{
+				switch (drawingMode)
+				{
+					case DrawingMode.Itr:
+						return ActiveItrVector;
+					case DrawingMode.WPoint:
+						return WPointVector;
+					case DrawingMode.OPoint:
+						return OPointVector;
+					case DrawingMode.CPoint:
+						return CPointVector;
+				}
+				return null;
+			}
+			set
+			{
+				switch (drawingMode)
+				{
+					case DrawingMode.Itr:
+						ActiveItrVector = value;
+						break;
+					case DrawingMode.WPoint:
+						WPointVector = value;
+						break;
+					case DrawingMode.OPoint:
+						OPointVector = value;
+						break;
+					case DrawingMode.CPoint:
+						CPointVector = value;
+						break;
+				}
+			}
+		}
+		public event EventHandler ActiveVectorChanged;
 
 		Pen wpointPen = new Pen(Color.Blue, 1.75f);
 		[Browsable(false)]
@@ -1832,7 +2467,7 @@ namespace TagBox
 			}
 		}
 
-		private void NewRectangle(Rectangle rect, bool callEvents = true)
+		private void NewRectangle(Rectangle rect, DrawingMode drawingMode, bool callEvents = true)
 		{
 			switch (drawingMode)
 			{
@@ -1843,8 +2478,6 @@ namespace TagBox
 					{
 						if (BdyTagsSet != null)
 							BdyTagsSet(this, EventArgs.Empty);
-						if (TagDataChanged != null)
-							TagDataChanged(this, EventArgs.Empty);
 					}
 					return;
 				case DrawingMode.Itr:
@@ -1854,11 +2487,14 @@ namespace TagBox
 					{
 						if (ItrTagsSet != null)
 							ItrTagsSet(this, EventArgs.Empty);
-						if (TagDataChanged != null)
-							TagDataChanged(this, EventArgs.Empty);
 					}
 					return;
 			}
+		}
+
+		private void NewRectangle(Rectangle rect, bool callEvents = true)
+		{
+			NewRectangle(rect, drawingMode, callEvents);
 		}
 
 		private int? GetRectangleChoice(Point location)
@@ -1942,13 +2578,41 @@ namespace TagBox
 			e.Graphics.TranslateTransform(matrix.X, matrix.Y);
 
 			if (displayModes.HasFlag(DisplayModes.Center) && trancparency && Center != null)
-				e.Graphics.FillEllipse(centerBrush, tagData.center.Value.X - 17, tagData.center.Value.Y - 4, 35, 7);
+				e.Graphics.FillEllipse(centerBrush, tagData.center.Value.X - 18, tagData.center.Value.Y - 4, 35, 7);
 
+			bool wdraw = false;
 			if (displayModes.HasFlag(DisplayModes.WPoint) && wpointImage != null && wpointCover && WPointPoint != null)
 			{
 				Point p = tagData.wpoint.Point;
 				p.Offset(-wpointImageOffset.X, -wpointImageOffset.Y);
 				e.Graphics.DrawImage(wpointImage, new Rectangle(p, wpointImage.Size), 0, 0, wpointImage.Width, wpointImage.Height, GraphicsUnit.Pixel, imageAttr);
+				wdraw = true;
+			}
+
+			bool cdraw = false;
+			if (displayModes.HasFlag(DisplayModes.CPoint) && cpointImage != null && cpointCover && CPointPoint != null)
+			{
+				{
+					Point p = tagData.cpoint.Point;
+					p.Offset(-cpointImageOffset.X, -cpointImageOffset.Y);
+					e.Graphics.DrawImage(cpointImage, new Rectangle(p, cpointImage.Size), 0, 0, cpointImage.Width, cpointImage.Height, GraphicsUnit.Pixel, imageAttr);
+				}
+				if (tagData.cpoint.Vector != Point.Empty)
+				{
+					Matrix mx = e.Graphics.Transform.Clone();
+					Point p = tagData.cpoint.Point, v = tagData.cpoint.Vector;
+					if (tagData.cpoint.Point != Point.Empty)
+						e.Graphics.TranslateTransform(p.X, p.Y);
+					else
+						e.Graphics.TranslateTransform(matrix.Width / 2 + imageIndent, matrix.Height / 2 + imageIndent);
+					e.Graphics.DrawLine(cvectorPen, 0, 0, v.X, v.Y);
+					e.Graphics.TranslateTransform(v.X, v.Y);
+					float f = (float)(Radian2Degree(Math.Atan((v.Y) / (double)(v.X))) + ((v.X) < 0 ? -90 : 90));
+					e.Graphics.RotateTransform(f);
+					e.Graphics.FillPolygon(cvectorBrush, arrow);
+					e.Graphics.Transform = mx;
+				}
+				cdraw = true;
 			}
 
 			if (image != null)
@@ -1984,7 +2648,7 @@ namespace TagBox
 						break;
 				}
 			}
-			
+
 			if (displayModes.HasFlag(DisplayModes.BPoint) && BPoint != null)
 			{
 				if (bpointImage != null)
@@ -2060,9 +2724,9 @@ namespace TagBox
 				}
 			}
 
-			if (displayModes.HasFlag(DisplayModes.WPoint) && !wpointCover && WPointPoint != null)
+			if (displayModes.HasFlag(DisplayModes.WPoint) && !wdraw && WPointPoint != null)
 			{
-				if(wpointImage == null)
+				if (wpointImage == null)
 				{
 					Point p = WPointPoint.Value;
 					e.Graphics.TranslateTransform(p.X, p.Y);
@@ -2093,7 +2757,7 @@ namespace TagBox
 				}
 			}
 
-			if (displayModes.HasFlag(DisplayModes.CPoint) && CPointPoint != null)
+			if (displayModes.HasFlag(DisplayModes.CPoint) && !cdraw && CPointPoint != null)
 			{
 				if (cpointImage == null)
 				{
@@ -2231,7 +2895,7 @@ namespace TagBox
 							toolTipB.Show((lastBounds = lastBBounds = relativeMouseLocation).ToString(), this, controlMouseLocationB);
 						b = true;
 					}
-					else if (RightMouse)
+					else if (RightMouse && WPoint != null)
 					{
 						WPointVector = new Point((relativeMouseLocation.X - WPointPoint.Value.X) / vectorDivision, (relativeMouseLocation.Y - WPointPoint.Value.Y) / vectorDivision);
 						if (showBoundToolTip)
@@ -2247,7 +2911,7 @@ namespace TagBox
 							toolTipB.Show((lastBounds = lastBBounds = relativeMouseLocation).ToString(), this, controlMouseLocationB);
 						b = true;
 					}
-					else if (RightMouse)
+					else if (RightMouse && OPoint != null)
 					{
 						OPointVector = new Point((relativeMouseLocation.X - OPointPoint.Value.X) / vectorDivision, (relativeMouseLocation.Y - OPointPoint.Value.Y) / vectorDivision);
 						if (showBoundToolTip)
@@ -2263,7 +2927,7 @@ namespace TagBox
 							toolTipB.Show((lastBounds = lastBBounds = relativeMouseLocation).ToString(), this, controlMouseLocationB);
 						b = true;
 					}
-					else if (RightMouse)
+					else if (RightMouse && CPoint != null)
 					{
 						CPointVector = new Point((relativeMouseLocation.X - CPointPoint.Value.X) / vectorDivision, (relativeMouseLocation.Y - CPointPoint.Value.Y) / vectorDivision);
 						if (showBoundToolTip)
@@ -2300,7 +2964,7 @@ namespace TagBox
 							if (del.HasValue)
 							{
 								BdyTags.RemoveAt(del.Value);
-								activeBdyIndex = BdyTags.Count > 0 ? (int?)(BdyTags.Count - 1) : null;
+								ActiveBdyIndex = BdyTags.Count > 0 ? (int?)(BdyTags.Count - 1) : null;
 							}
 						}
 					}
@@ -2308,7 +2972,7 @@ namespace TagBox
 						NewRectangle(ActiveRectangle, false);
 					if (LeftOrRightMouse && e.Location != ActiveRectangle.Location)
 					{
-						if(!ShiftKey)
+						if (!ShiftKey)
 							ActiveRectangle = new Rectangle(relativeMouseLocation, rect.Size);
 						if (showBoundToolTip)
 							toolTipB.Show((lastBounds = lastBBounds = ActiveRectangle).ToString(), this, controlMouseLocationB);
@@ -2330,8 +2994,12 @@ namespace TagBox
 					}
 					if (RightMouse)
 					{
-						if (!ShiftKey)
-							ItrTags[activeItrIndex.Value].Vector = new Point((relativeMouseLocation.X - ActiveRectangle.X - ActiveRectangle.Width / 2) / vectorDivision, (relativeMouseLocation.Y - ActiveRectangle.Y - ActiveRectangle.Height / 2) / vectorDivision);
+						if (!ShiftKey && ActiveItr != null)
+						{
+							ActiveItrVector = new Point((relativeMouseLocation.X - ActiveRectangle.X - ActiveRectangle.Width / 2) / vectorDivision, (relativeMouseLocation.Y - ActiveRectangle.Y - ActiveRectangle.Height / 2) / vectorDivision);
+							if (showBoundToolTip)
+								toolTipBB.Show((lastBBounds = ActiveItrVector).ToString(), this, controlMouseLocationBB);
+						}
 						else
 						{
 							int? del = GetRectangleChoice(relativeMouseLocation);
@@ -2341,8 +3009,6 @@ namespace TagBox
 								ActiveItrIndex = ItrTags.Count > 0 ? (int?)(ItrTags.Count - 1) : null;
 							}
 						}
-						if (showBoundToolTip)
-							toolTipBB.Show((lastBBounds = ItrTags[activeItrIndex.Value].Vector).ToString(), this, controlMouseLocationBB);
 						bb = true;
 					}
 					break;
@@ -2382,7 +3048,7 @@ namespace TagBox
 						if (showBoundToolTip)
 							toolTipB.Show((lastBounds = lastBBounds = relativeMouseLocation).ToString(), this, controlMouseLocationB);
 					}
-					else if (RightMouse)
+					else if (RightMouse && WPoint != null)
 					{
 						WPointVector = new Point((relativeMouseLocation.X - WPointPoint.Value.X) / vectorDivision, (relativeMouseLocation.Y - WPointPoint.Value.Y) / vectorDivision);
 						if (showBoundToolTip)
@@ -2396,7 +3062,7 @@ namespace TagBox
 						if (showBoundToolTip)
 							toolTipB.Show((lastBounds = lastBBounds = relativeMouseLocation).ToString(), this, controlMouseLocationB);
 					}
-					else if (RightMouse)
+					else if (RightMouse && OPoint != null)
 					{
 						OPointVector = new Point((relativeMouseLocation.X - OPointPoint.Value.X) / vectorDivision, (relativeMouseLocation.Y - OPointPoint.Value.Y) / vectorDivision);
 						if (showBoundToolTip)
@@ -2410,7 +3076,7 @@ namespace TagBox
 						if (showBoundToolTip)
 							toolTipB.Show((lastBounds = lastBBounds = relativeMouseLocation).ToString(), this, controlMouseLocationB);
 					}
-					else if (RightMouse)
+					else if (RightMouse && CPoint != null)
 					{
 						CPointVector = new Point((relativeMouseLocation.X - CPointPoint.Value.X) / vectorDivision, (relativeMouseLocation.Y - CPointPoint.Value.Y) / vectorDivision);
 						if (showBoundToolTip)
@@ -2456,13 +3122,15 @@ namespace TagBox
 					}
 					if (RightMouse && activeItrIndex.HasValue)
 					{
-						if (!ShiftKey)
-							ItrTags[activeItrIndex.Value].Vector = new Point((relativeMouseLocation.X - ActiveRectangle.X - ActiveRectangle.Width / 2) / vectorDivision, (relativeMouseLocation.Y - ActiveRectangle.Y - ActiveRectangle.Height / 2) / vectorDivision);
-						if (showBoundToolTip)
-							toolTipBB.Show((lastBBounds = ItrTags[activeItrIndex.Value].Vector).ToString(), this, controlMouseLocationBB);
+						if (!ShiftKey && ActiveItr != null)
+						{
+							ActiveItrVector = new Point((relativeMouseLocation.X - ActiveRectangle.X - ActiveRectangle.Width / 2) / vectorDivision, (relativeMouseLocation.Y - ActiveRectangle.Y - ActiveRectangle.Height / 2) / vectorDivision);
+							if (showBoundToolTip)
+								toolTipBB.Show((lastBBounds = ActiveItrVector).ToString(), this, controlMouseLocationBB);
+						}
 						base.Invalidate();
 					}
-					if(ShiftKey)
+					if (ShiftKey)
 						base.Invalidate();
 					break;
 			}
