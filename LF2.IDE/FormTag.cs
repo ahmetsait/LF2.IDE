@@ -242,9 +242,9 @@ namespace LF2.IDE
 					vaction = tagy.vaction.ToString(),
 					taction = tagy.taction.ToString(),
 					aaction = tagy.aaction.ToString(),
-					throwvx = tagy.throwx.ToString(),
-					throwvy = tagy.throwy.ToString(),
-					throwvz = tagy.throwz.ToString(),
+					throwvx = tagy.throwvx.ToString(),
+					throwvy = tagy.throwvy.ToString(),
+					throwvz = tagy.throwvz.ToString(),
 					hurtable = tagy.hurtable.ToString(),
 					throwinjury = tagy.throwinjury.ToString(),
 					decrease = tagy.decrease.ToString(),
@@ -302,7 +302,7 @@ namespace LF2.IDE
 
 			return txt.ToString();
 		}
-		
+
 		void RichTextBoxKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.V && e.Control)
@@ -374,12 +374,12 @@ namespace LF2.IDE
 
 		void CoverChanged(object sender, EventArgs e)
 		{
-			switch (tabControl_Tags.SelectedIndex)
+			switch (tagBox.DrawingMode)
 			{
-				case 2:
+				case TagBox.DrawingMode.WPoint:
 					tagBox.WPointCover = (wpoint_cover.Text != "0" && wpoint_cover.Text != "");
 					break;
-				case 4:
+				case TagBox.DrawingMode.CPoint:
 					tagBox.CPointCover = (cpoint_cover.Text != "0" && cpoint_cover.Text != "");
 					break;
 			}
@@ -390,31 +390,37 @@ namespace LF2.IDE
 		void TagBoxPointChanged(object sender, EventArgs e)
 		{
 			editing = true;
-			switch (tabControl_Tags.SelectedIndex)
+			switch (tagBox.DrawingMode)
 			{
-				case 2:
+				case TagBox.DrawingMode.WPoint:
 					wpoint_x.Text = tagBox.WPointPoint.Value.X.ToString();
 					wpoint_y.Text = tagBox.WPointPoint.Value.Y.ToString();
 					wpoint_x.Refresh();
 					wpoint_y.Refresh();
 					break;
-				case 3:
+				case TagBox.DrawingMode.OPoint:
 					opoint_x.Text = tagBox.OPointPoint.Value.X.ToString();
 					opoint_y.Text = tagBox.OPointPoint.Value.Y.ToString();
 					opoint_x.Refresh();
 					opoint_y.Refresh();
 					break;
-				case 4:
+				case TagBox.DrawingMode.CPoint:
 					cpoint_x.Text = tagBox.CPointPoint.Value.X.ToString();
 					cpoint_y.Text = tagBox.CPointPoint.Value.Y.ToString();
 					cpoint_x.Refresh();
 					cpoint_y.Refresh();
 					break;
-				case 5:
+				case TagBox.DrawingMode.BPoint:
 					bpoint_x.Text = tagBox.BPoint.Value.X.ToString();
 					bpoint_y.Text = tagBox.BPoint.Value.Y.ToString();
 					bpoint_x.Refresh();
 					bpoint_y.Refresh();
+					break;
+				case TagBox.DrawingMode.Center:
+					centerx.Text = tagBox.Center.Value.X.ToString();
+					centery.Text = tagBox.Center.Value.Y.ToString();
+					centerx.Refresh();
+					centery.Refresh();
 					break;
 			}
 			editing = false;
@@ -424,9 +430,9 @@ namespace LF2.IDE
 		void TagBoxVectorChanged(object sender, EventArgs e)
 		{
 			editing = true;
-			switch (tabControl_Tags.SelectedIndex)
+			switch (tagBox.DrawingMode)
 			{
-				case 1:
+				case TagBox.DrawingMode.Itr:
 					if (tagBox.ActiveItr == null)
 						break;
 					Point itr = tagBox.ActiveItr.Vector;
@@ -435,7 +441,7 @@ namespace LF2.IDE
 					itr_dvx.Refresh();
 					itr_dvy.Refresh();
 					break;
-				case 2:
+				case TagBox.DrawingMode.WPoint:
 					if (tagBox.WPointVector == null)
 						break;
 					Point w = tagBox.WPointVector.Value;
@@ -444,7 +450,7 @@ namespace LF2.IDE
 					wpoint_dvx.Refresh();
 					wpoint_dvy.Refresh();
 					break;
-				case 3:
+				case TagBox.DrawingMode.OPoint:
 					if (tagBox.OPointVector == null)
 						break;
 					Point o = tagBox.OPointVector.Value;
@@ -453,7 +459,7 @@ namespace LF2.IDE
 					opoint_dvx.Refresh();
 					opoint_dvy.Refresh();
 					break;
-				case 4:
+				case TagBox.DrawingMode.CPoint:
 					if (tagBox.CPointVector == null)
 						break;
 					Point c = tagBox.CPointVector.Value;
@@ -470,12 +476,12 @@ namespace LF2.IDE
 		void TagBoxRectangleChanged(object sender, EventArgs e)
 		{
 			editing = true;
-			switch (tabControl_Tags.SelectedIndex)
+			switch (tagBox.DrawingMode)
 			{
-				case 0:
+				case TagBox.DrawingMode.Bdy:
 					if (tagBox.ActiveBdy == null)
 						break;
-					Rectangle bdy = tagBox.ActiveBdy.Rectangle;
+					Rectangle bdy = tagBox.ActiveRectangle;
 					bdy_x.Text = bdy.X.ToString();
 					bdy_y.Text = bdy.Y.ToString();
 					bdy_w.Text = bdy.Width.ToString();
@@ -485,10 +491,10 @@ namespace LF2.IDE
 					bdy_w.Refresh();
 					bdy_h.Refresh();
 					break;
-				case 1:
+				case TagBox.DrawingMode.Itr:
 					if (tagBox.ActiveItr == null)
 						break;
-					Rectangle itr = tagBox.ActiveItr.Rectangle;
+					Rectangle itr = tagBox.ActiveRectangle;
 					itr_x.Text = itr.X.ToString();
 					itr_y.Text = itr.Y.ToString();
 					itr_w.Text = itr.Width.ToString();
@@ -528,7 +534,7 @@ namespace LF2.IDE
 			if (editing) return;
 			try
 			{
-				tagBox.ActiveItr.Vector = new Point(int.Parse(itr_dvx.Text), int.Parse(itr_dvy.Text));
+				tagBox.ActiveItrVector = new Point(int.Parse(itr_dvx.Text), int.Parse(itr_dvy.Text));
 			}
 			catch { }
 		}
@@ -850,7 +856,7 @@ namespace LF2.IDE
 		{
 			if (e.Error != null)
 			{
-				mainForm.formEventLog.Error(e.Error, "Opoint Cache Creator Error");
+				mainForm.formEventLog.Error(e.Error, "Opoint Caching Error");
 			}
 			else if (!e.Cancelled && e.Result != null)
 			{
@@ -862,7 +868,7 @@ namespace LF2.IDE
 				progressBar_CacheCreation.Value = 100;
 				label_CacheCreationProgress.Text = "data\\...";
 
-				mainForm.formEventLog.Log("Cache Creation: " + stopWatch.Elapsed, true);
+				mainForm.formEventLog.Log("Opoint Cache Created: " + stopWatch.Elapsed, true);
 			}
 			button_CreateOpointCache.Text = cacheButtonString;
 			stopWatch.Reset();
@@ -934,6 +940,48 @@ namespace LF2.IDE
 		private void FormTag_Load(object sender, EventArgs e)
 		{
 			TagChanged(tabControl_Tags, EventArgs.Empty);
+		}
+
+		private void checkBox_tag_CheckedChanged(object sender, EventArgs e)
+		{
+			if (checkBox_bdy.Checked)
+				tagBox.DisplayModes |= TagBox.DisplayModes.Bdy;
+			else
+				tagBox.DisplayModes &= ~TagBox.DisplayModes.Bdy;
+			if (checkBox_itr.Checked)
+				tagBox.DisplayModes |= TagBox.DisplayModes.Itr;
+			else
+				tagBox.DisplayModes &= ~TagBox.DisplayModes.Itr;
+			if (checkBox_w.Checked)
+				tagBox.DisplayModes |= TagBox.DisplayModes.WPoint;
+			else
+				tagBox.DisplayModes &= ~TagBox.DisplayModes.WPoint;
+			if (checkBox_o.Checked)
+				tagBox.DisplayModes |= TagBox.DisplayModes.OPoint;
+			else
+				tagBox.DisplayModes &= ~TagBox.DisplayModes.OPoint;
+			if (checkBox_c.Checked)
+				tagBox.DisplayModes |= TagBox.DisplayModes.CPoint;
+			else
+				tagBox.DisplayModes &= ~TagBox.DisplayModes.CPoint;
+			if (checkBox_b.Checked)
+				tagBox.DisplayModes |= TagBox.DisplayModes.BPoint;
+			else
+				tagBox.DisplayModes &= ~TagBox.DisplayModes.BPoint;
+			if (checkBox_center.Checked)
+				tagBox.DisplayModes |= TagBox.DisplayModes.Center;
+			else
+				tagBox.DisplayModes &= ~TagBox.DisplayModes.Center;
+		}
+
+		private void CenterChanged(object sender, EventArgs e)
+		{
+			if (editing) return;
+			try
+			{
+				tagBox.Center = new Point(int.Parse(centerx.Text), int.Parse(centery.Text));
+			}
+			catch { }
 		}
 	}
 }

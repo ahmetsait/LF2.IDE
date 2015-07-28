@@ -184,6 +184,11 @@
 			this.checkBox_b = new System.Windows.Forms.CheckBox();
 			this.checkBox_center = new System.Windows.Forms.CheckBox();
 			this.tagBox = new TagBox.TagBox();
+			this.centery = new System.Windows.Forms.TextBox();
+			this.button_centerReset = new System.Windows.Forms.Button();
+			this.centerx = new System.Windows.Forms.TextBox();
+			this.label_center_y = new System.Windows.Forms.Label();
+			this.label_center_x = new System.Windows.Forms.Label();
 			this.tabPage_b.SuspendLayout();
 			this.tabPage_c.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDown_ImageIndex)).BeginInit();
@@ -193,6 +198,7 @@
 			this.tabPage_w.SuspendLayout();
 			this.tabPage_o.SuspendLayout();
 			this.groupBox_OpointPanel.SuspendLayout();
+			this.tabPage1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// cpoint_decrease
@@ -1663,6 +1669,11 @@
 			// 
 			// tabPage1
 			// 
+			this.tabPage1.Controls.Add(this.centery);
+			this.tabPage1.Controls.Add(this.button_centerReset);
+			this.tabPage1.Controls.Add(this.centerx);
+			this.tabPage1.Controls.Add(this.label_center_y);
+			this.tabPage1.Controls.Add(this.label_center_x);
 			this.tabPage1.Location = new System.Drawing.Point(4, 22);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -1699,6 +1710,7 @@
 			this.checkBox_bdy.Size = new System.Drawing.Size(15, 14);
 			this.checkBox_bdy.TabIndex = 106;
 			this.checkBox_bdy.UseVisualStyleBackColor = true;
+			this.checkBox_bdy.CheckedChanged += new System.EventHandler(this.checkBox_tag_CheckedChanged);
 			// 
 			// checkBox_itr
 			// 
@@ -1711,6 +1723,7 @@
 			this.checkBox_itr.Size = new System.Drawing.Size(15, 14);
 			this.checkBox_itr.TabIndex = 106;
 			this.checkBox_itr.UseVisualStyleBackColor = true;
+			this.checkBox_itr.CheckedChanged += new System.EventHandler(this.checkBox_tag_CheckedChanged);
 			// 
 			// checkBox_w
 			// 
@@ -1723,6 +1736,7 @@
 			this.checkBox_w.Size = new System.Drawing.Size(15, 14);
 			this.checkBox_w.TabIndex = 107;
 			this.checkBox_w.UseVisualStyleBackColor = true;
+			this.checkBox_w.CheckedChanged += new System.EventHandler(this.checkBox_tag_CheckedChanged);
 			// 
 			// checkBox_o
 			// 
@@ -1735,6 +1749,7 @@
 			this.checkBox_o.Size = new System.Drawing.Size(15, 14);
 			this.checkBox_o.TabIndex = 108;
 			this.checkBox_o.UseVisualStyleBackColor = true;
+			this.checkBox_o.CheckedChanged += new System.EventHandler(this.checkBox_tag_CheckedChanged);
 			// 
 			// checkBox_c
 			// 
@@ -1747,6 +1762,7 @@
 			this.checkBox_c.Size = new System.Drawing.Size(15, 14);
 			this.checkBox_c.TabIndex = 109;
 			this.checkBox_c.UseVisualStyleBackColor = true;
+			this.checkBox_c.CheckedChanged += new System.EventHandler(this.checkBox_tag_CheckedChanged);
 			// 
 			// checkBox_b
 			// 
@@ -1759,6 +1775,7 @@
 			this.checkBox_b.Size = new System.Drawing.Size(15, 14);
 			this.checkBox_b.TabIndex = 110;
 			this.checkBox_b.UseVisualStyleBackColor = true;
+			this.checkBox_b.CheckedChanged += new System.EventHandler(this.checkBox_tag_CheckedChanged);
 			// 
 			// checkBox_center
 			// 
@@ -1771,9 +1788,15 @@
 			this.checkBox_center.Size = new System.Drawing.Size(15, 14);
 			this.checkBox_center.TabIndex = 110;
 			this.checkBox_center.UseVisualStyleBackColor = true;
+			this.checkBox_center.CheckedChanged += new System.EventHandler(this.checkBox_tag_CheckedChanged);
 			// 
 			// tagBox
 			// 
+			this.tagBox.ActiveBdyIndex = null;
+			this.tagBox.ActiveItrIndex = null;
+			this.tagBox.ActiveItrVector = new System.Drawing.Point(0, 0);
+			this.tagBox.ActivePoint = new System.Drawing.Point(0, 0);
+			this.tagBox.ActiveVector = null;
 			this.tagBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -1800,15 +1823,52 @@
 			this.tagBox.TabStop = false;
 			this.tagBox.Trancparency = true;
 			this.tagBox.VectorDivision = 4;
-			this.tagBox.BdyRectangleChanged += new System.EventHandler(this.BdyRectangleChanged);
-			this.tagBox.ItrRectangleChanged += new System.EventHandler(this.TagBoxRectangleChanged);
-			this.tagBox.WPointPointChanged += new System.EventHandler(this.WpointPointChanged);
-			this.tagBox.WPointVectorChanged += new System.EventHandler(this.WpointVectorChanged);
-			this.tagBox.OPointPointChanged += new System.EventHandler(this.OpointPointChanged);
-			this.tagBox.OPointVectorChanged += new System.EventHandler(this.OpointVectorChanged);
-			this.tagBox.CPointPointChanged += new System.EventHandler(this.CpointPointChanged);
-			this.tagBox.CPointVectorChanged += new System.EventHandler(this.CpointVectorChanged);
-			this.tagBox.BPointChanged += new System.EventHandler(this.BpointChanged);
+			this.tagBox.ActiveRectangleChanged += new System.EventHandler(this.TagBoxRectangleChanged);
+			this.tagBox.ActivePointChanged += new System.EventHandler(this.TagBoxPointChanged);
+			this.tagBox.ActiveVectorChanged += new System.EventHandler(this.TagBoxVectorChanged);
+			// 
+			// centery
+			// 
+			this.centery.Location = new System.Drawing.Point(30, 32);
+			this.centery.Name = "centery";
+			this.centery.Size = new System.Drawing.Size(55, 20);
+			this.centery.TabIndex = 29;
+			this.centery.TextChanged += new System.EventHandler(this.CenterChanged);
+			// 
+			// button_centerReset
+			// 
+			this.button_centerReset.Location = new System.Drawing.Point(6, 58);
+			this.button_centerReset.Name = "button_centerReset";
+			this.button_centerReset.Size = new System.Drawing.Size(79, 23);
+			this.button_centerReset.TabIndex = 30;
+			this.button_centerReset.Text = "Reset";
+			this.button_centerReset.UseVisualStyleBackColor = true;
+			// 
+			// centerx
+			// 
+			this.centerx.Location = new System.Drawing.Point(30, 6);
+			this.centerx.Name = "centerx";
+			this.centerx.Size = new System.Drawing.Size(55, 20);
+			this.centerx.TabIndex = 28;
+			this.centerx.TextChanged += new System.EventHandler(this.CenterChanged);
+			// 
+			// label_center_y
+			// 
+			this.label_center_y.AutoSize = true;
+			this.label_center_y.Location = new System.Drawing.Point(6, 35);
+			this.label_center_y.Name = "label_center_y";
+			this.label_center_y.Size = new System.Drawing.Size(18, 13);
+			this.label_center_y.TabIndex = 32;
+			this.label_center_y.Text = "y :";
+			// 
+			// label_center_x
+			// 
+			this.label_center_x.AutoSize = true;
+			this.label_center_x.Location = new System.Drawing.Point(6, 9);
+			this.label_center_x.Name = "label_center_x";
+			this.label_center_x.Size = new System.Drawing.Size(18, 13);
+			this.label_center_x.TabIndex = 31;
+			this.label_center_x.Text = "x :";
 			// 
 			// FormTag
 			// 
@@ -1864,6 +1924,8 @@
 			this.tabPage_o.PerformLayout();
 			this.groupBox_OpointPanel.ResumeLayout(false);
 			this.groupBox_OpointPanel.PerformLayout();
+			this.tabPage1.ResumeLayout(false);
+			this.tabPage1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -2022,5 +2084,10 @@
 		private System.Windows.Forms.TabPage tabPage1;
 		public System.Windows.Forms.CheckBox checkBox_center;
 		public TagBox.TagBox tagBox;
+		public System.Windows.Forms.TextBox centery;
+		public System.Windows.Forms.Button button_centerReset;
+		public System.Windows.Forms.TextBox centerx;
+		public System.Windows.Forms.Label label_center_y;
+		public System.Windows.Forms.Label label_center_x;
 	}
 }
