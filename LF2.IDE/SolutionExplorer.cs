@@ -50,7 +50,7 @@ namespace LF2.IDE
 			if (Directory.Exists(target))
 			{
 				stopWatch.Restart();
-				populateTreeView.RunWorkerAsync(target + "|" + filterToolStripComboBox.Text);
+				populateTreeView.RunWorkerAsync(target + '|' + filterToolStripComboBox.Text);
 			}
 		}
 
@@ -79,7 +79,7 @@ namespace LF2.IDE
 			TreeNode rootNode = e.Result as TreeNode;
 			treeView.Nodes.Add(rootNode);
 			refreshToolStripButton.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			mainForm.formEventLog.Log("Solution Explorer Load (" + filterToolStripComboBox.Text + "): " + stopWatch.Elapsed, true);
+			mainForm.formEventLog.Log("Solution Explorer Refreshed (" + filterToolStripComboBox.Text + "): " + stopWatch.Elapsed, true);
 			stopWatch.Reset();
 		}
 
@@ -297,7 +297,7 @@ namespace LF2.IDE
 		{
 			try
 			{
-				if (e.Label.IndexOfAny(illegalChars) != -1)
+				if (string.IsNullOrWhiteSpace(e.Label) || e.Label.IndexOfAny(illegalChars) != -1)
 				{
 					e.CancelEdit = true;
 					return;
@@ -1182,7 +1182,7 @@ namespace LF2.IDE
 							case ".wmf":
 								Image img = Image.FromFile(nodeFileInfo.FullName);
 								if (preview.IsDisposed) preview = new PreviewForm();
-								preview.Set(img, p, 1000);
+								preview.Set(img, p, 1500);
 								if (!preview.Visible) preview.Show(this);
 								break;
 						}
