@@ -12,7 +12,6 @@ namespace LF2.IDE
 		public MediaPanel()
 		{
 			InitializeComponent();
-			
 		}
 
 		void OpenFileButtonClick(object sender, EventArgs e)
