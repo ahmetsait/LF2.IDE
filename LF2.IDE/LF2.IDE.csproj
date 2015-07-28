@@ -17,7 +17,7 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <DelaySign>False</DelaySign>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
@@ -134,15 +134,17 @@
     <AssemblyOriginatorKeyFile>LF2.IDE.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AxInterop.WMPLib">
-      <HintPath>..\assemblies\WMPLib\AxInterop.WMPLib.dll</HintPath>
+    <Reference Include="AxInterop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Assemblies\WMPLib\signed\AxInterop.WMPLib.dll</HintPath>
     </Reference>
     <Reference Include="CSScriptLibrary">
       <HintPath>..\Assemblies\CSScriptLibrary\CSScriptLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Interop.WMPLib">
-      <HintPath>..\assemblies\WMPLib\Interop.WMPLib.dll</HintPath>
+    <Reference Include="Interop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\Assemblies\WMPLib\signed\Interop.WMPLib.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="protobuf-net">
