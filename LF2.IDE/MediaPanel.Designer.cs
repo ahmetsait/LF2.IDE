@@ -100,7 +100,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "MediaPlayer";
+			this.Name = "MediaPanel";
 			this.ShowHint = WeifenLuo.WinFormsUI.Docking.DockState.DockBottomAutoHide;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.TabText = "Media Player";
