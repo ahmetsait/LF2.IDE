@@ -12,7 +12,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 
 namespace LF2.IDE
 {
-	internal sealed partial class Program
+	internal sealed class Program
 	{
 		[STAThread]
 		static void Main(string[] args)

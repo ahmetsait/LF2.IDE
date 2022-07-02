@@ -171,7 +171,7 @@ namespace LF2.IDE
 			}
 			catch (DllNotFoundException)
 			{
-				MessageBox.Show("'IDL.dll' could not be found, it's required to make instant data loading possible.\r\n" +
+				MessageBox.Show("'IDL.dll' could not be found, it is required for instant data loading functionality.\r\n" +
 					"If you think it supposed to come with the download please contact me (the developer) at LFE Forums (Help/Web...) or report a bug at GitHub:\r\n" +
 					Program.githubPage,
 					Program.Title, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -231,7 +231,7 @@ namespace LF2.IDE
 			if (modification > dataTxtLastModification)
 			{
 				dataTxtFile = File.ReadAllText(dataTxtFile);
-				if (IDL.ReadDataTxt(dataTxtFile, dataTxtFile.Length, ref dataTxt.objects, ref dataTxt.objCount, ref dataTxt.backgrounds, ref dataTxt.bgCount, this.Handle) != 0)
+				if (IDL.ReadDataTxt(dataTxtFile, dataTxtFile.Length, out dataTxt.objects, out dataTxt.objCount, out dataTxt.backgrounds, out dataTxt.bgCount, this.Handle) != 0)
 					return;
 
 				dataTxtLastModification = modification;
@@ -245,7 +245,9 @@ namespace LF2.IDE
 
 			for(int i = 0; i < dataTxt.objCount; i++)
 			{
-				if (doc.FilePath != null ? doc.FilePath.EndsWith(dataTxt.objects[i].file, StringComparison.InvariantCultureIgnoreCase) : doc.TabText.EndsWith(dataTxt.objects[i].file, StringComparison.InvariantCultureIgnoreCase))
+				if (doc.FilePath != null ? 
+					doc.FilePath.EndsWith(dataTxt.objects[i].file, StringComparison.InvariantCultureIgnoreCase) : 
+					doc.TabText.EndsWith(dataTxt.objects[i].file, StringComparison.InvariantCultureIgnoreCase))
 				{
 					comboBox_ObjId.SelectedIndex = i;
 					comboBox_ObjType.SelectedIndex = (int)dataTxt.objects[i].type;
@@ -256,7 +258,9 @@ namespace LF2.IDE
 
 			for (int i = 0; i < dataTxt.bgCount; i++)
 			{
-				if (doc.FilePath != null ? doc.FilePath.EndsWith(dataTxt.backgrounds[i].file, StringComparison.InvariantCultureIgnoreCase) : doc.TabText.EndsWith(dataTxt.backgrounds[i].file, StringComparison.InvariantCultureIgnoreCase))
+				if (doc.FilePath != null ? 
+					doc.FilePath.EndsWith(dataTxt.backgrounds[i].file, StringComparison.InvariantCultureIgnoreCase) : 
+					doc.TabText.EndsWith(dataTxt.backgrounds[i].file, StringComparison.InvariantCultureIgnoreCase))
 				{
 					comboBox_BgId.SelectedIndex = i;
 					comboBox_DataType.SelectedIndex = 2;
