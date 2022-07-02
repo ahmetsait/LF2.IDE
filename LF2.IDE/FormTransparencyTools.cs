@@ -30,7 +30,7 @@ namespace LF2.IDE
 		Bitmap bmp;
 		string path;
 
-		public bool[,] texture
+		public bool[,] Texture
 		{
 			get { return FormTextureEditor.Texture; }
 			set { FormTextureEditor.Texture = value; }
@@ -40,59 +40,20 @@ namespace LF2.IDE
 		{
 			pictureBoxOriginal.Image = original;
 			pictureBoxModified.Image = (Image)bmp.Clone();
-
-			hScrollBarO.Maximum = Math.Max(0, pictureBoxOriginal.Width - panelOriginal.Width);
-			vScrollBarO.Maximum = Math.Max(0, pictureBoxOriginal.Height - panelOriginal.Height);
-			hScrollBarM.Maximum = Math.Max(0, pictureBoxModified.Width - panelModified.Width);
-			vScrollBarM.Maximum = Math.Max(0, pictureBoxModified.Height - panelModified.Height);
-
-			Bitmap bits = new Bitmap(texture.GetLength(0), texture.GetLength(1));
+			
+			Bitmap bits = new Bitmap(Texture.GetLength(0), Texture.GetLength(1));
 			for (int i = 0; i < bits.Width; i++)
 			{
 				for (int j = 0; j < bits.Height; j++)
 				{
-					bits.SetPixel(i, j, texture[i, j] ? Color.Black : Color.White);
+					bits.SetPixel(i, j, Texture[i, j] ? Color.Black : Color.White);
 				}
 			}
 			pictureBoxTexture.BackgroundImage = bits;
 			VerticalDraw();
 			HorizontalDraw();
 		}
-
-		void PanelOriginalResize(object sender, EventArgs e)
-		{
-			hScrollBarO.Maximum = Math.Max(0, pictureBoxOriginal.Width - panelOriginal.Width);
-			vScrollBarO.Maximum = Math.Max(0, pictureBoxOriginal.Height - panelOriginal.Height);
-			hScrollBarO.Value = vScrollBarO.Value = 0;
-		}
-
-		void PanelModifiedResize(object sender, EventArgs e)
-		{
-			hScrollBarM.Maximum = Math.Max(0, pictureBoxModified.Width - panelModified.Width);
-			vScrollBarM.Maximum = Math.Max(0, pictureBoxModified.Height - panelModified.Height);
-			hScrollBarM.Value = vScrollBarO.Value = 0;
-		}
-
-		void HScrollBarOValueChanged(object sender, EventArgs e)
-		{
-			pictureBoxOriginal.Left = -hScrollBarO.Value;
-		}
-
-		void VScrollBarOValueChanged(object sender, EventArgs e)
-		{
-			pictureBoxOriginal.Top = -vScrollBarO.Value;
-		}
-
-		void HScrollBarMValueChanged(object sender, EventArgs e)
-		{
-			pictureBoxModified.Left = -hScrollBarM.Value;
-		}
-
-		void VScrollBarMValueChanged(object sender, EventArgs e)
-		{
-			pictureBoxModified.Top = -vScrollBarM.Value;
-		}
-
+		
 		void ButtonPxApplyClick(object sender, EventArgs e)
 		{
 			bool rewrite = checkBoxPxRewrite.Checked;
@@ -201,7 +162,7 @@ namespace LF2.IDE
 			{
 				for (int j = y; j < b; j++)
 				{
-					if (checkBoxTxIndex.Checked && texture[i % texture.GetLength(0), j % texture.GetLength(1)] || !checkBoxTxIndex.Checked && texture[(i - x) % texture.Length, (j - y) % texture.GetLength(0)])
+					if (checkBoxTxIndex.Checked && Texture[i % Texture.GetLength(0), j % Texture.GetLength(1)] || !checkBoxTxIndex.Checked && Texture[(i - x) % Texture.Length, (j - y) % Texture.GetLength(0)])
 						bmp.SetPixel(i, j, Color.Black);
 					else if (rewrite)
 						bmp.SetPixel(i, j, original.GetPixel(i, j));

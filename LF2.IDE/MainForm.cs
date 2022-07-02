@@ -1966,7 +1966,7 @@ namespace LF2.IDE
 			if (modification > FormIDL.dataTxtLastModification)
 			{
 				dataTxtFile = File.ReadAllText(dataTxtFile);
-				if (IDL.ReadDataTxt(dataTxtFile, dataTxtFile.Length, ref FormIDL.dataTxt.objects, ref FormIDL.dataTxt.objCount, ref FormIDL.dataTxt.backgrounds, ref FormIDL.dataTxt.bgCount, this.Handle) != 0)
+				if (IDL.ReadDataTxt(dataTxtFile, dataTxtFile.Length, out FormIDL.dataTxt.objects, out FormIDL.dataTxt.objCount, out FormIDL.dataTxt.backgrounds, out FormIDL.dataTxt.bgCount, this.Handle) != 0)
 					return;
 
 				FormIDL.dataTxtLastModification = modification;

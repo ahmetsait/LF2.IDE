@@ -33,8 +33,8 @@ namespace LF2.IDE
 		[DllImport("IDL.dll", CharSet = CharSet.Ansi, CallingConvention = CallingConvention.Cdecl)]
 		public static extern int ReadDataTxt(
 			[MarshalAs(UnmanagedType.LPWStr, SizeParamIndex = 1)]string dataTxtFile, int length,
-			[MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)]ref ObjectData[] objects, ref int objCount,
-			[MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)]ref BackgroundData[] backgrounds, ref int bgCount, 
+			[MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 3)]out ObjectData[] objects, out int objCount,
+			[MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 5)]out BackgroundData[] backgrounds, out int bgCount, 
 			IntPtr hMainWindow);
 	}
 
