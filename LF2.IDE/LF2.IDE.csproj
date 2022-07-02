@@ -135,6 +135,9 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>LF2.IDE.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxInterop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -182,6 +185,7 @@
     </Compile>
     <Compile Include="IDL.cs" />
     <Compile Include="sGame.cs" />
+    <None Include="app.manifest" />
     <None Include="DataUtils\UnsafeLF2DataAlgorithm.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
