@@ -32,6 +32,11 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.3.1.*")]
-[assembly: AssemblyFileVersion("3.3.1")]
-[assembly: AssemblyInformationalVersion("v3.3.1")]
+[assembly: AssemblyVersion(Info.version + ".*")]
+[assembly: AssemblyFileVersion(Info.version)]
+[assembly: AssemblyInformationalVersion("v" + Info.version)]
+
+internal static class Info
+{
+	public const string version = "3.3.1";
+}
