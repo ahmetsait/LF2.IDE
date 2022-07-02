@@ -1465,6 +1465,8 @@ namespace LF2.IDE
 		public Updater CheckForUpdates()
 		{
 			WebClient wc = new WebClient();
+			ServicePointManager.Expect100Continue = true;
+			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 			string[] wer = wc.DownloadString(Program.updateInfoLink).Split(liner, StringSplitOptions.RemoveEmptyEntries);
 			string ver = wer[0],
 				prever = wer[2],
