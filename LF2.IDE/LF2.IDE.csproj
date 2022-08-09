@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LF2.IDE</RootNamespace>
     <AssemblyName>LF2 IDE</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>Main.ico</ApplicationIcon>
     <StartupObject>LF2.IDE.Program</StartupObject>
