@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("LF2 IDE")]
-[assembly: AssemblyDescription("LF2 Integrated Development Environment")]
+[assembly: AssemblyDescription("Little Fighter 2 Integrated Development Environment")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ahmet Sait")]
 [assembly: AssemblyProduct("LF2 IDE")]
-[assembly: AssemblyCopyright("Copyright © Ahmet Sait 2013-2018")]
+[assembly: AssemblyCopyright("Copyright © Ahmet Sait 2013-2022")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -38,5 +38,5 @@ using System.Runtime.InteropServices;
 
 internal static class Info
 {
-	public const string version = "3.3.1";
+	public const string version = "3.4.0";
 }

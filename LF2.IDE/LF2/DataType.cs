@@ -1,9 +1,9 @@
 ﻿namespace LF2
 {
-	public enum DataType : byte
+	public enum DataType : int
 	{
 		Char = 0,
 		Stage = 1,
-		Background = 2
+		Background = 2,
 	}
 }

@@ -76,37 +76,23 @@ namespace LF2.IDE
 					RefreshProcessList();
 					return;
 				}
-				p = Process.GetProcessById(p.Id); // refresh for most up-to-date thread list
+				p = Process.GetProcessById(p.Id);
 
-				int[] threads = new int[p.Threads.Count];
-				for (int i = 0; i < threads.Length; i++)
-				{
-					threads[i] = p.Threads[i].Id;
-				}
-				
-				int suspendResult;
-				var suspend = (int[])threads.Clone();
-				var resume = (int[])threads.Clone();
 				try
 				{
-					if ((suspendResult = IDL.SuspendThreadList(suspend, threads.Length, 1)) != 0)
-					{
-						throw new ApplicationException("Process suspending failed: " + p.Id);
-					}
 					Clean();
-					result =  IDL.InstantLoad(dat, dat.Length,
+					result =  IDL.InstantLoad(
+						dat,
 						p.Id,
 						(DataType)comboBox_DataType.SelectedIndex,
 						comboBox_DataType.SelectedIndex == 0 ? comboBox_ObjId.SelectedIndex :
-							comboBox_DataType.SelectedIndex == 1 ? (-1) : // not to be used
-							comboBox_BgId.SelectedIndex,
-						comboBox_DataType.SelectedIndex == 0 ? (ObjectType)comboBox_ObjType.SelectedIndex : ObjectType.Invalid,
+							comboBox_DataType.SelectedIndex == 2 ? comboBox_BgId.SelectedIndex : -1,
+						(ObjectType)comboBox_ObjType.SelectedIndex,
 						this.Handle,
 						logFunc);
 				}
 				finally
 				{
-					IDL.SuspendThreadList(resume, threads.Length, 0);
 					if (result == 0)
 					{
 						label_Result.Text = "Successful";
@@ -161,7 +147,7 @@ namespace LF2.IDE
 		Process[] procs;
 		public static DataTxt dataTxt;
 		public static DateTime dataTxtLastModification = DateTime.MinValue;
-
+		
 		private void FormIDL_Load(object sender, EventArgs e)
 		{
 			try
@@ -231,19 +217,19 @@ namespace LF2.IDE
 			if (modification > dataTxtLastModification)
 			{
 				dataTxtFile = File.ReadAllText(dataTxtFile);
-				if (IDL.ReadDataTxt(dataTxtFile, dataTxtFile.Length, out dataTxt.objects, out dataTxt.objCount, out dataTxt.backgrounds, out dataTxt.bgCount, this.Handle) != 0)
+				if (IDL.ReadDataTxt(dataTxtFile, out dataTxt.objects, out dataTxt.backgrounds, this.Handle) != 0)
 					return;
-
+				
 				dataTxtLastModification = modification;
 			}
 
-			for (int i = 0; i < dataTxt.objCount; i++)
+			for (int i = 0; i < dataTxt.objects.Length; i++)
 				comboBox_ObjId.Items.Add(string.Format("id: {0}  type: {1}  file: {2}", dataTxt.objects[i].id, (byte)dataTxt.objects[i].type, dataTxt.objects[i].file));
 
-			for (int i = 0; i < dataTxt.bgCount; i++)
+			for (int i = 0; i < dataTxt.backgrounds.Length; i++)
 				comboBox_BgId.Items.Add(string.Format("id: {0}  file: {1}", dataTxt.backgrounds[i].id, dataTxt.backgrounds[i].file));
 
-			for(int i = 0; i < dataTxt.objCount; i++)
+			for(int i = 0; i < dataTxt.objects.Length; i++)
 			{
 				if (doc.FilePath != null ? 
 					doc.FilePath.EndsWith(dataTxt.objects[i].file, StringComparison.InvariantCultureIgnoreCase) : 
@@ -256,7 +242,7 @@ namespace LF2.IDE
 				}
 			}
 
-			for (int i = 0; i < dataTxt.bgCount; i++)
+			for (int i = 0; i < dataTxt.backgrounds.Length; i++)
 			{
 				if (doc.FilePath != null ? 
 					doc.FilePath.EndsWith(dataTxt.backgrounds[i].file, StringComparison.InvariantCultureIgnoreCase) : 
@@ -293,7 +279,7 @@ namespace LF2.IDE
 
 		public static FormIDL form;
 
-		static readonly string[] msgStr = { "[Message] ", "[Error] ", "[Warning] " };
+		static readonly string[] msgStr = { "[Info] ", "[Warning] ", "[Error] " };
 
 		public static Logger logFunc = (msg, title, msgType) =>
 		{
@@ -394,10 +380,10 @@ namespace LF2.IDE
 
 		private void FormIDL_Deactivate(object sender, EventArgs e)
 		{
-            if (!this.Disposing)
-            {
-                this.Opacity = 0.75;
-            }
+			if (!this.Disposing)
+			{
+				this.Opacity = 0.75;
+			}
 		}
 	}
 }

@@ -325,12 +325,14 @@ namespace LF2.IDE
 				return;
 			}
 			if (tagBox.WPoint != null)
-				tagBox.WPoint.weaponact = int.Parse(wpoint_weaponact.Text);
-			if (tagBox.WPoint.weaponact.Value == 0)
 			{
-				tagBox.WPointImage = null;
-				tagBox.WPointImageOffset = Point.Empty;
-				return;
+				tagBox.WPoint.weaponact = int.Parse(wpoint_weaponact.Text);
+				if (tagBox.WPoint.weaponact.Value == 0)
+				{
+					tagBox.WPointImage = null;
+					tagBox.WPointImageOffset = Point.Empty;
+					return;
+				}
 			}
 			tagBox.WPointImage = weaponactImage = (Image)Properties.Resources.ResourceManager.GetObject("weapon" + wpoint_weaponact.Text);
 			if (tagBox.WPointImage != null)
