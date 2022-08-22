@@ -1968,13 +1968,13 @@ namespace LF2.IDE
 			if (modification > FormIDL.dataTxtLastModification)
 			{
 				dataTxtFile = File.ReadAllText(dataTxtFile);
-				if (IDL.ReadDataTxt(dataTxtFile, dataTxtFile.Length, out FormIDL.dataTxt.objects, out FormIDL.dataTxt.objCount, out FormIDL.dataTxt.backgrounds, out FormIDL.dataTxt.bgCount, this.Handle) != 0)
+				if (IDL.ReadDataTxt(dataTxtFile, out FormIDL.dataTxt.objects, out FormIDL.dataTxt.backgrounds, this.Handle) != 0)
 					return;
 
 				FormIDL.dataTxtLastModification = modification;
 			}
 
-			for (int i = 0; i < FormIDL.dataTxt.objCount; i++)
+			for (int i = 0; i < FormIDL.dataTxt.objects.Length; i++)
 			{
 				if (doc.FilePath != null ? doc.FilePath.EndsWith(FormIDL.dataTxt.objects[i].file, StringComparison.InvariantCultureIgnoreCase) : doc.TabText.EndsWith(FormIDL.dataTxt.objects[i].file, StringComparison.InvariantCultureIgnoreCase))
 				{
@@ -1985,7 +1985,7 @@ namespace LF2.IDE
 				}
 			}
 
-			for (int i = 0; i < FormIDL.dataTxt.bgCount; i++)
+			for (int i = 0; i < FormIDL.dataTxt.backgrounds.Length; i++)
 			{
 				if (doc.FilePath != null ? doc.FilePath.EndsWith(FormIDL.dataTxt.backgrounds[i].file, StringComparison.InvariantCultureIgnoreCase) : doc.TabText.EndsWith(FormIDL.dataTxt.backgrounds[i].file, StringComparison.InvariantCultureIgnoreCase))
 				{
@@ -2006,38 +2006,18 @@ namespace LF2.IDE
 				if (p.HasExited)
 					return;
 
-				int[] threads = new int[p.Threads.Count];
-				for (int i = 0; i < threads.Length; i++)
+				result = IDL.InstantLoad(
+					dat,
+					p.Id,
+					(DataType)dataType,
+					dataType == 0 ? objId :
+						dataType == 2 ? bgId : (-1),
+					(ObjectType)objType,
+					this.Handle,
+					null);
+				if (result == 0)
 				{
-					threads[i] = p.Threads[i].Id;
-				}
-
-				int suspendResult;
-				var suspend = (int[])threads.Clone();
-				var resume = (int[])threads.Clone();
-				try
-				{
-					if ((suspendResult = IDL.SuspendThreadList(suspend, threads.Length, 1)) != 0)
-					{
-						throw new ApplicationException("Failed to suspend LF2 process: " + p.Id);
-					}
-					result = IDL.InstantLoad(dat, dat.Length,
-						p.Id,
-						(DataType)dataType,
-						dataType == 0 ? objId :
-							dataType == 1 ? (-1) : // not to be used
-							bgId,
-						dataType == 0 ? (ObjectType)objType : ObjectType.Invalid,
-						this.Handle,
-						null);
-					if (result == 0)
-					{
-						FormIDL.SetForegroundWindow(new HandleRef(p, p.MainWindowHandle));
-					}
-				}
-				finally
-				{
-					IDL.SuspendThreadList(resume, threads.Length, 0);
+					FormIDL.SetForegroundWindow(new HandleRef(p, p.MainWindowHandle));
 				}
 			}
 			catch (DllNotFoundException)

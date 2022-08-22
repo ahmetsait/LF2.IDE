@@ -1,6 +1,6 @@
 ﻿namespace LF2
 {
-	public enum ObjectType : byte
+	public enum ObjectType : int
 	{
 		Char = 0,
 		Weapon = 1,
@@ -9,6 +9,5 @@
 		ThrowWeapon = 4,
 		Criminal = 5,
 		Drink = 6,
-		Invalid = 0xFF
 	}
 }
