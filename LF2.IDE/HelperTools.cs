@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
@@ -38,26 +38,6 @@ namespace LF2.IDE
 				img = new Bitmap(ms);
 			}
 			return img;
-		}
-
-		public static void SuspendProcess(int procId, bool suspend)
-		{
-			SuspendProcess(Process.GetProcessById(procId), suspend);
-		}
-
-		public static void SuspendProcess(Process proc, bool suspend)
-		{
-			SuspendThreadList(proc.Threads, suspend);
-		}
-
-		public static void SuspendThreadList(ProcessThreadCollection threads, bool suspend)
-		{
-			int[] threadList = new int[threads.Count];
-			for (int i = 0; i < threadList.Length; i++)
-			{
-				threadList[i] = threads[i].Id;
-			}
-			IDL.SuspendThreadList(threadList, threadList.Length, suspend ? 1 : 0);
 		}
 	}
 }

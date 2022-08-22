@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.Globalization;
@@ -19,6 +19,11 @@ namespace LF2.IDE
 		{
 			try
 			{
+				CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
+				CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
+				CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+				CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+
 				MainForm.stopWatch = System.Diagnostics.Stopwatch.StartNew();
 				Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 				Application.EnableVisualStyles();

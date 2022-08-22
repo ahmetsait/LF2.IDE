@@ -45,7 +45,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>Full</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>False</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
@@ -55,16 +55,16 @@
     <PlatformTarget>x86</PlatformTarget>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
     <Prefer32Bit>true</Prefer32Bit>
-    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DebugSymbols>false</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <Prefer32Bit>true</Prefer32Bit>
     <PlatformTarget>x86</PlatformTarget>
@@ -171,20 +171,19 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataType.cs" />
+    <Compile Include="LF2\DataType.cs" />
     <Compile Include="FormIDL.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormIDL.Designer.cs">
       <DependentUpon>FormIDL.cs</DependentUpon>
     </Compile>
-    <Compile Include="ObjectType.cs" />
+    <Compile Include="LF2\ObjectType.cs" />
     <Compile Include="HelperTools.cs" />
     <Compile Include="TagBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="IDL.cs" />
-    <Compile Include="sGame.cs" />
     <None Include="app.manifest" />
     <None Include="DataUtils\UnsafeLF2DataAlgorithm.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -192,7 +191,7 @@
     <Compile Include="DrawBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FileMaker.cs" />
+    <Compile Include="SpriteSheet.cs" />
     <Compile Include="FormTextureEditor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -399,10 +398,6 @@
       <Link>SciLexer64.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="..\Assemblies\IDL\Release\IDL.dll">
-      <Link>IDL.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="Main.ico" />
     <Content Include="Main_.ico" />
     <None Include="docking.xml">
@@ -554,15 +549,13 @@
     <Content Include="Resources\Weapon\weapon34.bmp" />
     <Content Include="Resources\Weapon\weapon35.bmp" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF NOT "$(ConfigurationName)" == "Deploy" (
-del "$(TargetDir)CSScriptLibrary.xml"
+    <PostBuildEvent>del "$(TargetDir)CSScriptLibrary.xml"
 del "$(TargetDir)ScintillaNET.xml"
 echo. &gt; "$(TargetDir)IDL.dll"
-xcopy /Y "$(SolutionDir)Assemblies\IDL\$(ConfigurationName)\IDL.dll" "$(TargetDir)IDL.dll"
-)
-</PostBuildEvent>
+xcopy /Y "$(SolutionDir)Assemblies\IDL\IDL.dll" "$(TargetDir)IDL.dll"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>
