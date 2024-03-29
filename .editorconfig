@@ -1,12 +1,31 @@
+# editorconfig.org
+
 root = true
 
 [*]
-insert_final_newline = true
+charset = utf-8
+end_of_line = lf
 indent_style = tab
 indent_size = 4
+tab_width = 4
+insert_final_newline = true
 trim_trailing_whitespace = false
-end_of_line = crlf
-charset = utf-8
 
-[*.json]
+[*.{bat,cmd,ps1}]
+end_of_line = crlf
+
+[*.{html,htm,xhtml,xhtm,xml}]
+indent_size = 2
+tab_width = 2
+
+[*.{css,scss,sass}]
+indent_size = 2
+tab_width = 2
+
+[*.{json}]
 insert_final_newline = false
+
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+tab_width = 2
