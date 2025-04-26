@@ -2,7 +2,7 @@
 
 ![LF2 IDE Icon](icon.png)  
 LF2 IDE  
-[![Platforms](https://img.shields.io/badge/platform-windows-blue)](https://github.com/ahmetsait/LF2.IDE/releases) [![Latest Release](https://img.shields.io/github/v/release/ahmetsait/LF2.IDE)](https://github.com/ahmetsait/LF2.IDE/releases/latest) [![Downloads](https://img.shields.io/github/downloads/ahmetsait/LF2.IDE/total)](https://github.com/ahmetsait/LF2.IDE/releases) [![License](https://img.shields.io/github/license/ahmetsait/LF2.IDE)](LICENSE)
+[![Platforms](https://img.shields.io/badge/platform-windows-blue)](https://github.com/ahmetsait/LF2.IDE/releases) [![Latest Release](https://img.shields.io/github/v/release/ahmetsait/LF2.IDE)](https://github.com/ahmetsait/LF2.IDE/releases/latest) [![Downloads](https://img.shields.io/github/downloads/ahmetsait/LF2.IDE/total)](https://github.com/ahmetsait/LF2.IDE/releases) [![License](https://img.shields.io/github/license/ahmetsait/LF2.IDE)](LICENSE) [![Sponsor](https://img.shields.io/badge/Sponsor-black?logo=githubsponsors)](https://github.com/sponsors/ahmetsait)
 =======
 Little Figther 2 Integrated Development Environment
 </div>
