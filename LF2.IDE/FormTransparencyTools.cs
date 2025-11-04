@@ -157,12 +157,16 @@ namespace LF2.IDE
 		void ButtonTextureClick(object sender, EventArgs e)
 		{
 			bool rewrite = checkBoxTxRewrite.Checked;
-			int x = Math.Max(0, pictureBoxOriginal.Rectangle.X), y = Math.Max(0, pictureBoxOriginal.Rectangle.Y), r = Math.Min(pictureBoxOriginal.Rectangle.Right, bmp.Width), b = Math.Min(pictureBoxOriginal.Rectangle.Bottom, bmp.Height);
-			for (int i = x; i < r; i++)
+			int l = Math.Max(0, pictureBoxOriginal.Rectangle.X),
+				t = Math.Max(0, pictureBoxOriginal.Rectangle.Y),
+				r = Math.Min(pictureBoxOriginal.Rectangle.Right, bmp.Width),
+				b = Math.Min(pictureBoxOriginal.Rectangle.Bottom, bmp.Height);
+			for (int i = l; i < r; i++)
 			{
-				for (int j = y; j < b; j++)
+				for (int j = t; j < b; j++)
 				{
-					if (checkBoxTxIndex.Checked && Texture[i % Texture.GetLength(0), j % Texture.GetLength(1)] || !checkBoxTxIndex.Checked && Texture[(i - x) % Texture.Length, (j - y) % Texture.GetLength(0)])
+					if (checkBoxTxIndex.Checked && Texture[i % Texture.GetLength(0), j % Texture.GetLength(1)] ||
+						!checkBoxTxIndex.Checked && Texture[(i - l) % Texture.GetLength(0), (j - t) % Texture.GetLength(1)])
 						bmp.SetPixel(i, j, Color.Black);
 					else if (rewrite)
 						bmp.SetPixel(i, j, original.GetPixel(i, j));
